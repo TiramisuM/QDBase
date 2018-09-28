@@ -28,6 +28,8 @@
 		D29C6C9E211AF9D2009CC81F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D29C6C98211AF9D2009CC81F /* main.m */; };
 		D29C6C9F211AF9D2009CC81F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D29C6C99211AF9D2009CC81F /* AppDelegate.m */; };
 		D2E6231B215C8520002AE4DB /* UIView+QDFastFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6231A215C8520002AE4DB /* UIView+QDFastFrame.m */; };
+		D2E62345215DDB77002AE4DB /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62344215DDB77002AE4DB /* NullSafe.m */; };
+		D2E62366215DF513002AE4DB /* NSObject+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62365215DF513002AE4DB /* NSObject+AvoidCrash.m */; };
 		D2F3DF0B215B58B9009F06D8 /* QDDateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F3DF0A215B58B9009F06D8 /* QDDateManager.m */; };
 		D2F5B7F521184775008F1DB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B7F421184775008F1DB9 /* ViewController.m */; };
 		D2F5B80A21184776008F1DB9 /* QDBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B80921184776008F1DB9 /* QDBaseTests.m */; };
@@ -93,6 +95,8 @@
 		D29C6C99211AF9D2009CC81F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D2E62319215C8520002AE4DB /* UIView+QDFastFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+QDFastFrame.h"; sourceTree = "<group>"; };
 		D2E6231A215C8520002AE4DB /* UIView+QDFastFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+QDFastFrame.m"; sourceTree = "<group>"; };
+		D2E62344215DDB77002AE4DB /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
+		D2E62365215DF513002AE4DB /* NSObject+AvoidCrash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AvoidCrash.m"; sourceTree = "<group>"; };
 		D2F3DF09215B58B9009F06D8 /* QDDateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDDateManager.h; sourceTree = "<group>"; };
 		D2F3DF0A215B58B9009F06D8 /* QDDateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDDateManager.m; sourceTree = "<group>"; };
 		D2F3DF11215B6BE1009F06D8 /* APIMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIMacro.h; sourceTree = "<group>"; };
@@ -267,6 +271,15 @@
 				D2E6231A215C8520002AE4DB /* UIView+QDFastFrame.m */,
 			);
 			path = FastFrame;
+			sourceTree = "<group>";
+		};
+		D2E62343215DDA11002AE4DB /* AvoidCrash */ = {
+			isa = PBXGroup;
+			children = (
+				D2E62344215DDB77002AE4DB /* NullSafe.m */,
+				D2E62365215DF513002AE4DB /* NSObject+AvoidCrash.m */,
+			);
+			path = AvoidCrash;
 			sourceTree = "<group>";
 		};
 		D2F5B7E421184775008F1DB9 = {
@@ -458,6 +471,7 @@
 		D2F5EF41214A48C10036EE2F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D2E62343215DDA11002AE4DB /* AvoidCrash */,
 				D2E62318215C850C002AE4DB /* FastFrame */,
 				D2F5EF5D214B45590036EE2F /* DateManager */,
 				D2F5EF42214A48C10036EE2F /* Encrypt+Decrypt */,
@@ -750,12 +764,14 @@
 				D2F5EF36214A468B0036EE2F /* QDBaseViewController.m in Sources */,
 				D2F3DF0B215B58B9009F06D8 /* QDDateManager.m in Sources */,
 				D2E6231B215C8520002AE4DB /* UIView+QDFastFrame.m in Sources */,
+				D2E62345215DDB77002AE4DB /* NullSafe.m in Sources */,
 				D2F5EF40214A475A0036EE2F /* QDFactory.m in Sources */,
 				D2F5B7F521184775008F1DB9 /* ViewController.m in Sources */,
 				D2F5EF3C214A468B0036EE2F /* QDRequestResultView.m in Sources */,
 				D29C6C9E211AF9D2009CC81F /* main.m in Sources */,
 				D2F5EF3B214A468B0036EE2F /* QDRefreshHeader.m in Sources */,
 				D2F5EF37214A468B0036EE2F /* NSObject+QDBaseModel.m in Sources */,
+				D2E62366215DF513002AE4DB /* NSObject+AvoidCrash.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
