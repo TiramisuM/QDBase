@@ -23,7 +23,6 @@
     [self registCellWithCellClassName:@"TestTableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromNib cellModelClassName:@"NSObject"];
     
     [self useCustomNavigation];
-    [self addLeftAndRight];
 }
 
 - (void)configResultView:(QDRequestResultView *)resultView {
