@@ -171,8 +171,10 @@
 
 @end
 
+#pragma mark - ============== 请求页面返回分类 ================
 @implementation QDBaseViewController (QDBaseViewControllerRequestResult)
 
+#pragma mark - ============== 请求页面返回样式 ================
 - (QDRequestResultView *)showErrorView {
     QDRequestResultView *errorView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateError tap:nil info:nil];
     return errorView;
@@ -236,6 +238,7 @@
 
 @end
 
+#pragma mark - ============== 增加导航栏按钮 ================
 @implementation QDBaseViewController (QDNavigationBarButtonItem)
 
 - (void)addLeftNavigationButton:(UIButton *)leftNavigationButton {
