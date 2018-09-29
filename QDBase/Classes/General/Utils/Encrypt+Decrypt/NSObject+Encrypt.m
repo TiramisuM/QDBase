@@ -1,15 +1,22 @@
 //
-//  NSString+MD5.m
+//  NSObject+Encrypt.m
 //  QDBase
 //
-//  Created by qiaodata100 on 2018/8/6.
+//  Created by qiaodata100 on 2018/9/29.
 //  Copyright © 2018年 qiaodata100. All rights reserved.
-///  字符串MD5加密
+/// 加密解密
 
-#import "NSString+MD5.h"
+#import "NSObject+Encrypt.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "AESCrypt.h"
 
-@implementation NSString (MD5)
+static  NSString *const AESKEY = @"^s upper-_-fro g9527$";
+
+@implementation NSObject (Encrypt)
+
+@end
+
+@implementation NSString (Encrypt)
 
 - (NSString *)MD5String
 {
@@ -24,4 +31,13 @@
     return  output;
 }
 
+- (NSString *)encryptAESString {
+    return [AESCrypt encrypt:self password:AESKEY];
+}
+
+- (NSString *)decryptAESString {
+    return [AESCrypt decrypt:self password:AESKEY];
+}
+
 @end
+

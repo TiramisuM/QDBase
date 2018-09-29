@@ -29,6 +29,7 @@
 //
 //  3. This notice may not be removed or altered from any source distribution.
 /// 为了增强程序的健壮性，减少 Crash 的发生，它对不识别的类型返回 nil，而不是抛出异常
+/// 解决Unrecognized selector崩溃问题
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>

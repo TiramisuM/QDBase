@@ -1,14 +1,14 @@
 //
-//  QDDateManager.m
+//  QDDateTool.m
 //  QDBase
 //
 //  Created by qiaodata100 on 2018/9/26.
 //  Copyright © 2018年 qiaodata100. All rights reserved.
 /// 时间管理
 
-#import "QDDateManager.h"
+#import "QDDateTool.h"
 
-@implementation QDDateManager
+@implementation QDDateTool
 
 // 计算时间
 + (NSString *)getDateString:(NSTimeInterval)timeInterval {

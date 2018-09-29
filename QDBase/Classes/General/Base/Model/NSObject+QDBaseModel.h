@@ -10,6 +10,7 @@
 
 @interface NSObject (QDBaseModel)
 
+/// id
 @property (nonatomic, copy) NSString *id;
 
 @end

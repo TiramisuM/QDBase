@@ -33,6 +33,7 @@
 @interface NSString (QDNetworkParameter)
 /**
  处理拼接在url后面的参数 参数apiversion logid appversion
+ 
  @return NSString
  */
 - (NSString *)networkUrlString;

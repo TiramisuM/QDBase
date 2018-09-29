@@ -57,13 +57,13 @@
     CGRect backButtonFrame = CGRectMake(0, 0, 40, 40);
     UIButton *backButton = [QDFactory createButtonWithFrame:backButtonFrame imageName:@"left" highlightedImageName:@"" target:self action:@selector(backPrePage)];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    
+            
     UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     spaceItem.width = -15;//这个值可以根据自己需要自己调整
     // iOS 11 系统，将Button的内容 和 图片根具体需求进行便处理
     if (([[[UIDevice currentDevice] systemVersion] floatValue] >= 11.0)) {
-        backButton.contentEdgeInsets =UIEdgeInsetsMake(0, -15, 0, 0);
-        backButton.imageEdgeInsets =UIEdgeInsetsMake(0, -15, 0, 0);
+        backButton.contentEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0);
+        backButton.imageEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 0);
     }
     return @[spaceItem, backItem];
 }

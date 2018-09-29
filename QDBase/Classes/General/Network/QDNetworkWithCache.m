@@ -8,7 +8,6 @@
 
 #import "QDNetworkWithCache.h"
 #import "YYCache.h"
-#import "NSString+MD5.h"
 #import "NSObject+QDNetworkParameter.h"
 
 static  NSString *const     NetCacheUrlString       = BASE_URL;

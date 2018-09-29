@@ -4,7 +4,8 @@
 //
 //  Created by qiaodata100 on 2018/9/28.
 //  Copyright © 2018年 qiaodata100. All rights reserved.
-//
+/// 解决对象为nil的时候，从NSArray、NSString、NSDictionary、NSAttributeString等set和get时的崩溃
+/// 目前未解决问题: NSMutableArray objectAtIndex的崩溃问题
 
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
@@ -14,7 +15,7 @@
 
 #pragma mark - 是否打开crash
 #ifdef DEBUG
-#define AVOID_CRASH_ENABLED 0
+#define AVOID_CRASH_ENABLED 1
 #else
 #define AVOID_CRASH_ENABLED 1
 #endif

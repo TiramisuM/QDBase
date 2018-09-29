@@ -30,7 +30,10 @@
 		D2E6231B215C8520002AE4DB /* UIView+QDFastFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6231A215C8520002AE4DB /* UIView+QDFastFrame.m */; };
 		D2E62345215DDB77002AE4DB /* NullSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62344215DDB77002AE4DB /* NullSafe.m */; };
 		D2E62366215DF513002AE4DB /* NSObject+AvoidCrash.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62365215DF513002AE4DB /* NSObject+AvoidCrash.m */; };
-		D2F3DF0B215B58B9009F06D8 /* QDDateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F3DF0A215B58B9009F06D8 /* QDDateManager.m */; };
+		D2E6236D215F1ECD002AE4DB /* QDDeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6236C215F1ECD002AE4DB /* QDDeviceTool.m */; };
+		D2E62371215F24B1002AE4DB /* NSString+RegexValid.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62370215F24B1002AE4DB /* NSString+RegexValid.m */; };
+		D2E62377215F2B68002AE4DB /* NSObject+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62376215F2B68002AE4DB /* NSObject+Encrypt.m */; };
+		D2F3DF0B215B58B9009F06D8 /* QDDateTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F3DF0A215B58B9009F06D8 /* QDDateTool.m */; };
 		D2F5B7F521184775008F1DB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B7F421184775008F1DB9 /* ViewController.m */; };
 		D2F5B80A21184776008F1DB9 /* QDBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B80921184776008F1DB9 /* QDBaseTests.m */; };
 		D2F5B81521184776008F1DB9 /* QDBaseUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B81421184776008F1DB9 /* QDBaseUITests.m */; };
@@ -56,7 +59,6 @@
 		D2F5EF3B214A468B0036EE2F /* QDRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5EF25214A468B0036EE2F /* QDRefreshHeader.m */; };
 		D2F5EF3C214A468B0036EE2F /* QDRequestResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5EF2A214A468B0036EE2F /* QDRequestResultView.m */; };
 		D2F5EF40214A475A0036EE2F /* QDFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5EF3E214A475A0036EE2F /* QDFactory.m */; };
-		D2F5EF4A214A48C10036EE2F /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5EF44214A48C10036EE2F /* NSString+MD5.m */; };
 		D2F5EF4B214A48C10036EE2F /* UIView+FitTextFont.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5EF48214A48C10036EE2F /* UIView+FitTextFont.m */; };
 		D2F5EF4C214A48C10036EE2F /* UIFont+FitTextFont.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5EF49214A48C10036EE2F /* UIFont+FitTextFont.m */; };
 		D2F5EF59214A5AB10036EE2F /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5EF51214A5AB10036EE2F /* NSString+Base64.m */; };
@@ -97,8 +99,14 @@
 		D2E6231A215C8520002AE4DB /* UIView+QDFastFrame.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+QDFastFrame.m"; sourceTree = "<group>"; };
 		D2E62344215DDB77002AE4DB /* NullSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullSafe.m; sourceTree = "<group>"; };
 		D2E62365215DF513002AE4DB /* NSObject+AvoidCrash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+AvoidCrash.m"; sourceTree = "<group>"; };
-		D2F3DF09215B58B9009F06D8 /* QDDateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDDateManager.h; sourceTree = "<group>"; };
-		D2F3DF0A215B58B9009F06D8 /* QDDateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDDateManager.m; sourceTree = "<group>"; };
+		D2E6236B215F1ECD002AE4DB /* QDDeviceTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDDeviceTool.h; sourceTree = "<group>"; };
+		D2E6236C215F1ECD002AE4DB /* QDDeviceTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDDeviceTool.m; sourceTree = "<group>"; };
+		D2E6236F215F24B1002AE4DB /* NSString+RegexValid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+RegexValid.h"; sourceTree = "<group>"; };
+		D2E62370215F24B1002AE4DB /* NSString+RegexValid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexValid.m"; sourceTree = "<group>"; };
+		D2E62375215F2B68002AE4DB /* NSObject+Encrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Encrypt.h"; sourceTree = "<group>"; };
+		D2E62376215F2B68002AE4DB /* NSObject+Encrypt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Encrypt.m"; sourceTree = "<group>"; };
+		D2F3DF09215B58B9009F06D8 /* QDDateTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDDateTool.h; sourceTree = "<group>"; };
+		D2F3DF0A215B58B9009F06D8 /* QDDateTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDDateTool.m; sourceTree = "<group>"; };
 		D2F3DF11215B6BE1009F06D8 /* APIMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIMacro.h; sourceTree = "<group>"; };
 		D2F3DF12215B6BF3009F06D8 /* EnumMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EnumMacro.h; sourceTree = "<group>"; };
 		D2F3DF13215B6C31009F06D8 /* ExtendMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtendMacro.h; sourceTree = "<group>"; };
@@ -152,10 +160,6 @@
 		D2F5EF2C214A468B0036EE2F /* UITableViewCell+QDBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+QDBaseTableViewCell.h"; sourceTree = "<group>"; };
 		D2F5EF3E214A475A0036EE2F /* QDFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDFactory.m; sourceTree = "<group>"; };
 		D2F5EF3F214A475A0036EE2F /* QDFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDFactory.h; sourceTree = "<group>"; };
-		D2F5EF43214A48C10036EE2F /* NSString+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5.h"; sourceTree = "<group>"; };
-		D2F5EF44214A48C10036EE2F /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
-		D2F5EF46214A48C10036EE2F /* UIFont+FitTextFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+FitTextFont.h"; sourceTree = "<group>"; };
-		D2F5EF47214A48C10036EE2F /* UIView+FitTextFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+FitTextFont.h"; sourceTree = "<group>"; };
 		D2F5EF48214A48C10036EE2F /* UIView+FitTextFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+FitTextFont.m"; sourceTree = "<group>"; };
 		D2F5EF49214A48C10036EE2F /* UIFont+FitTextFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+FitTextFont.m"; sourceTree = "<group>"; };
 		D2F5EF51214A5AB10036EE2F /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
@@ -280,6 +284,24 @@
 				D2E62365215DF513002AE4DB /* NSObject+AvoidCrash.m */,
 			);
 			path = AvoidCrash;
+			sourceTree = "<group>";
+		};
+		D2E6236A215F1E9E002AE4DB /* DeviceTool */ = {
+			isa = PBXGroup;
+			children = (
+				D2E6236B215F1ECD002AE4DB /* QDDeviceTool.h */,
+				D2E6236C215F1ECD002AE4DB /* QDDeviceTool.m */,
+			);
+			path = DeviceTool;
+			sourceTree = "<group>";
+		};
+		D2E6236E215F2496002AE4DB /* RegexValid */ = {
+			isa = PBXGroup;
+			children = (
+				D2E6236F215F24B1002AE4DB /* NSString+RegexValid.h */,
+				D2E62370215F24B1002AE4DB /* NSString+RegexValid.m */,
+			);
+			path = RegexValid;
 			sourceTree = "<group>";
 		};
 		D2F5B7E421184775008F1DB9 = {
@@ -471,9 +493,11 @@
 		D2F5EF41214A48C10036EE2F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D2E6236E215F2496002AE4DB /* RegexValid */,
+				D2E6236A215F1E9E002AE4DB /* DeviceTool */,
 				D2E62343215DDA11002AE4DB /* AvoidCrash */,
 				D2E62318215C850C002AE4DB /* FastFrame */,
-				D2F5EF5D214B45590036EE2F /* DateManager */,
+				D2F5EF5D214B45590036EE2F /* QDDateTool */,
 				D2F5EF42214A48C10036EE2F /* Encrypt+Decrypt */,
 				D2F5EF3D214A475A0036EE2F /* Factory */,
 				D2F5EF45214A48C10036EE2F /* FitTextFont */,
@@ -485,8 +509,8 @@
 			isa = PBXGroup;
 			children = (
 				D2F5EF50214A5AB10036EE2F /* AESCrypt */,
-				D2F5EF43214A48C10036EE2F /* NSString+MD5.h */,
-				D2F5EF44214A48C10036EE2F /* NSString+MD5.m */,
+				D2E62375215F2B68002AE4DB /* NSObject+Encrypt.h */,
+				D2E62376215F2B68002AE4DB /* NSObject+Encrypt.m */,
 			);
 			path = "Encrypt+Decrypt";
 			sourceTree = "<group>";
@@ -494,9 +518,7 @@
 		D2F5EF45214A48C10036EE2F /* FitTextFont */ = {
 			isa = PBXGroup;
 			children = (
-				D2F5EF46214A48C10036EE2F /* UIFont+FitTextFont.h */,
 				D2F5EF49214A48C10036EE2F /* UIFont+FitTextFont.m */,
-				D2F5EF47214A48C10036EE2F /* UIView+FitTextFont.h */,
 				D2F5EF48214A48C10036EE2F /* UIView+FitTextFont.m */,
 			);
 			path = FitTextFont;
@@ -538,13 +560,13 @@
 			path = AESCrypt;
 			sourceTree = "<group>";
 		};
-		D2F5EF5D214B45590036EE2F /* DateManager */ = {
+		D2F5EF5D214B45590036EE2F /* QDDateTool */ = {
 			isa = PBXGroup;
 			children = (
-				D2F3DF09215B58B9009F06D8 /* QDDateManager.h */,
-				D2F3DF0A215B58B9009F06D8 /* QDDateManager.m */,
+				D2F3DF09215B58B9009F06D8 /* QDDateTool.h */,
+				D2F3DF0A215B58B9009F06D8 /* QDDateTool.m */,
 			);
-			path = DateManager;
+			path = QDDateTool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -744,10 +766,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2E6236D215F1ECD002AE4DB /* QDDeviceTool.m in Sources */,
 				D2F5EF35214A468B0036EE2F /* QDBaseTableViewController.m in Sources */,
 				D2F5EF3A214A468B0036EE2F /* QDRefreshFooter.m in Sources */,
 				D2F5EEF9214A3BB50036EE2F /* TestTableViewCell.m in Sources */,
-				D2F5EF4A214A48C10036EE2F /* NSString+MD5.m in Sources */,
 				D29C6C9F211AF9D2009CC81F /* AppDelegate.m in Sources */,
 				D2F5EF4C214A48C10036EE2F /* UIFont+FitTextFont.m in Sources */,
 				D2F5EF4B214A48C10036EE2F /* UIView+FitTextFont.m in Sources */,
@@ -762,9 +784,11 @@
 				D2F5EF5C214A5AB10036EE2F /* NSData+Base64.m in Sources */,
 				D2F5EF0A214A464E0036EE2F /* QDNetworkWithCache.m in Sources */,
 				D2F5EF36214A468B0036EE2F /* QDBaseViewController.m in Sources */,
-				D2F3DF0B215B58B9009F06D8 /* QDDateManager.m in Sources */,
+				D2F3DF0B215B58B9009F06D8 /* QDDateTool.m in Sources */,
+				D2E62377215F2B68002AE4DB /* NSObject+Encrypt.m in Sources */,
 				D2E6231B215C8520002AE4DB /* UIView+QDFastFrame.m in Sources */,
 				D2E62345215DDB77002AE4DB /* NullSafe.m in Sources */,
+				D2E62371215F24B1002AE4DB /* NSString+RegexValid.m in Sources */,
 				D2F5EF40214A475A0036EE2F /* QDFactory.m in Sources */,
 				D2F5B7F521184775008F1DB9 /* ViewController.m in Sources */,
 				D2F5EF3C214A468B0036EE2F /* QDRequestResultView.m in Sources */,

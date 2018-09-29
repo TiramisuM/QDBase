@@ -1,5 +1,5 @@
 //
-//  QDDateManager.h
+//  QDDateTool.h
 //  QDBase
 //
 //  Created by qiaodata100 on 2018/9/26.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QDDateManager : NSObject
+@interface QDDateTool : NSObject
 
 /**
  @brief 根据秒数计算时间，返回固定格式的字符串

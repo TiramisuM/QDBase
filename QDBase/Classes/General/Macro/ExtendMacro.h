@@ -12,7 +12,7 @@
 #import "MJExtension.h"
 #import "Masonry.h"
 #import "AFNetworking.h"
-#import "NSString+MD5.h"
+
 #import "QDCacheSingleton.h"
 
 #import "UITableViewCell+QDBaseTableViewCell.h"
@@ -24,5 +24,9 @@
 #import "QDFactory.h"
 
 #import "UIView+QDFastFrame.h"
+#import "QDDeviceTool.h"
+#import "QDDateTool.h"
+#import "NSString+RegexValid.h"
+#import "NSObject+Encrypt.h"
 
 #endif /* ExtendMacro_h */
