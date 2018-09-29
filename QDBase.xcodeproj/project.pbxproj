@@ -33,6 +33,8 @@
 		D2E6236D215F1ECD002AE4DB /* QDDeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E6236C215F1ECD002AE4DB /* QDDeviceTool.m */; };
 		D2E62371215F24B1002AE4DB /* NSString+RegexValid.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62370215F24B1002AE4DB /* NSString+RegexValid.m */; };
 		D2E62377215F2B68002AE4DB /* NSObject+Encrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E62376215F2B68002AE4DB /* NSObject+Encrypt.m */; };
+		D2E62379215F5ECF002AE4DB /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = D2E62378215F5ECE002AE4DB /* test.txt */; };
+		D2E6237B215F5ED8002AE4DB /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = D2E6237A215F5ED8002AE4DB /* test.txt */; };
 		D2F3DF0B215B58B9009F06D8 /* QDDateTool.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F3DF0A215B58B9009F06D8 /* QDDateTool.m */; };
 		D2F5B7F521184775008F1DB9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B7F421184775008F1DB9 /* ViewController.m */; };
 		D2F5B80A21184776008F1DB9 /* QDBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D2F5B80921184776008F1DB9 /* QDBaseTests.m */; };
@@ -105,6 +107,8 @@
 		D2E62370215F24B1002AE4DB /* NSString+RegexValid.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+RegexValid.m"; sourceTree = "<group>"; };
 		D2E62375215F2B68002AE4DB /* NSObject+Encrypt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Encrypt.h"; sourceTree = "<group>"; };
 		D2E62376215F2B68002AE4DB /* NSObject+Encrypt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Encrypt.m"; sourceTree = "<group>"; };
+		D2E62378215F5ECE002AE4DB /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
+		D2E6237A215F5ED8002AE4DB /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		D2F3DF09215B58B9009F06D8 /* QDDateTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDDateTool.h; sourceTree = "<group>"; };
 		D2F3DF0A215B58B9009F06D8 /* QDDateTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDDateTool.m; sourceTree = "<group>"; };
 		D2F3DF11215B6BE1009F06D8 /* APIMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APIMacro.h; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 		D29C6C80211AF9A8009CC81F /* VendorLibraries */ = {
 			isa = PBXGroup;
 			children = (
+				D2E6237A215F5ED8002AE4DB /* test.txt */,
 			);
 			path = VendorLibraries;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 		D2F5EF4F214A56620036EE2F /* CommonView */ = {
 			isa = PBXGroup;
 			children = (
+				D2E62378215F5ECE002AE4DB /* test.txt */,
 			);
 			path = CommonView;
 			sourceTree = "<group>";
@@ -678,6 +684,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2E6237B215F5ED8002AE4DB /* test.txt in Resources */,
 				D2F5EF2D214A468B0036EE2F /* left@3x.png in Resources */,
 				D2F5EF2F214A468B0036EE2F /* 小关闭@3x.png in Resources */,
 				D29C6C9A211AF9D2009CC81F /* LaunchScreen.storyboard in Resources */,
@@ -688,6 +695,7 @@
 				D2F5EF30214A468B0036EE2F /* 小关闭@2x.png in Resources */,
 				D2F5EF2E214A468B0036EE2F /* left@2x.png in Resources */,
 				D2F5EF32214A468B0036EE2F /* 小关闭.png in Resources */,
+				D2E62379215F5ECF002AE4DB /* test.txt in Resources */,
 				D2F5EF33214A468B0036EE2F /* close_02@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
