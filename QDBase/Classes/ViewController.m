@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "QDDateManager.h"
 
 @interface ViewController ()
 

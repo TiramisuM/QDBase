@@ -6,7 +6,7 @@
 //  Copyright © 2018年 QiaoData. All rights reserved.
 //
 
-#import "UIView+FitTextFont.h"
+#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
 @implementation UIView (FitTextFont)

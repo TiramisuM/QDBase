@@ -6,7 +6,7 @@
 //  Copyright © 2018年 QiaoData. All rights reserved.
 /// 适配不同屏幕的字体
 
-#import "UIFont+FitTextFont.h"
+#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
 #define kFontSizeScale  (UIScreen.mainScreen.bounds.size.width / 375.0)
