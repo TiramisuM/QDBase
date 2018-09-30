@@ -121,25 +121,20 @@ NSUInteger          NetCommonWorkTimeout            = 120;
     NSString *cacheKey = urlString;
     if (parameters)
     {
-        if (![NSJSONSerialization isValidJSONObject:parameters])
-        {
+        if (![NSJSONSerialization isValidJSONObject:parameters]) {
             if(failure) failure(nil);
             return nil;//参数不是json类型
         }
         
-        if ([parameters isKindOfClass:[NSDictionary class]])
-        {
-            
+        if ([parameters isKindOfClass:[NSDictionary class]]) {
             parameters = [NSMutableDictionary dictionaryWithDictionary:parameters];
             
             NSString *sign = @"";
             NSArray *parametersKeys = [[(NSMutableDictionary *)parameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
-            NSArray *sortArray = @[@"appversion",@"apiversion",@"osType",@"osVersion",@"osName",@"deviceId",@"imei",@"idfa",@"brand"];
+            NSArray *sortArray = @[@"appversion", @"apiversion", @"osType", @"osVersion", @"osName", @"deviceId", @"imei", @"idfa", @"brand"];
             
-            for (NSString *key in parametersKeys)
-            {
-                if (![sortArray containsObject:key])
-                {
+            for (NSString *key in parametersKeys) {
+                if (![sortArray containsObject:key]) {
                     sign = [sign stringByAppendingString:judgeString(parameters[key])];
                 }
                 
@@ -149,8 +144,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
             sign = [sign stringByAppendingString:@"qiaodata"];
             parameters[@"sign"] = [[sign MD5String] MD5String];
             
-        }else{
-            
+        } else {
             NSData *data = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:nil];
             NSString *paramStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             cacheKey = [urlString stringByAppendingString:paramStr];
@@ -171,12 +165,13 @@ NSUInteger          NetCommonWorkTimeout            = 120;
     NSDictionary *cacheDict = (NSDictionary *)[[QDNetworkWithCache sharedNetwork].cache objectForKey:cacheKey];
     NSDate *timestamp       = [cacheDict objectForKey:kTimestampKey];
     NSDictionary *object    = [cacheDict objectForKey:kCommonCacheKey];
-    NSInteger catchTimeOut  = [[cacheDict objectForKey:kCacheTimeOutKey] integerValue];
-    switch (cachePolicy)
-    {
+    NSInteger cacheTimeOut  = [[cacheDict objectForKey:kCacheTimeOutKey] integerValue];
+    
+    switch (cachePolicy) {
+            
         case QDNetCacheRequestTimestampLoad: {//返回时效内的缓存缓存
             if (object) {
-                if (timestamp && ![QDNetworkWithCache ifTimeOut:timestamp catchTimeOut:catchTimeOut]) {
+                if (timestamp && ![QDNetworkWithCache ifTimeOut:timestamp cacheTimeOut:cacheTimeOut]) {
                     if(success) success(object, YES);
                     return nil;
                 } else {
@@ -186,8 +181,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
             break;
         }
         case QDNetCacheRequestReturnCacheDataThenLoad: {//先返回缓存，同时请求
-            if (object)
-            {
+            if (object) {
                 if(success) success(object, YES);
             }
             break;
@@ -197,22 +191,20 @@ NSUInteger          NetCommonWorkTimeout            = 120;
             break;
         }
         case QDNetCacheRequestReturnCacheDataElseLoad: {//有缓存就返回缓存，没有就请求
-            if (object)
-            {//有缓存
+            if (object) {//有缓存
                 if(success) success(object, YES);
                 return nil;
             }
             break;
         }
         case QDNetCacheRequestReturnCacheDataDontLoad: {//有缓存就返回缓存,从不请求（用于没有网络）
-            if (object)
-            {//有缓存
+            if (object) {//有缓存
                 if(success) success(object, YES);
-                
             }
             return nil;//退出从不请求
         }
         case QDNetCacheRequestReturnNoneLoadAndStoreCache: {//不返回缓存，也不返回请求，只请求并且缓存
+            break;
         }
         default: {
             break;
@@ -229,86 +221,57 @@ NSUInteger          NetCommonWorkTimeout            = 120;
                                 success:(SuccessBlock)success
                                 failure:(FailureBlock)failure {
     
-    switch (type)
-    {
+    // 网络请求的进度block
+    void (^networkProgressBlock)(NSProgress * _Nonnull) =  ^(NSProgress * _Nonnull downloadProgress) {
+        if ([QDNetworkWithCache sharedNetwork].uploadProgress) {
+            [QDNetworkWithCache sharedNetwork].uploadProgress(downloadProgress);
+        }
+    };
+    
+    // 网络请求成功的block
+    void (^netWorkSuccessBlock)(NSURLSessionDataTask * _Nonnull, id _Nullable) = ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [QDNetworkWithCache sharedNetwork].uploadProgress = nil;
+        
+        responseObject = [self responseValidWithObject:responseObject successWithCache:success failure:failure];
+        if (!responseObject) return;
+        // 2. 处理返回数据里面的错误 异地登录等情况
+        [self handleResponseDataError:responseObject];
+        
+        // 3. 缓存当前数据并返回
+        if (cachePolicy != QDNetCacheRequestReturnNoneLoadAndStoreCache) {
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [[QDNetworkWithCache sharedNetwork] saveCacheWithResponseObject:responseObject forKey:cacheKey];
+            });
+            if(success) success(responseObject, NO);
+        } else {
+            [[QDNetworkWithCache sharedNetwork] saveCacheWithResponseObject:responseObject forKey:cacheKey];
+        }
+        
+    };
+    
+    // 网络请求失败的block
+    void (^networkFailureBlock)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
+        NSLog(@"\n返回错误: %@",error);
+        [QDNetworkWithCache sharedNetwork].uploadProgress = nil;
+        if (failure) failure(error);
+    };
+    
+    NSURLSessionDataTask *URLSessionDataTask = nil;
+    switch (type) {
         case QDNetCacheRequestTypeGET:
-        {
             
-            return [[QDNetworkWithCache sharedNetwork] GET:urlString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
-                    {
-                        if ([QDNetworkWithCache sharedNetwork].uploadProgress) {
-                            [QDNetworkWithCache sharedNetwork].uploadProgress(downloadProgress);
-                        }
-                        
-                    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-                    {
-                        [QDNetworkWithCache sharedNetwork].uploadProgress = nil;
-                        
-                        responseObject = [self responseValidWithObject:responseObject successWithCache:success failure:failure];
-                        if (!responseObject) return;
-                        // 2. 处理返回数据里面的错误 异地登录等情况
-                        [self handleResponseDataError:responseObject];
-                        
-                        // 3. 缓存当前数据并返回
-                        if (cachePolicy != QDNetCacheRequestReturnNoneLoadAndStoreCache) {
-                            
-                            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                                [[QDNetworkWithCache sharedNetwork] saveCacheWithResponseObject:responseObject forKey:cacheKey];
-                            });
-                            if(success) success(responseObject, NO);
-                        } else {
-                            [[QDNetworkWithCache sharedNetwork] saveCacheWithResponseObject:responseObject forKey:cacheKey];
-                        }
-                        
-                        
-                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-                    {
-                        NSLog(@"\n返回错误: %@",error);
-                        [QDNetworkWithCache sharedNetwork].uploadProgress = nil;
-                        if (failure) failure(error);
-                    }];
+            URLSessionDataTask = [[QDNetworkWithCache sharedNetwork] GET:urlString parameters:parameters progress:networkProgressBlock success:netWorkSuccessBlock failure:networkFailureBlock];
             
             break;
-        }
         case QDNetCacheRequestTypePOST:
-        {
-            return [[QDNetworkWithCache sharedNetwork] POST:urlString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress)
-                    {
-                        if ([QDNetworkWithCache sharedNetwork].uploadProgress) {
-                            [QDNetworkWithCache sharedNetwork].uploadProgress(uploadProgress);
-                        }
-                    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
-                    {
-                        [QDNetworkWithCache sharedNetwork].uploadProgress = nil;
-
-                        responseObject = [self responseValidWithObject:responseObject successWithCache:success failure:failure];
-                        if (!responseObject) return;
-                        // 2. 处理返回数据里面的错误
-                        [self handleResponseDataError:responseObject];
-                        
-                        // 3. 缓存当前数据并返回
-                        if (cachePolicy != QDNetCacheRequestReturnNoneLoadAndStoreCache) {
-                            
-                            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                                [[QDNetworkWithCache sharedNetwork] saveCacheWithResponseObject:responseObject forKey:cacheKey];
-                            });
-                            if(success) success(responseObject, NO);
-                        } else {
-                            [[QDNetworkWithCache sharedNetwork] saveCacheWithResponseObject:responseObject forKey:cacheKey];
-                        }
-                        
-                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
-                    {
-                        
-                        [QDNetworkWithCache sharedNetwork].uploadProgress = nil;
-                        if (failure) failure(error);
-                    }];
-            
+            URLSessionDataTask = [[QDNetworkWithCache sharedNetwork] POST:urlString parameters:parameters progress:networkProgressBlock success:netWorkSuccessBlock failure:networkFailureBlock];
             break;
-        }
         default:
             break;
     }
+    
+    return URLSessionDataTask;
     
 }
 
@@ -469,7 +432,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
 }
 
 #pragma mark 超时校验
-+ (BOOL)ifTimeOut:(NSDate *)date catchTimeOut:(NSInteger)timeOut
++ (BOOL)ifTimeOut:(NSDate *)date cacheTimeOut:(NSInteger)timeOut
 {
     NSDate *hisDate = (NSDate *)date;
     NSDate *nowDate = [NSDate date];
@@ -491,7 +454,6 @@ NSUInteger          NetCommonWorkTimeout            = 120;
     NSLog(@"\n请求参数：\n%@", absoluteUrl);
 }
 
-
 #pragma mark - ============== 单例 ================
 + (instancetype)sharedNetwork
 {
@@ -502,7 +464,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
         // 相应的默认形式是http格式的,请求默认也是http'格式的,都是普通的二进制
         sharedClient.responseSerializer = [AFHTTPResponseSerializer serializer];
         // 证书验证
-        //        sharedClient.securityPolicy = [self customSecurityPolicy];
+        // sharedClient.securityPolicy = [self customSecurityPolicy];
         sharedClient.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"application/json",@"text/json",@"text/javascript",@"text/html",nil];
         sharedClient.requestSerializer.timeoutInterval = NetCommonWorkTimeout;
     });
@@ -529,16 +491,14 @@ NSUInteger          NetCommonWorkTimeout            = 120;
     return securityPolicy;
 }
 
-
-
 #pragma mark - ============== 缓存 ================
 + (void)clearCache {
-    [[QDCacheSingleton shareInstance] clearCache];
+    [[QDCacheSingleton shareInstance] clearNetworkCache];
 }
 
 - (YYCache *)cache {
     if (!_cache) {
-        _cache = [QDCacheSingleton shareInstance].cache;
+        _cache = [QDCacheSingleton shareInstance].networkCache;
     }
     return _cache;
 }
