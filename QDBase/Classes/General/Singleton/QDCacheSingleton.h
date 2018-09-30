@@ -13,11 +13,21 @@
 
 /// 单例方法
 + (instancetype)shareInstance;
-/// 缓存cache
-@property (nonatomic, strong) YYCache *cache;
+/// 网络请求cache
+@property (nonatomic, strong) YYCache *networkCache;
+/// 通讯录cache
+@property (nonatomic, strong) YYCache *addressBookCache;
 /**
- 清空缓存
+ 清空网络请求缓存
  */
-- (void)clearCache;
+- (void)clearNetworkCache;
+/**
+ 清空通讯录缓存
+ */
+- (void)clearAddressBookCache;
+/**
+ 清空所有缓存
+ */
+- (void)clearAllCache;
 
 @end

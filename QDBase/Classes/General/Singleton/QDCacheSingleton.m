@@ -24,26 +24,46 @@ static QDCacheSingleton *instance = nil;
     return [QDCacheSingleton shareInstance];
 }
 
-- (instancetype)copyWithZone:(struct _NSZone *)zone
-{
+- (instancetype)copyWithZone:(struct _NSZone *)zone {
     return [QDCacheSingleton shareInstance];
 }
 
-- (YYCache *)cache {
-    if (!_cache) {
-        _cache = [[YYCache alloc] initWithName:[NSString stringWithFormat:@"UserCache"]];
-        _cache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
-        _cache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = YES;
-    }
-    return _cache;
+- (void)clearAllCache {
+    [self clearNetworkCache];
+    [self clearAddressBookCache];
 }
 
-- (void)clearCache {
-    
-    if ([QDCacheSingleton shareInstance].cache) {
-        [[QDCacheSingleton shareInstance].cache removeAllObjects];
-        [QDCacheSingleton shareInstance].cache = nil;
+- (void)clearNetworkCache {
+    if ([QDCacheSingleton shareInstance].networkCache) {
+        [[QDCacheSingleton shareInstance].networkCache removeAllObjects];
+        [QDCacheSingleton shareInstance].networkCache = nil;
     }
+}
+
+- (void)clearAddressBookCache {
+    if ([QDCacheSingleton shareInstance].addressBookCache) {
+        [[QDCacheSingleton shareInstance].addressBookCache removeAllObjects];
+        [QDCacheSingleton shareInstance].addressBookCache = nil;
+    }
+}
+
+#pragma mark - ============== Lazy Load ================
+- (YYCache *)networkCache {
+    if (!_networkCache) {
+        _networkCache = [[YYCache alloc] initWithName:[NSString stringWithFormat:@"UserCache_NetworkCache"]];
+        _networkCache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
+        _networkCache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = YES;
+    }
+    return _networkCache;
+}
+
+- (YYCache *)addressBookCache {
+    if (!_addressBookCache) {
+        _addressBookCache = [[YYCache alloc] initWithName:[NSString stringWithFormat:@"UserCache_AddressBookCache"]];
+        _addressBookCache.memoryCache.shouldRemoveAllObjectsOnMemoryWarning = YES;
+        _addressBookCache.memoryCache.shouldRemoveAllObjectsWhenEnteringBackground = YES;
+    }
+    return _addressBookCache;
 }
 
 @end
