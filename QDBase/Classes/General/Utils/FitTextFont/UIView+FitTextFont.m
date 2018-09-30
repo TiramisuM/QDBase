@@ -2,7 +2,7 @@
 //  UIView+FitTextFont.m
 //  InsuranceAgentRelation
 //
-//  Created by qiaodata100 on 2018/8/23.
+//  Created by QiaoData on 2018/8/23.
 //  Copyright © 2018年 QiaoData. All rights reserved.
 //
 

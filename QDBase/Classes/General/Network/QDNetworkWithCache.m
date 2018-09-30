@@ -2,8 +2,8 @@
 //  QDNetworkWithCache.m
 //  QDBase
 //
-//  Created by qiaodata100 on 2018/8/6.
-//  Copyright © 2018年 qiaodata100. All rights reserved.
+//  Created by QiaoData on 2018/8/6.
+//  Copyright © 2018年 QiaoData. All rights reserved.
 //
 
 #import "QDNetworkWithCache.h"
@@ -12,7 +12,7 @@
 
 static  NSString *const     NetCacheUrlString       = BASE_URL;
 static  NSString *const     NetCacheTimeCache       = @"NetCommonCacheTimeCache";
-static  QDNetworkWithCache  *sharedClient     = nil;
+static  QDNetworkWithCache  *sharedClient           = nil;
 NSUInteger          NetCommonWorkTimeout            = 120;
 
 #define kCommonCacheKey     @"CommonCacheKey"
@@ -33,11 +33,19 @@ NSUInteger          NetCommonWorkTimeout            = 120;
 // 返回时效内的缓存
 + (NSURLSessionDataTask *)GET:(NSString *)URLString
                    parameters:(id)parameters
+                      success:(SuccessBlock)success
+                      failure:(FailureBlock)failure {
+    return [self requestMethod:QDNetCacheRequestTypeGET urlString:URLString parameters:parameters cacheTimeout:NetCommonWorkTimeout cachePolicy:QDNetCacheRequestTimestampLoad success:success failure:failure];
+}
+
++ (NSURLSessionDataTask *)GET:(NSString *)URLString
+                   parameters:(id)parameters
                  cacheTimeout:(NSUInteger)cacheTimeout
                       success:(SuccessBlock)success
                       failure:(FailureBlock)failure {
     return [self requestMethod:QDNetCacheRequestTypeGET urlString:URLString parameters:parameters cacheTimeout:cacheTimeout cachePolicy:QDNetCacheRequestTimestampLoad success:success failure:failure];
 }
+
 + (NSURLSessionDataTask *)GET:(NSString *)URLString
                    parameters:(id)parameters
                   cachePolicy:(QDNetCacheRequestPolicy)cachePolicy
@@ -45,7 +53,15 @@ NSUInteger          NetCommonWorkTimeout            = 120;
                       failure:(FailureBlock)failure {
     return [self requestMethod:QDNetCacheRequestTypePOST urlString:URLString parameters:parameters cacheTimeout:NetCommonWorkTimeout cachePolicy:cachePolicy success:success failure:failure];
 }
+
 // 返回时效内的缓存
++ (NSURLSessionDataTask *)POST:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(SuccessBlock)success
+                       failure:(FailureBlock)failure {
+    return [self requestMethod:QDNetCacheRequestTypePOST urlString:URLString parameters:parameters cacheTimeout:NetCommonWorkTimeout cachePolicy:QDNetCacheRequestTimestampLoad success:success failure:failure];
+}
+
 + (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(id)parameters
                   cacheTimeout:(NSUInteger)cacheTimeout

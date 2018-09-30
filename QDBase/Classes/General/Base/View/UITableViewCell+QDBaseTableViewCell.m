@@ -2,8 +2,8 @@
 //  UITableViewCell+QDBaseTableViewCell.m
 //  QDBase
 //
-//  Created by qiaodata100 on 2018/8/8.
-//  Copyright © 2018年 qiaodata100. All rights reserved.
+//  Created by QiaoData on 2018/8/8.
+//  Copyright © 2018年 QiaoData. All rights reserved.
 /// tableViewCell分类，增加indexPath和model
 
 #import "UITableViewCell+QDBaseTableViewCell.h"

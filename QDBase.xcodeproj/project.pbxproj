@@ -639,8 +639,9 @@
 		D2F5B7E521184775008F1DB9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = QD;
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = qiaodata100;
+				ORGANIZATIONNAME = QiaoData;
 				TargetAttributes = {
 					D2F3DF0C215B6973009F06D8 = {
 						CreatedOnToolsVersion = 9.4.1;

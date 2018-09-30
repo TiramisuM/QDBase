@@ -2,15 +2,11 @@
 //  NSObject+NetworkParameter.m
 //  QDBase
 //
-//  Created by qiaodata100 on 2018/8/8.
-//  Copyright © 2018年 qiaodata100. All rights reserved.
+//  Created by QiaoData on 2018/8/8.
+//  Copyright © 2018年 QiaoData. All rights reserved.
 /// 网络请求拼接用户信息等操作
 
 #import "NSObject+QDNetworkParameter.h"
-
-@implementation NSObject (QDNetworkParameter)
-
-@end
 
 @implementation NSDictionary (QDNetworkParameter)
 

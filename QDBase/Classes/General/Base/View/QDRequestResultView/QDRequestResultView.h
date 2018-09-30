@@ -2,8 +2,8 @@
 //  QDRequestResultView.h
 //  QDBase
 //
-//  Created by qiaodata100 on 2018/8/10.
-//  Copyright © 2018年 qiaodata100. All rights reserved.
+//  Created by QiaoData on 2018/8/10.
+//  Copyright © 2018年 QiaoData. All rights reserved.
 /// 请求结果后展示的页面
 
 #import <UIKit/UIKit.h>

@@ -2,9 +2,9 @@
 //  QDNetworkWithCache.h
 //  QDBase
 //
-//  Created by qiaodata100 on 2018/8/6.
-//  Copyright © 2018年 qiaodata100. All rights reserved.
-//  网络请求类
+//  Created by QiaoData on 2018/8/6.
+//  Copyright © 2018年 QiaoData. All rights reserved.
+///  网络请求类
 
 #import <AFNetworking/AFNetworking.h>
 
@@ -27,6 +27,20 @@ typedef void(^ProgressBlock)(NSProgress *progress);
 /// 网络请求工具类
 @interface QDNetworkWithCache : AFHTTPSessionManager
 
+/**
+ QDNetCacheRequestPolicy 默认 QDNetCacheRequestTimestampLoad 的缓存方式 (默认缓存120s)
+ 
+ @param URLString    请求url
+ @param parameters   请求参数
+ @param success      请求成功回调 SuccessBlock
+ @param failure      请求失败回调 FailureBlock
+ @return             NSURLSessionDataTask
+ 
+ */
++ (NSURLSessionDataTask *)GET:(NSString *)URLString
+                   parameters:(id)parameters
+                      success:(SuccessBlock)success
+                      failure:(FailureBlock)failure;
 
 /**
  QDNetCacheRequestPolicy 默认 QDNetCacheRequestTimestampLoad 的缓存方式 自定义缓存时效
@@ -46,7 +60,7 @@ typedef void(^ProgressBlock)(NSProgress *progress);
                       failure:(FailureBlock)failure;
 
 /**
- QDNetCacheRequestPolicy 的缓存方式 (默认缓存180s)
+ QDNetCacheRequestPolicy 的缓存方式 (默认缓存120s)
  
  @param URLString    请求url
  @param parameters   请求参数
@@ -63,7 +77,22 @@ typedef void(^ProgressBlock)(NSProgress *progress);
                       failure:(FailureBlock)failure;
 
 /**
- QDNetCacheRequestPolicy 默认 QDNetCacheRequestTimestampLoad 的缓存方式
+ QDNetCacheRequestPolicy 默认 QDNetCacheRequestTimestampLoad 的缓存方式 (默认缓存120s)
+ 
+ @param URLString    请求url
+ @param parameters   请求参数
+ @param success      请求成功回调 SuccessBlock
+ @param failure      请求失败回调 FailureBlock
+ @return             NSURLSessionDataTask
+ 
+ */
++ (NSURLSessionDataTask *)POST:(NSString *)URLString
+                    parameters:(id)parameters
+                       success:(SuccessBlock)success
+                       failure:(FailureBlock)failure;
+
+/**
+ QDNetCacheRequestPolicy 默认 QDNetCacheRequestTimestampLoad 的缓存方式  自定义缓存时效
  
  @param URLString    请求url
  @param parameters   请求参数
@@ -206,7 +235,6 @@ typedef void(^ProgressBlock)(NSProgress *progress);
                               uploadFilePath:(NSString *)uploadFilePath
                                      success:(SuccessBlock)success
                                      failure:(FailureBlock)failure;
-
 
 /**
  清除缓存
