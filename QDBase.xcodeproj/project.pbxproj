@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		4D47A2F42B4E1EB82857CA8D /* libPods-QDBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3C96494A63F5BC18E98F6F /* libPods-QDBase.a */; };
+		D25B4647216AF74900B818C7 /* UIView+QDGetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D25B4646216AF74900B818C7 /* UIView+QDGetViewController.m */; };
 		D29C6C9A211AF9D2009CC81F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D29C6C90211AF9D2009CC81F /* LaunchScreen.storyboard */; };
 		D29C6C9B211AF9D2009CC81F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D29C6C91211AF9D2009CC81F /* Main.storyboard */; };
 		D29C6C9C211AF9D2009CC81F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D29C6C93211AF9D2009CC81F /* Assets.xcassets */; };
@@ -90,6 +91,8 @@
 		3514BEC65FBCD298805DBD52 /* Pods-QDBase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDBase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QDBase/Pods-QDBase.debug.xcconfig"; sourceTree = "<group>"; };
 		7C3C96494A63F5BC18E98F6F /* libPods-QDBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QDBase.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD72023648B635964038F48E /* Pods-QDBase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDBase.release.xcconfig"; path = "Pods/Target Support Files/Pods-QDBase/Pods-QDBase.release.xcconfig"; sourceTree = "<group>"; };
+		D25B4645216AF74900B818C7 /* UIView+QDGetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+QDGetViewController.h"; sourceTree = "<group>"; };
+		D25B4646216AF74900B818C7 /* UIView+QDGetViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+QDGetViewController.m"; sourceTree = "<group>"; };
 		D29C6C90211AF9D2009CC81F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D29C6C91211AF9D2009CC81F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		D29C6C93211AF9D2009CC81F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -217,6 +220,15 @@
 				7C3C96494A63F5BC18E98F6F /* libPods-QDBase.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D25B4644216AF72800B818C7 /* GetViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D25B4645216AF74900B818C7 /* UIView+QDGetViewController.h */,
+				D25B4646216AF74900B818C7 /* UIView+QDGetViewController.m */,
+			);
+			path = GetViewController;
 			sourceTree = "<group>";
 		};
 		D29C6C80211AF9A8009CC81F /* VendorLibraries */ = {
@@ -498,6 +510,7 @@
 		D2F5EF41214A48C10036EE2F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D25B4644216AF72800B818C7 /* GetViewController */,
 				D2E6236E215F2496002AE4DB /* RegexValid */,
 				D2E6236A215F1E9E002AE4DB /* DeviceTool */,
 				D2E62343215DDA11002AE4DB /* AvoidCrash */,
@@ -779,6 +792,7 @@
 				D2F5EF35214A468B0036EE2F /* QDBaseTableViewController.m in Sources */,
 				D2F5EF3A214A468B0036EE2F /* QDRefreshFooter.m in Sources */,
 				D2F5EEF9214A3BB50036EE2F /* TestTableViewCell.m in Sources */,
+				D25B4647216AF74900B818C7 /* UIView+QDGetViewController.m in Sources */,
 				D29C6C9F211AF9D2009CC81F /* AppDelegate.m in Sources */,
 				D2F5EF4C214A48C10036EE2F /* UIFont+FitTextFont.m in Sources */,
 				D2F5EF4B214A48C10036EE2F /* UIView+FitTextFont.m in Sources */,

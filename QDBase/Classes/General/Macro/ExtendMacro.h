@@ -9,24 +9,26 @@
 #ifndef ExtendMacro_h
 #define ExtendMacro_h
 
-#import "MJExtension.h"
-#import "Masonry.h"
-#import "AFNetworking.h"
+/// 基类tableViewController所需分类
+#import "NSObject+QDBaseModel.h"
+#import "UITableViewCell+QDBaseTableViewCell.h"
 
+/// 缓存单例
 #import "QDCacheSingleton.h"
 
-#import "UITableViewCell+QDBaseTableViewCell.h"
-// 下拉刷新的控件
-#import <MJRefresh/MJRefresh.h>
-// 数据
-
-// 工厂方法
+/// 工具类
 #import "QDFactory.h"
-
-#import "UIView+QDFastFrame.h"
-#import "QDDeviceTool.h"
 #import "QDDateTool.h"
-#import "NSString+RegexValid.h"
+#import "QDDeviceTool.h"
 #import "NSObject+Encrypt.h"
+#import "UIView+QDFastFrame.h"
+#import "NSString+RegexValid.h"
+#import "UIView+QDGetViewController.h"
+
+/// 第三方库
+#import "Masonry.h"
+#import "MJExtension.h"
+#import "AFNetworking.h"
+#import <MJRefresh/MJRefresh.h>
 
 #endif /* ExtendMacro_h */
