@@ -17,6 +17,9 @@ PODS:
   - Masonry (1.1.0)
   - MJExtension (3.0.15.1)
   - MJRefresh (3.1.15.3)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
   - YYCache (1.0.4)
 
 DEPENDENCIES:
@@ -24,6 +27,7 @@ DEPENDENCIES:
   - Masonry
   - MJExtension
   - MJRefresh
+  - SDWebImage
   - YYCache
 
 SPEC REPOS:
@@ -32,6 +36,7 @@ SPEC REPOS:
     - Masonry
     - MJExtension
     - MJRefresh
+    - SDWebImage
     - YYCache
 
 SPEC CHECKSUMS:
@@ -39,8 +44,9 @@ SPEC CHECKSUMS:
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: 8a76b1215f30bac9292b8b49e065e839715785dc
+PODFILE CHECKSUM: dbbc153acbedc7c7c4af80fff1161e4d07b8949a
 
 COCOAPODS: 1.5.3

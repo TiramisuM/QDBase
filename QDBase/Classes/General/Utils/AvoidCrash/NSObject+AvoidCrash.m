@@ -301,8 +301,6 @@
     //array set object at index
     [self exchangeInstanceMethod:arrayMClass method1Sel:@selector(setObject:atIndexedSubscript:) method2Sel:@selector(avoidCrashSetObject:atIndexedSubscript:)];
     
-//    __NSArrayM objectAtIndexedSubscript:
-    [self exchangeClassMethod:arrayMClass method1Sel:@selector(objectAtIndexedSubscript:) method2Sel:@selector(avoidCrashObjectAtIndexedSubscript:)];
     //removeObjectAtIndex:
     [self exchangeInstanceMethod:arrayMClass method1Sel:@selector(removeObjectAtIndex:) method2Sel:@selector(avoidCrashRemoveObjectAtIndex:)];
     
@@ -321,22 +319,6 @@
         [[self class] noteErrorWithException:exception defaultToDo:AvoidCrashDefaultIgnore];
     }
     @finally {
-    }
-}
-
-#pragma mark objectAtIndexedSubscript:
-- (id)avoidCrashObjectAtIndexedSubscript:(NSUInteger)idx {
-    id object = nil;
-    
-    @try {
-        object = [self avoidCrashObjectAtIndexedSubscript:idx];
-    }
-    @catch (NSException *exception) {
-        NSString *defaultToDo = AvoidCrashDefaultReturnNil;
-        [[self class] noteErrorWithException:exception defaultToDo:defaultToDo];
-    }
-    @finally {
-        return object;
     }
 }
 

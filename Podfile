@@ -7,5 +7,6 @@ pod 'Masonry'
 pod 'MJRefresh'
 pod 'MJExtension'
 pod 'YYCache'
+pod 'SDWebImage'
 
 end

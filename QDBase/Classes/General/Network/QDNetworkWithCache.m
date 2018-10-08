@@ -326,7 +326,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
         
         // 如果imageNameArray个数大于imageDataArray的个数，在imageNameArray中拼接上少的部分名字
         for (NSInteger i = 0; i < imageDataCount - imageNameCount; i++) {
-            [imageNames addObject:[NSString stringWithFormat:@"noNameImage%d", (i + 1)]];
+            [imageNames addObject:[NSString stringWithFormat:@"noNameImage%ld", (i + 1)]];
         }
     }
     
