@@ -107,8 +107,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
                            cacheTimeout:(NSUInteger)cacheTimeout
                             cachePolicy:(QDNetCacheRequestPolicy)cachePolicy
                                 success:(SuccessBlock)success
-                                failure:(FailureBlock)failure
-{
+                                failure:(FailureBlock)failure {
     
     /// 如果参数存在，则将用户信息拼接上去，如果不存在，则直接返回用户信息的参数
     parameters = (parameters && [parameters isKindOfClass:[NSDictionary class]]) ? [parameters networkParamWithUserInfoDict] : [NSDictionary userInfoDict];
@@ -119,8 +118,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
     }
     
     NSString *cacheKey = urlString;
-    if (parameters)
-    {
+    if (parameters) {
         if (![NSJSONSerialization isValidJSONObject:parameters]) {
             if(failure) failure(nil);
             return nil;//参数不是json类型
@@ -251,7 +249,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
     };
     
     // 网络请求失败的block
-    void (^networkFailureBlock)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error){
+    void (^networkFailureBlock)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"\n返回错误: %@",error);
         [QDNetworkWithCache sharedNetwork].uploadProgress = nil;
         if (failure) failure(error);
@@ -290,8 +288,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
                                        imageData:(NSData *)imageData
                                        imageName:(NSString *)imageName
                                          success:(SuccessBlock)success
-                                         failure:(FailureBlock)failure
-{
+                                         failure:(FailureBlock)failure {
     return [self postImageWithURLString:URLString parameters:parameters imageDataArr:@[imageData] imageNameArr:@[imageName] progress:nil success:success failure:failure];
 }
 
@@ -300,8 +297,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
                                     imageDataArr:(NSArray<NSData *> *)imageDataArr
                                     imageNameArr:(NSArray<NSString *> *)imageNameArr
                                          success:(SuccessBlock)success
-                                         failure:(FailureBlock)failure
-{
+                                         failure:(FailureBlock)failure {
     return [self postImageWithURLString:URLString parameters:parameters imageDataArr:imageDataArr imageNameArr:imageNameArr progress:nil success:success failure:failure];
 }
 
@@ -312,8 +308,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
                                     imageNameArr:(NSArray<NSString *> *)imageNameArr
                                         progress:(ProgressBlock)progress
                                          success:(SuccessBlock)success
-                                         failure:(FailureBlock)failure
-{
+                                         failure:(FailureBlock)failure {
     
     parameters = (parameters && [parameters isKindOfClass:[NSDictionary class]]) ? [parameters networkParamWithUserInfoDict] : [NSDictionary userInfoDict];
     NSString *tempUrlStr = [URLString networkUrlString];
@@ -331,7 +326,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
         
         // 如果imageNameArray个数大于imageDataArray的个数，在imageNameArray中拼接上少的部分名字
         for (NSInteger i = 0; i < imageDataCount - imageNameCount; i++) {
-            [imageNames addObject:[NSString stringWithFormat:@"noNameImage%ld", (i + 1)]];
+            [imageNames addObject:[NSString stringWithFormat:@"noNameImage%d", (i + 1)]];
         }
     }
     
@@ -370,19 +365,17 @@ NSUInteger          NetCommonWorkTimeout            = 120;
                                   parameters:(id)parameters
                               uploadFilePath:(NSString *)uploadFilePath
                                      success:(SuccessBlock)success
-                                     failure:(FailureBlock)failure
-{
+                                     failure:(FailureBlock)failure {
     NSURL *URL = [NSURL URLWithString:URLString];
     NSURLRequest *request = [NSURLRequest requestWithURL:URL];
     NSURL *fileUrl = [NSURL fileURLWithPath:uploadFilePath];
-    NSURLSessionUploadTask *uploadTask = [[QDNetworkWithCache sharedNetwork] uploadTaskWithRequest:request fromFile:fileUrl progress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error)
-                                          {
-                                              if (error) {
-                                                  if(failure) failure(error);
-                                              } else {
-                                                  if(success) success(responseObject, NO);
-                                              }
-                                          }];
+    NSURLSessionUploadTask *uploadTask = [[QDNetworkWithCache sharedNetwork] uploadTaskWithRequest:request fromFile:fileUrl progress:nil completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            if(failure) failure(error);
+        } else {
+            if(success) success(responseObject, NO);
+        }
+    }];
     [uploadTask resume];
     return uploadTask;
 }
@@ -397,7 +390,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
         id response = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
         if (response) {
             responseObject = response;
-        }else{
+        } else {
             responseObject = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
             NSLog(@"\n服务器返回错误: %@",responseObject);
             if (failure) failure(nil);
@@ -432,8 +425,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
 }
 
 #pragma mark 超时校验
-+ (BOOL)ifTimeOut:(NSDate *)date cacheTimeOut:(NSInteger)timeOut
-{
++ (BOOL)ifTimeOut:(NSDate *)date cacheTimeOut:(NSInteger)timeOut {
     NSDate *hisDate = (NSDate *)date;
     NSDate *nowDate = [NSDate date];
     NSTimeInterval time = [nowDate timeIntervalSinceDate:hisDate];
@@ -455,8 +447,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
 }
 
 #pragma mark - ============== 单例 ================
-+ (instancetype)sharedNetwork
-{
++ (instancetype)sharedNetwork {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         
@@ -472,8 +463,7 @@ NSUInteger          NetCommonWorkTimeout            = 120;
 }
 
 #pragma mark https证书验证
-+ (AFSecurityPolicy *)customSecurityPolicy
-{
++ (AFSecurityPolicy *)customSecurityPolicy {
     // 先导入证书
     NSString *cerPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"cer"];//证书的路径
     NSData *certData = [NSData dataWithContentsOfFile:cerPath];

@@ -10,7 +10,7 @@
 
 @implementation QDRefreshFooter
 
-- (void)prepare{
+- (void)prepare {
     
     [super prepare];
     self.mj_h = 40;
@@ -23,8 +23,7 @@
 }
 
 #pragma mark 监听scrollView的contentOffset改变
-- (void)scrollViewContentOffsetDidChange:(NSDictionary *)change
-{
+- (void)scrollViewContentOffsetDidChange:(NSDictionary *)change {
     [super scrollViewContentOffsetDidChange:change];
     if (self.isAutomationLoad) {
         

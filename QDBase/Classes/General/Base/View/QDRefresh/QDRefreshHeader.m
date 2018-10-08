@@ -10,8 +10,7 @@
 
 @implementation QDRefreshHeader
 
-- (void)prepare
-{
+- (void)prepare {
     [super prepare];
     self.mj_h = 60;
     self.stateLabel.textColor = UIColorFromHex(0x8C90B7);

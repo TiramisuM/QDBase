@@ -8,7 +8,7 @@
 
 #import "QDRequestResultView.h"
 
-#define kTipLabFont [UIFont fontWithName:@"PingFangSC-Regular" size:14]
+#define kTipLabFont [UIFont systemFontOfSize:14]
 #define kScreenWidthRatio  (UIScreen.mainScreen.bounds.size.width / 375.0)
 #define kScreenHeightRatio (UIScreen.mainScreen.bounds.size.height / 667.0)
 #define kAdaptedWidth(x)  ceilf((x) * kScreenWidthRatio)
@@ -114,7 +114,7 @@
 
 #pragma mark - ============== other ================
 
--  (void)layoutSubviews{
+-  (void)layoutSubviews {
     [super layoutSubviews];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickView:)];
@@ -143,7 +143,7 @@
     self.subClickTipLabel.frame =  CGRectMake(0, CGRectGetMaxY(self.subTipLabel.frame), kScreenWidth, 20);
 }
 
-- (CGFloat)tipSizeWithWidth:(CGFloat)width{
+- (CGFloat)tipSizeWithWidth:(CGFloat)width {
     
     return  [self.tipMsg boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
                                    attributes:@{NSFontAttributeName:kTipLabFont}
@@ -180,7 +180,7 @@
 }
 #pragma mark - ============== View ================
 
-- (UIImageView *)imgView{
+- (UIImageView *)imgView {
     
     if (_imgView == nil) {
         _imgView = [UIImageView new];
@@ -190,7 +190,7 @@
     return _imgView;
 }
 
-- (UILabel *)tipLabel{
+- (UILabel *)tipLabel {
     
     if (_tipLabel == nil) {
         _tipLabel = [UILabel new];
@@ -202,7 +202,7 @@
     return _tipLabel;
 }
 
-- (UILabel *)subTipLabel{
+- (UILabel *)subTipLabel {
     
     if (_subTipLabel == nil) {
         _subTipLabel = [UILabel new];
@@ -217,7 +217,7 @@
     return _subTipLabel;
 }
 
-- (UILabel *)subClickTipLabel{
+- (UILabel *)subClickTipLabel {
     
     if (_subClickTipLabel == nil) {
         _subClickTipLabel = [UILabel new];

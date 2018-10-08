@@ -18,8 +18,7 @@ static  NSString *const AESKEY = @"^s upper-_-fro g9527$";
 
 @implementation NSString (Encrypt)
 
-- (NSString *)MD5String
-{
+- (NSString *)MD5String {
     const char *cstr = [self UTF8String];
     unsigned char digest[CC_MD5_DIGEST_LENGTH];
     CC_MD5( cstr, (uint32_t)strlen(cstr), digest); // This is the md5 call
@@ -28,7 +27,7 @@ static  NSString *const AESKEY = @"^s upper-_-fro g9527$";
     
     for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
         [output appendFormat:@"%02x", digest[i]];
-    return  output;
+    return output;
 }
 
 - (NSString *)encryptAESString {

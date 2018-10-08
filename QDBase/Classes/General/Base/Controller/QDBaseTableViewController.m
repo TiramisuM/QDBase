@@ -44,7 +44,6 @@ static NSUInteger const  PageSize       = 20;
 /// model的类名
 @property (nonatomic, copy) NSString *modelClassName;
 
-
 @end
 
 @implementation QDBaseTableViewController

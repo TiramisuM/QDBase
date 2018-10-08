@@ -14,16 +14,15 @@
 
 @implementation QDDeviceTool
 
-+ (NSString *)getIDFA
-{
++ (NSString *)getIDFA {
     return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 }
-+ (NSString *)getIDFV
-{
+
++ (NSString *)getIDFV {
     return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 }
-+ (NSString *)getMAC
-{
+
++ (NSString *)getMAC {
     int                 mgmtInfoBase[6];
     char                *msgBuffer = NULL;
     size_t              length;
@@ -42,18 +41,15 @@
     // With all configured interfaces requested, get handle index
     if ((mgmtInfoBase[5] = if_nametoindex("en0")) == 0)
         errorFlag = @"if_nametoindex failure";
-    else
-    {
+    else {
         // Get the size of the data available (store in len)
         if (sysctl(mgmtInfoBase, 6, NULL, &length, NULL, 0) < 0)
             errorFlag = @"sysctl mgmtInfoBase failure";
-        else
-        {
+        else {
             // Alloc memory based on above call
             if ((msgBuffer = malloc(length)) == NULL)
                 errorFlag = @"buffer allocation failure";
-            else
-            {
+            else {
                 // Get system information, store in buffer
                 if (sysctl(mgmtInfoBase, 6, msgBuffer, &length, NULL, 0) < 0)
                     errorFlag = @"sysctl msgBuffer failure";
@@ -62,8 +58,7 @@
     }
     
     // Befor going any further...
-    if (errorFlag != NULL)
-    {
+    if (errorFlag != NULL) {
         NSLog(@"Error: %@", errorFlag);
         return errorFlag;
     }
