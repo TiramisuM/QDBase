@@ -23,7 +23,7 @@
 /* Begin PBXBuildFile section */
 		04E8C8C4215F96A90083FEFE /* QDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8C3215F96A90083FEFE /* QDActionSheet.m */; };
 		04E8C8D5215F974E0083FEFE /* QDHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8D4215F974E0083FEFE /* QDHUD.m */; };
-		04E8C8D9215F98500083FEFE /* ISAnimationLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8D8215F98500083FEFE /* ISAnimationLayer.m */; };
+		04E8C8D9215F98500083FEFE /* QDAnimationLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8D8215F98500083FEFE /* QDAnimationLayer.m */; };
 		04E8C8DC2160738C0083FEFE /* QDBasePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8DB2160738C0083FEFE /* QDBasePickerView.m */; };
 		04E8C8DF2160A29F0083FEFE /* QDSinglePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8DE2160A29F0083FEFE /* QDSinglePickerView.m */; };
 		04E8C8E22160A2CA0083FEFE /* QDDoublePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8E12160A2CA0083FEFE /* QDDoublePickerView.m */; };
@@ -98,8 +98,8 @@
 		04E8C8C3215F96A90083FEFE /* QDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActionSheet.m; sourceTree = "<group>"; };
 		04E8C8D3215F974E0083FEFE /* QDHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHUD.h; sourceTree = "<group>"; };
 		04E8C8D4215F974E0083FEFE /* QDHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDHUD.m; sourceTree = "<group>"; };
-		04E8C8D7215F98500083FEFE /* ISAnimationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISAnimationLayer.h; sourceTree = "<group>"; };
-		04E8C8D8215F98500083FEFE /* ISAnimationLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISAnimationLayer.m; sourceTree = "<group>"; };
+		04E8C8D7215F98500083FEFE /* QDAnimationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDAnimationLayer.h; sourceTree = "<group>"; };
+		04E8C8D8215F98500083FEFE /* QDAnimationLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDAnimationLayer.m; sourceTree = "<group>"; };
 		04E8C8DA2160738C0083FEFE /* QDBasePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDBasePickerView.h; sourceTree = "<group>"; };
 		04E8C8DB2160738C0083FEFE /* QDBasePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDBasePickerView.m; sourceTree = "<group>"; };
 		04E8C8DD2160A29F0083FEFE /* QDSinglePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDSinglePickerView.h; sourceTree = "<group>"; };
@@ -261,8 +261,8 @@
 		04E8C8D6215F98500083FEFE /* AnimationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				04E8C8D7215F98500083FEFE /* ISAnimationLayer.h */,
-				04E8C8D8215F98500083FEFE /* ISAnimationLayer.m */,
+				04E8C8D7215F98500083FEFE /* QDAnimationLayer.h */,
+				04E8C8D8215F98500083FEFE /* QDAnimationLayer.m */,
 			);
 			path = AnimationLayer;
 			sourceTree = "<group>";
@@ -878,7 +878,7 @@
 				D2E6231B215C8520002AE4DB /* UIView+QDFastFrame.m in Sources */,
 				04E8C8D5215F974E0083FEFE /* QDHUD.m in Sources */,
 				04E8C8C4215F96A90083FEFE /* QDActionSheet.m in Sources */,
-				04E8C8D9215F98500083FEFE /* ISAnimationLayer.m in Sources */,
+				04E8C8D9215F98500083FEFE /* QDAnimationLayer.m in Sources */,
 				D2E62345215DDB77002AE4DB /* NullSafe.m in Sources */,
 				04E8C8DC2160738C0083FEFE /* QDBasePickerView.m in Sources */,
 				D2E62371215F24B1002AE4DB /* NSString+RegexValid.m in Sources */,

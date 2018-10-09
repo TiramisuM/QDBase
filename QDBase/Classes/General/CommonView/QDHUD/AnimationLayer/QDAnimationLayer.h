@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM (NSInteger, AnimationType){
-    AnimationTypeRotateRound = 0,// 一直旋转的圆圈
-    AnimationTypeRound       = 1,// 绘制一个圆圈
-    AnimationTypeTick        = 2,// 绘制一个对勾
-    AnimationTypeFork        = 3 // 绘制一个叉号
+/// AnimationLayer动画类型
+typedef NS_ENUM (NSInteger, QDAnimationLayerType){
+    /// 一直旋转的圆圈
+    QDAnimationLayerTypeRotateRound = 0,
+    /// 绘制一个圆圈
+    QDAnimationLayerTypeRound       = 1,
+    /// 绘制一个对勾
+    QDAnimationLayerTypeTick        = 2,
+    /// 绘制一个叉号
+    QDAnimationLayerTypeFork        = 3
 };
 
-@interface ISAnimationLayer : CAShapeLayer
+@interface QDAnimationLayer : CAShapeLayer
 
 /**
  开始动画
@@ -38,8 +43,8 @@ typedef NS_ENUM (NSInteger, AnimationType){
  */
 @property (nonatomic, strong) UIView *superView;
 
-/// 动画类型
-@property (nonatomic, assign) AnimationType animationType;
+/// 动画类型 QDAnimationLayerType
+@property (nonatomic, assign) QDAnimationLayerType animationLayerType;
 /// 动画时长(非必须)
 @property (nonatomic, assign) CGFloat animationDuration;
 @end

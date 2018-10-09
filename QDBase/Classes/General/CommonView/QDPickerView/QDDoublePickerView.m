@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) NSMutableArray *subDataListArray;
 
-@property (nonatomic, assign) DoublePickerViewType type;
+@property (nonatomic, assign) QDDoublePickerViewType type;
 
 @end
 
@@ -45,10 +45,10 @@
  @param from 第一组选项默认值
  @param to 第二组选项默认值
  @param title 标题
- @param type 弹窗滑轮类型 DoublePickerViewType
+ @param type 弹窗滑轮类型 QDDoublePickerViewType
  @param pickerBlock 确认按钮点击回调
  */
-+ (void)showPickerViewWithFrom:(NSString *)from to:(NSString *)to title:(NSString *)title type:(DoublePickerViewType)type pickerBlock:(QDDoublePickerBlcok)pickerBlock {
++ (void)showPickerViewWithFrom:(NSString *)from to:(NSString *)to title:(NSString *)title type:(QDDoublePickerViewType)type pickerBlock:(QDDoublePickerBlcok)pickerBlock {
     
     QDDoublePickerView *pickerView = [[QDDoublePickerView alloc] initWithFrame:UIApplication.sharedApplication.keyWindow.bounds];
     pickerView.pickerBlock = pickerBlock;
@@ -60,13 +60,13 @@
     
     // 预填
     switch (type) {
-        case DoublePickerViewTypeExpre:
+        case QDDoublePickerViewTypeWorkExp:
             [pickerView prefillExpreWithFrom:from to:to];
             break;
-        case DoublePickerViewTypeSalary:
+        case QDDoublePickerViewTypeSalary:
             [pickerView prefillSalaryWithFrom:from to:to];
             break;
-        case DoublePickerViewTypeAge:
+        case QDDoublePickerViewTypeAge:
             [pickerView prefillAgeWithFrom:from to:to];
             break;
         default:
@@ -285,7 +285,7 @@
     for (PickerModel *tempModel in self.dataListArray) {
         
         switch (self.type) {
-            case DoublePickerViewTypeExpre: {
+            case QDDoublePickerViewTypeWorkExp: {
                 
                 if (tempModel.id.integerValue >= model.id.integerValue) {
                     [self.subDataListArray addObject:tempModel];
@@ -293,7 +293,7 @@
             }
                 break;
                 
-            case DoublePickerViewTypeSalary: {
+            case QDDoublePickerViewTypeSalary: {
                 
                 if ([self.selectModel.name isEqualToString:@"不限"]) {
                     [self.pickerView reloadComponent:1];
@@ -319,7 +319,7 @@
             }
                 break;
                 
-            case DoublePickerViewTypeAge: {
+            case QDDoublePickerViewTypeAge: {
                 
                 if ([self.selectModel.name isEqualToString:@"不限"]) {
                     [self.pickerView reloadComponent:1];
@@ -344,7 +344,7 @@
         _dataListArray = [NSMutableArray new];
         
         switch (self.type) {
-            case DoublePickerViewTypeExpre: {
+            case QDDoublePickerViewTypeWorkExp: {
                 
                 for (int i = 0; i <= 30; i++) {
                     
@@ -360,7 +360,7 @@
                 }
             }
                 break;
-            case DoublePickerViewTypeSalary: {
+            case QDDoublePickerViewTypeSalary: {
                 
                 PickerModel *model = [[PickerModel alloc] init];
                 model.name = @"不限";
@@ -388,7 +388,7 @@
             }
                 break;
                 
-            case DoublePickerViewTypeAge: {
+            case QDDoublePickerViewTypeAge: {
                 
                 PickerModel *model = [[PickerModel alloc] init];
                 model.name = @"不限";
@@ -417,7 +417,7 @@
         _subDataListArray = [NSMutableArray new];
         
         switch (self.type) {
-            case DoublePickerViewTypeExpre:
+            case QDDoublePickerViewTypeWorkExp:
             {
                 for (int i = 0; i <= 30; i++) {
                     PickerModel *model = [[PickerModel alloc] init];
@@ -433,7 +433,7 @@
                 }
             }
                 break;
-            case DoublePickerViewTypeSalary:
+            case QDDoublePickerViewTypeSalary:
             {
                 for (int i = 1; i <= 50; i++) {
                     PickerModel *model = [[PickerModel alloc] init];
@@ -450,7 +450,7 @@
             }
                 break;
                 
-            case DoublePickerViewTypeAge:
+            case QDDoublePickerViewTypeAge:
             {
                 for (int i = 20; i <= 60; i++) {
                     PickerModel *model = [[PickerModel alloc] init];
