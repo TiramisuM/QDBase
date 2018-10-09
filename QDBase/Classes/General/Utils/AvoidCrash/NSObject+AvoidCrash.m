@@ -15,9 +15,9 @@
 
 #pragma mark - 是否打开crash
 #ifdef DEBUG
-#define AVOID_CRASH_ENABLED 1
+#define AVOID_CRASH_ENABLED 0
 #else
-#define AVOID_CRASH_ENABLED 1
+#define AVOID_CRASH_ENABLED 0
 #endif
 
 #pragma mark - 记录崩溃的内容的一些宏定义

@@ -19,6 +19,7 @@
     [super viewDidLoad];
     [self constructView];
     self.title = @"起一个差不多长的名字";
+
     [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];
     [self registCellWithCellClassName:@"TestTableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromNib cellModelClassName:@"NSObject"];
     [self useCustomNavigation];

@@ -44,6 +44,13 @@
 
  @return appVersion
  */
+
 + (NSString *)getAppVersion;
 
+/**
+ 获取屏幕安全区域
+
+ @return 安全区域 UIEdgeInsets
+ */
++ (UIEdgeInsets)getSafeAreaInset;
 @end

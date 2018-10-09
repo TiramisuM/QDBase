@@ -107,4 +107,14 @@
     return curVersion;
 }
 
++ (UIEdgeInsets)getSafeAreaInset {
+    if (@available(iOS 11.0, *)) {
+        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+        if (keyWindow) {
+            return keyWindow.safeAreaInsets;
+        }
+    }
+    return UIEdgeInsetsZero;
+}
+
 @end
