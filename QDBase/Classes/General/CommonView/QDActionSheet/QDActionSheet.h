@@ -11,8 +11,11 @@
 @protocol QDActionSheetDelegate <NSObject>
 
 @optional
+/// ActionSheet 按钮被点击
 - (void)didClickOnButtonIndex:(NSInteger)buttonIndex;
+/// ActionSheet Destructive按钮被点击
 - (void)didClickOnDestructiveButton;
+/// ActionSheet 取消按钮被点击
 - (void)didClickOnCancelButton;
 
 @end

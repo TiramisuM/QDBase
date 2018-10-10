@@ -7,13 +7,17 @@
 //  HUD 提示
 
 #import "QDHUD.h"
-#import "ISAnimationLayer.h"
+#import "QDAnimationLayer.h"
 
 @implementation QDHUD
 
+/// HUD指示器类型
 typedef NS_ENUM(NSUInteger,QDHUDType) {
+    /// 加载中
     QDHUDTypeLoading  = 0,
+    /// 成功
     QDHUDTypeSuccess,
+    /// 失败
     QDHUDTypeFail,
 };
 
@@ -91,8 +95,8 @@ alpha:alphaValue]
 + (void)showLoading {
     
     UIView *blackRoundView = [self creatLoadingViewWithTitle:nil subTitle:nil type:QDHUDTypeLoading];
-    ISAnimationLayer *layer = [ISAnimationLayer layer];
-    layer.animationType = AnimationTypeRotateRound;
+    QDAnimationLayer *layer = [QDAnimationLayer layer];
+    layer.animationLayerType = QDAnimationLayerTypeRotateRound;
     layer.lineWidth = 4;
     layer.strokeColor = HUDColorFromHex(0xff6600).CGColor;
 
@@ -117,8 +121,8 @@ alpha:alphaValue]
     }
     
     UIView *blackRoundView = [self creatLoadingViewWithTitle:title subTitle:subTitle type:QDHUDTypeLoading];
-    ISAnimationLayer *layer = [ISAnimationLayer layer];
-    layer.animationType = AnimationTypeRotateRound;
+    QDAnimationLayer *layer = [QDAnimationLayer layer];
+    layer.animationLayerType = QDAnimationLayerTypeRotateRound;
     layer.lineWidth = 2;
     if (color) {
         layer.strokeColor = color.CGColor;
@@ -143,8 +147,8 @@ alpha:alphaValue]
 + (void)showSuccessWithTitle:(NSString *)title subTitle:(NSString *)subTitle color:(UIColor *)color{
     UIView *blackRoundView = [self creatLoadingViewWithTitle:title subTitle:subTitle type:QDHUDTypeSuccess];
     // 圆圈
-    ISAnimationLayer *roundLayer = [ISAnimationLayer layer];
-    roundLayer.animationType = AnimationTypeRound;
+    QDAnimationLayer *roundLayer = [QDAnimationLayer layer];
+    roundLayer.animationLayerType = QDAnimationLayerTypeRound;
     roundLayer.animationDuration = 0.5;
     roundLayer.lineWidth = 2;
     if (color) {
@@ -157,8 +161,8 @@ alpha:alphaValue]
     [roundLayer startAnimation];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(roundLayer.animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        ISAnimationLayer *tickLayer = [ISAnimationLayer layer];
-        tickLayer.animationType = AnimationTypeTick;
+        QDAnimationLayer *tickLayer = [QDAnimationLayer layer];
+        tickLayer.animationLayerType = QDAnimationLayerTypeTick;
         tickLayer.lineWidth = 3;
         if (color) {
             tickLayer.strokeColor = color.CGColor;
@@ -188,8 +192,8 @@ alpha:alphaValue]
     
     UIView *blackRoundView = [self creatLoadingViewWithTitle:title subTitle:subTitle type:QDHUDTypeFail];
     // 圆圈
-    ISAnimationLayer *roundLayer = [ISAnimationLayer layer];
-    roundLayer.animationType = AnimationTypeRound;
+    QDAnimationLayer *roundLayer = [QDAnimationLayer layer];
+    roundLayer.animationLayerType = QDAnimationLayerTypeRound;
     roundLayer.animationDuration = 0.5;
     roundLayer.lineWidth = 2;
     if (color) {
@@ -202,8 +206,8 @@ alpha:alphaValue]
     [roundLayer startAnimation];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(roundLayer.animationDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        ISAnimationLayer *tickLayer = [ISAnimationLayer layer];
-        tickLayer.animationType = AnimationTypeFork;
+        QDAnimationLayer *tickLayer = [QDAnimationLayer layer];
+        tickLayer.animationLayerType = QDAnimationLayerTypeFork;
         tickLayer.lineWidth = 3;
         tickLayer.animationDuration = 0.5;
 

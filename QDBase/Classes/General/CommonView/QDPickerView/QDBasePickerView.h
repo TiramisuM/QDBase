@@ -27,8 +27,6 @@
 
 @interface PickerModel : NSObject
 
-@property (nonatomic, copy) NSDate *date;
-@property (nonatomic, copy) NSString *pid;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *id;
 

@@ -20,7 +20,7 @@
 
 @property (nonatomic, strong) NSMutableArray *subDataListArray;
 
-@property (nonatomic, assign) DatePickerViewType type;
+@property (nonatomic, assign) QDDatePickerViewType type;
 /// 系统时间选择pickerView
 @property (nonatomic, strong) UIDatePicker *datePickerView;
 
@@ -55,10 +55,10 @@
  @param year 年份默认值
  @param mouth 月份默认值
  @param title 标题
- @param type 弹窗滑轮类型 DatePickerViewType
+ @param type 弹窗滑轮类型 QDDatePickerViewType
  @param pickerBlock 确认按钮点击回调
  */
-+ (void)showDatePickerViewWithYear:(NSString *)year mouth:(NSString *)mouth title:(NSString *)title type:(DatePickerViewType)type pickerBlock:(QDDatePickerBlcok)pickerBlock {
++ (void)showDatePickerViewWithYear:(NSString *)year mouth:(NSString *)mouth title:(NSString *)title type:(QDDatePickerViewType)type pickerBlock:(QDDatePickerBlcok)pickerBlock {
     
     QDDatePickerView *pickerView = [[QDDatePickerView alloc] initWithFrame:UIApplication.sharedApplication.keyWindow.bounds];
     pickerView.pickerBlock = pickerBlock;
@@ -162,7 +162,7 @@
     if ([self.selectModel.name isEqualToString:@"至今"] || [self.selectModel.name isEqualToString:@"不限"]) {
                 
     } else if ([self.selectModel.name isEqualToString:[NSString stringWithFormat:@"%ld",(long)comp.year]] &&
-             self.type != DatePickerViewTypeEduExperEndDate){
+             self.type != QDDatePickerViewTypeEduExpEndDate){
 
         for (int i = 0; i < comp.month; i++) {
             PickerModel *model = [[PickerModel alloc]init];
@@ -190,7 +190,7 @@
     NSDate *dt = [NSDate date];
     NSDateComponents *comp = [gregorian components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:dt];
     
-    if (self.type != DatePickerViewTypeBirthDate) {
+    if (self.type != QDDatePickerViewTypeBirthDate) {
         if (judgeString(year).length == 0 || year.length < 4 || year.integerValue < (comp.year - 50) || year.integerValue > (comp.year + 50)) {
             year = [NSString stringWithFormat:@"%ld",(long)comp.year];
         }
@@ -256,26 +256,26 @@
         NSInteger startYear = comp.year;
         
         // 如果是出生日期 当前年份减去16年
-        if (self.type == DatePickerViewTypeBirthDate) {
+        if (self.type == QDDatePickerViewTypeBirthDate) {
             startYear = startYear - 16;
         }
         // 如果是教育经历结束时间 当前年份加上5年
-        if (self.type == DatePickerViewTypeEduExperEndDate) {
+        if (self.type == QDDatePickerViewTypeEduExpEndDate) {
             startYear += 5;
         }
         
         // 结束时间加上至今
-        if (self.type == DatePickerViewTypeWorkExperEndDate ||
-            self.type == DatePickerViewTypeEduExperEndDate ||
-            self.type == DatePickerViewTypeProjectExperEndDate ||
-            self.type == DatePickerViewTypeTrainExperEndDate) {
+        if (self.type == QDDatePickerViewTypeWorkExpEndDate ||
+            self.type == QDDatePickerViewTypeEduExpEndDate ||
+            self.type == QDDatePickerViewTypeProjectExpEndDate ||
+            self.type == QDDatePickerViewTypeTrainExpEndDate) {
             PickerModel *model = [[PickerModel alloc] init];
             model.name = @"至今";
             model.id = @"0";
             [_dataListArray addObject:model];
         }
         
-        if (self.type == DatePickerViewTypeNoLimitDate) {
+        if (self.type == QDDatePickerViewTypeNoLimitDate) {
             PickerModel *model = [[PickerModel alloc] init];
             model.name = @"不限";
             model.id = @"0";

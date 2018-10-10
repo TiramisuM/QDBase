@@ -6,12 +6,12 @@
 //  Copyright © 2018年 巧达数据. All rights reserved.
 /// 带动画layer
 
-#import "ISAnimationLayer.h"
+#import "QDAnimationLayer.h"
 
-@implementation ISAnimationLayer
+@implementation QDAnimationLayer
 
 + (instancetype)layer{
-    return [[ISAnimationLayer alloc]init];
+    return [[QDAnimationLayer alloc]init];
 }
 
 - (instancetype)init{
@@ -33,18 +33,18 @@
 
 - (void)startAnimation{
     
-    switch (self.animationType) {
+    switch (self.animationLayerType) {
             
-        case AnimationTypeRotateRound:// 一直旋转的圆圈
+        case QDAnimationLayerTypeRotateRound:// 一直旋转的圆圈
             [self drawRotateRound];
             break;
-        case AnimationTypeRound:// 绘制一个圆圈
+        case QDAnimationLayerTypeRound:// 绘制一个圆圈
             [self drawRound];
             break;
-        case AnimationTypeTick:// 绘制一个对勾
+        case QDAnimationLayerTypeTick:// 绘制一个对勾
             [self drawTick];
             break;
-        case AnimationTypeFork:// 绘制一个叉号
+        case QDAnimationLayerTypeFork:// 绘制一个叉号
             [self drawFork];
             break;
         default:

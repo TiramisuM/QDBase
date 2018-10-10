@@ -10,6 +10,7 @@
 
 @interface QDSinglePickerView : QDBasePickerView
 
+/// 单选pickerView block回调
 typedef void(^QDSinglePickerBlcok)(PickerModel *model);
 
 /**
