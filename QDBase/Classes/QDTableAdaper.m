@@ -7,7 +7,21 @@
 //
 
 #import "QDTableAdaper.h"
+#import "QDNetWork.h"
 
 @implementation QDTableAdaper
+
+
+- (NSString *)url {
+    return @"/Introduce/list";
+}
+
+-(QDNetCacheRequestType)requestMethod{
+    return QDNetCacheRequestTypePOST;
+}
+
+//-(NSDictionary *)parameter{
+//    return @{@"keyword":@"李",@"page":@1};
+//}
 
 @end

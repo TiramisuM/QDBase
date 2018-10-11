@@ -9,6 +9,6 @@
 #ifndef APIMacro_h
 #define APIMacro_h
 
-#define BASE_URL @"http://test.api.guanxiduo.com"
+#define BASE_URL @"http://dev.api.guanxiduo.com"
 
 #endif /* APIMacro_h */

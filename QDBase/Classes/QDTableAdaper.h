@@ -6,8 +6,11 @@
 //  Copyright © 2018年 QiaoData. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "QDNetAdapter.h"
 
-@interface QDTableAdaper : QDNetAdapter
+@interface QDTableAdaper : QDNetAdapter<QDNetAdapterProtocol>
+
+@property (nonatomic, copy) NSString *name;
 
 @end

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -29,6 +29,10 @@
 		04E8C8E22160A2CA0083FEFE /* QDDoublePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8E12160A2CA0083FEFE /* QDDoublePickerView.m */; };
 		04E8C8E52160A72E0083FEFE /* QDDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8E42160A72E0083FEFE /* QDDatePickerView.m */; };
 		4D47A2F42B4E1EB82857CA8D /* libPods-QDBase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C3C96494A63F5BC18E98F6F /* libPods-QDBase.a */; };
+		681ECEDD216EDDDA004868A2 /* QDNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 681ECEDC216EDDDA004868A2 /* QDNetWork.m */; };
+		681ECEE0216EF061004868A2 /* QDNetAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 681ECEDF216EF061004868A2 /* QDNetAdapter.m */; };
+		681ECEE3216EF3D7004868A2 /* QDNetWorkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 681ECEE2216EF3D7004868A2 /* QDNetWorkAgent.m */; };
+		681ECEE6216F303E004868A2 /* QDTableAdaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 681ECEE5216F303E004868A2 /* QDTableAdaper.m */; };
 		D25B4647216AF74900B818C7 /* UIView+QDGetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D25B4646216AF74900B818C7 /* UIView+QDGetViewController.m */; };
 		D29C6C9A211AF9D2009CC81F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D29C6C90211AF9D2009CC81F /* LaunchScreen.storyboard */; };
 		D29C6C9B211AF9D2009CC81F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D29C6C91211AF9D2009CC81F /* Main.storyboard */; };
@@ -109,6 +113,14 @@
 		04E8C8E32160A72E0083FEFE /* QDDatePickerView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDDatePickerView.h; sourceTree = "<group>"; };
 		04E8C8E42160A72E0083FEFE /* QDDatePickerView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDDatePickerView.m; sourceTree = "<group>"; };
 		3514BEC65FBCD298805DBD52 /* Pods-QDBase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDBase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QDBase/Pods-QDBase.debug.xcconfig"; sourceTree = "<group>"; };
+		681ECEDB216EDDDA004868A2 /* QDNetWork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNetWork.h; sourceTree = "<group>"; };
+		681ECEDC216EDDDA004868A2 /* QDNetWork.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNetWork.m; sourceTree = "<group>"; };
+		681ECEDE216EF061004868A2 /* QDNetAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNetAdapter.h; sourceTree = "<group>"; };
+		681ECEDF216EF061004868A2 /* QDNetAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNetAdapter.m; sourceTree = "<group>"; };
+		681ECEE1216EF3D7004868A2 /* QDNetWorkAgent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNetWorkAgent.h; sourceTree = "<group>"; };
+		681ECEE2216EF3D7004868A2 /* QDNetWorkAgent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNetWorkAgent.m; sourceTree = "<group>"; };
+		681ECEE4216F303E004868A2 /* QDTableAdaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTableAdaper.h; sourceTree = "<group>"; };
+		681ECEE5216F303E004868A2 /* QDTableAdaper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDTableAdaper.m; sourceTree = "<group>"; };
 		7C3C96494A63F5BC18E98F6F /* libPods-QDBase.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QDBase.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD72023648B635964038F48E /* Pods-QDBase.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QDBase.release.xcconfig"; path = "Pods/Target Support Files/Pods-QDBase/Pods-QDBase.release.xcconfig"; sourceTree = "<group>"; };
 		D25B4645216AF74900B818C7 /* UIView+QDGetViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+QDGetViewController.h"; sourceTree = "<group>"; };
@@ -452,6 +464,12 @@
 				D2F5EEFE214A464E0036EE2F /* NSObject+QDNetworkParameter.m */,
 				D2F5EEFF214A464E0036EE2F /* QDNetworkWithCache.h */,
 				D2F5EEFD214A464E0036EE2F /* QDNetworkWithCache.m */,
+				681ECEE1216EF3D7004868A2 /* QDNetWorkAgent.h */,
+				681ECEE2216EF3D7004868A2 /* QDNetWorkAgent.m */,
+				681ECEDB216EDDDA004868A2 /* QDNetWork.h */,
+				681ECEDC216EDDDA004868A2 /* QDNetWork.m */,
+				681ECEDE216EF061004868A2 /* QDNetAdapter.h */,
+				681ECEDF216EF061004868A2 /* QDNetAdapter.m */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -612,6 +630,8 @@
 				D2F5EEF8214A3BB50036EE2F /* TestTableViewCell.xib */,
 				D2F5B7F321184775008F1DB9 /* ViewController.h */,
 				D2F5B7F421184775008F1DB9 /* ViewController.m */,
+				681ECEE4216F303E004868A2 /* QDTableAdaper.h */,
+				681ECEE5216F303E004868A2 /* QDTableAdaper.m */,
 				D2F5EEFB214A464E0036EE2F /* General */,
 				D29C6C80211AF9A8009CC81F /* VendorLibraries */,
 			);
@@ -722,16 +742,20 @@
 				TargetAttributes = {
 					D2F3DF0C215B6973009F06D8 = {
 						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
 					};
 					D2F5B7EC21184775008F1DB9 = {
 						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
 					};
 					D2F5B80421184776008F1DB9 = {
 						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
 						TestTargetID = D2F5B7EC21184775008F1DB9;
 					};
 					D2F5B80F21184776008F1DB9 = {
 						CreatedOnToolsVersion = 9.4.1;
+						ProvisioningStyle = Automatic;
 						TestTargetID = D2F5B7EC21184775008F1DB9;
 					};
 				};
@@ -857,7 +881,9 @@
 				D2F5EEF9214A3BB50036EE2F /* TestTableViewCell.m in Sources */,
 				D25B4647216AF74900B818C7 /* UIView+QDGetViewController.m in Sources */,
 				04E8C8E52160A72E0083FEFE /* QDDatePickerView.m in Sources */,
+				681ECEE0216EF061004868A2 /* QDNetAdapter.m in Sources */,
 				D29C6C9F211AF9D2009CC81F /* AppDelegate.m in Sources */,
+				681ECEE6216F303E004868A2 /* QDTableAdaper.m in Sources */,
 				04E8C8DF2160A29F0083FEFE /* QDSinglePickerView.m in Sources */,
 				D2F5EF4C214A48C10036EE2F /* UIFont+FitTextFont.m in Sources */,
 				D2F5EF4B214A48C10036EE2F /* UIView+FitTextFont.m in Sources */,
@@ -870,6 +896,7 @@
 				D2F5EF0C214A464E0036EE2F /* QDCacheSingleton.m in Sources */,
 				D2F5EF5A214A5AB10036EE2F /* AESCrypt.m in Sources */,
 				D2F5EF0B214A464E0036EE2F /* NSObject+QDNetworkParameter.m in Sources */,
+				681ECEE3216EF3D7004868A2 /* QDNetWorkAgent.m in Sources */,
 				D2F5EF5C214A5AB10036EE2F /* NSData+Base64.m in Sources */,
 				D2F5EF0A214A464E0036EE2F /* QDNetworkWithCache.m in Sources */,
 				D2F5EF36214A468B0036EE2F /* QDBaseViewController.m in Sources */,
@@ -877,6 +904,7 @@
 				D2E62377215F2B68002AE4DB /* NSObject+Encrypt.m in Sources */,
 				D2E6231B215C8520002AE4DB /* UIView+QDFastFrame.m in Sources */,
 				04E8C8D5215F974E0083FEFE /* QDHUD.m in Sources */,
+				681ECEDD216EDDDA004868A2 /* QDNetWork.m in Sources */,
 				04E8C8C4215F96A90083FEFE /* QDActionSheet.m in Sources */,
 				04E8C8D9215F98500083FEFE /* QDAnimationLayer.m in Sources */,
 				D2E62345215DDB77002AE4DB /* NullSafe.m in Sources */,
@@ -1062,10 +1090,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QDBase/Classes/General/Macro/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/QDBase/Resource/Plists/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiaodata.QDBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1082,10 +1107,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/QDBase/Classes/General/Macro/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/QDBase/Resource/Plists/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiaodata.QDBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1099,11 +1121,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M9NTD8BLJW;
 				INFOPLIST_FILE = QDBaseTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiaodata.QDBaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1118,11 +1136,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M9NTD8BLJW;
 				INFOPLIST_FILE = QDBaseTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiaodata.QDBaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1136,11 +1150,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M9NTD8BLJW;
 				INFOPLIST_FILE = QDBaseUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiaodata.QDBaseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1154,11 +1164,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M9NTD8BLJW;
 				INFOPLIST_FILE = QDBaseUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.qiaodata.QDBaseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

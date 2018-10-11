@@ -22,8 +22,8 @@
 + (NSDictionary *)userInfoDict {
     // 处理放在param里面的用户信息等隐私操作
     // token、userId
-    NSString *token = @"T2hEbFJqZXF5RTVrVlM2OVczSTFTVU9pZ0xzYUFHaEJxZzQ9";
-    NSString *userId = @"WUZaMGdqTkZBRzhUZURVTlJhR2FkNzg9";
+    NSString *token = @"eXp2YitKbzd4Q2xYbW52Vjl1MHdUeFkrSlg5VFBYMTNqSTg9";
+    NSString *userId = @"VEdHN2ZhdlR2M2JMc09veWtEMGYzUkxL";
     NSDictionary *userInfoDict = @{@"token" : token,
                                    @"userId" : userId
                                    };
@@ -38,7 +38,7 @@
     // 处理拼接在url后面的参数
     // apiVersion logid appVersion osType
     NSString *apiVersion = @"2.2.0";
-    NSString *logId = @"cc6e8de71832e62aed9148c1a12e4ffd";
+    NSString *logId = @"0fa86afe69efa0eca2115f448283bfab";
     NSString *appVersion = @"2.2.0";
     NSString *osType = @"ios";
     

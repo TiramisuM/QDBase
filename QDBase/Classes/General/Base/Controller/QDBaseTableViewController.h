@@ -7,7 +7,7 @@
 /// 基类tableViewController
 
 #import "QDBaseViewController.h"
-#import "QDNetworkWithCache.h"
+#import "QDNetWorkAgent.h"
 
 /// cell加载方式
 typedef NS_ENUM(NSUInteger, QDBaseTableViewCellLoadFrom) {

@@ -103,30 +103,30 @@ static NSUInteger const  PageSize       = 20;
 - (void)baseRequestData {
     
     // 将page和minId拼接到参数中
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:_parameters];
-    if (self.paramPage != 1) params[kParamMinID] = self.lastId;
-    params[kParamPage] = @(self.paramPage);
-    params[kParamPageSize] = @(PageSize);
-    NSAssert(_urlString, @"必须调用\"[self dataSourceNetRequest...]\"方法");
-    
-    // 判断当前缓存机制是否为 "有缓存就先返回缓存，同步请求数据" , 如果是，则继续判断是否为第一页，不是第一页的话 忽略缓存直接请求
-    QDNetCacheRequestPolicy cachePolicy = _cachePolicy;
-    if (cachePolicy == QDNetCacheRequestReturnCacheDataThenLoad && self.paramPage != 1) {
-        cachePolicy = QDNetCacheRequestReloadIgnoringCacheData;
-    }
-    
-    NSURLSessionDataTask *dataTask = [QDNetworkWithCache requestWithType:_requestType
-                                                                     urlString:_urlString
-                                                                    parameters:params
-                                                                  cacheTimeout:_cacheTimeout
-                                                                   cachePolicy:cachePolicy
-                                                                      progress:nil
-                                                                       success:^(id result, BOOL isCache) {
-                                                                           [self responseSuccessDataWithObject:result isCache:isCache];
-                                                                       } failure:^(NSError *error) {
-                                                                           [self responseFailureDataWithError:error];
-                                                                       }];
-    [self addURLSessionDataTask:dataTask];
+//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:_parameters];
+//    if (self.paramPage != 1) params[kParamMinID] = self.lastId;
+//    params[kParamPage] = @(self.paramPage);
+//    params[kParamPageSize] = @(PageSize);
+//    NSAssert(_urlString, @"必须调用\"[self dataSourceNetRequest...]\"方法");
+//
+//    // 判断当前缓存机制是否为 "有缓存就先返回缓存，同步请求数据" , 如果是，则继续判断是否为第一页，不是第一页的话 忽略缓存直接请求
+//    QDNetCacheRequestPolicy cachePolicy = _cachePolicy;
+//    if (cachePolicy == QDNetCacheRequestReturnCacheDataThenLoad && self.paramPage != 1) {
+//        cachePolicy = QDNetCacheRequestReloadIgnoringCacheData;
+//    }
+//
+//    NSURLSessionDataTask *dataTask = [QDNetworkWithCache requestWithType:_requestType
+//                                                                     urlString:_urlString
+//                                                                    parameters:params
+//                                                                  cacheTimeout:_cacheTimeout
+//                                                                   cachePolicy:cachePolicy
+//                                                                      progress:nil
+//                                                                       success:^(id result, BOOL isCache) {
+//                                                                           [self responseSuccessDataWithObject:result isCache:isCache];
+//                                                                       } failure:^(NSError *error) {
+//                                                                           [self responseFailureDataWithError:error];
+//                                                                       }];
+//    [self addURLSessionDataTask:dataTask];
 }
 
 #pragma mark 服务器返回的数据

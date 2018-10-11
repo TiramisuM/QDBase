@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "QDTableAdaper.h"
+#import "QDNetWork.h"
 
 @interface ViewController ()
 
@@ -18,11 +20,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self constructView];
-    self.title = @"起一个差不多长的名字";
-
-    [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];
-    [self registCellWithCellClassName:@"TestTableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromNib cellModelClassName:@"NSObject"];
-    [self useCustomNavigation];
+    
+    QDTableAdaper *adaper = [[QDTableAdaper alloc] init];
+    adaper.parameter = @{@"keyword":@"王",@"page":@1};
+    [adaper requestArraySuccess:^(id result, BOOL isCache) {
+        NSLog(@"%@",result);
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+//    [adaper requestSuccess:^(id result, BOOL isCache) {
+//        NSLog(@"%@",result);
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+//    self.title = @"起一个差不多长的名字";
+//
+//    [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];
+//    [self registCellWithCellClassName:@"TestTableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromNib cellModelClassName:@"NSObject"];
+//    [self useCustomNavigation];
 }
 
 #pragma mark - ============== Construct View ================
