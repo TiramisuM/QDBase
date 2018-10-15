@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, QDDoublePickerViewType) {
 @interface QDDoublePickerView : QDBasePickerView
 
 /// 双选pickerView block回调
-typedef void(^QDDoublePickerBlcok)(PickerModel *model, PickerModel *subPickModel);
+typedef void(^QDDoublePickerBlcok)(PickerModel *model, PickerModel *subPickerModel);
 
 /**
  自定义双选pickerView

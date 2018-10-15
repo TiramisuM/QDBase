@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, QDDatePickerViewType) {
 @interface QDDatePickerView : QDBasePickerView
 
 /// DatePickerView block回调
-typedef void(^QDDatePickerBlcok)(PickerModel *model, PickerModel *subPickModel);
+typedef void(^QDDatePickerBlcok)(PickerModel *model, PickerModel *subPickerModel);
 
 /**
  自定义DatePickerView
