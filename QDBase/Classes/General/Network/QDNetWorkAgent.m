@@ -26,12 +26,12 @@ static  QDNetWorkAgent *sharedClient      = nil;
 
 @implementation QDNetWorkAgent
 
-const NSString *QDNetCacheRequestTypeStringMap[] = {
-    [QDNetCacheRequestTypeGET] = @"GET",
-    [QDNetCacheRequestTypePOST] = @"POST"
+const NSString *QDNetRequestTypeStringMap[] = {
+    [QDNetRequestTypeGET] = @"GET",
+    [QDNetRequestTypePOST] = @"POST"
 };
 
-- (NSURLSessionDataTask *)dataTaskMethod:(QDNetCacheRequestType)type
+- (NSURLSessionDataTask *)dataTaskMethod:(QDNetRequestType)type
                            urlString:(NSString *)urlString
                           parameters:(id)parameters
                             cacheKey:(NSString *)cacheKey
@@ -78,7 +78,7 @@ const NSString *QDNetCacheRequestTypeStringMap[] = {
     
     // 配置request，发起请求
     NSError *serializationError = nil;
-    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:(NSString *)QDNetCacheRequestTypeStringMap[type] URLString:[[NSURL URLWithString:urlString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:&serializationError];
+    NSMutableURLRequest *request = [self.requestSerializer requestWithMethod:(NSString *)QDNetRequestTypeStringMap[type] URLString:[[NSURL URLWithString:urlString relativeToURL:self.baseURL] absoluteString] parameters:parameters error:&serializationError];
     
     if (serializationError) {
         if (failure) {
@@ -116,7 +116,7 @@ const NSString *QDNetCacheRequestTypeStringMap[] = {
 
 
 #pragma mark 网络请求方法实现
-- (NSURLSessionDataTask *)requestMethod:(QDNetCacheRequestType)type
+- (NSURLSessionDataTask *)requestMethod:(QDNetRequestType)type
                               urlString:(NSString *)urlString
                              parameters:(id)parameters
                            cacheTimeout:(NSUInteger)cacheTimeout

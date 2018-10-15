@@ -11,6 +11,7 @@
 #import "QDRefreshHeader.h"
 #import "QDRefreshFooter.h"
 #import "UITableViewCell+QDBaseTableViewCell.h"
+#import "QDTableModel.h"
 
 // 请求参数
 static NSString  *const  kParamPageSize = @"pageSize";
@@ -22,7 +23,7 @@ static NSUInteger const  PageSize       = 20;
 @interface QDBaseTableViewController ()
 {
     // dataSource基础数据请求参数
-    QDNetCacheRequestType _requestType;
+    QDNetRequestType _requestType;
     NSString *_urlString;
     NSDictionary *_parameters;
     NSUInteger _cacheTimeout;
@@ -321,14 +322,14 @@ static NSUInteger const  PageSize       = 20;
 @implementation QDBaseTableViewController (DataSourceRequestParams)
 
 - (void)dataSourceNetRequestWithURLString:(NSString *)urlString parameters:(NSDictionary *)parameters {
-    _requestType = QDNetCacheRequestTypePOST;
+    _requestType = QDNetRequestTypePOST;
     _urlString = urlString;
     _parameters = parameters;
     _cacheTimeout = 120.f;
     _cachePolicy = QDNetCacheRequestTimestampLoad;
 }
 
-- (void)dataSourceNetRequestWithRequestType:(QDNetCacheRequestType)requestType urlString:(NSString *)urlString parameters:(NSDictionary *)parameters cacheTimeout:(NSUInteger)cacheTimeout cachePolicy:(QDNetCacheRequestPolicy)cachePolicy {
+- (void)dataSourceNetRequestWithRequestType:(QDNetRequestType)requestType urlString:(NSString *)urlString parameters:(NSDictionary *)parameters cacheTimeout:(NSUInteger)cacheTimeout cachePolicy:(QDNetCacheRequestPolicy)cachePolicy {
     _requestType = requestType;
     _urlString = urlString;
     _parameters = parameters;

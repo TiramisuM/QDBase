@@ -7,8 +7,8 @@
 //
 
 #import "ViewController.h"
-#import "QDTableAdaper.h"
-#import "QDNetWork.h"
+#import "QDTableManager.h"
+#import "QDTableModel.h"
 
 @interface ViewController ()
 
@@ -21,18 +21,15 @@
     [super viewDidLoad];
     [self constructView];
     
-    QDTableAdaper *adaper = [[QDTableAdaper alloc] init];
-    adaper.parameter = @{@"keyword":@"王",@"page":@1};
-    [adaper requestArraySuccess:^(id result, BOOL isCache) {
-        NSLog(@"%@",result);
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
+    [QDTableManager get:nil succeed:^(id result, BOOL isCache) {
+        for (QDTableModel *model in result) {
+            NSLog(@"%@",model.errorCode);
+            NSLog(@"%@",model.message);
+            NSLog(@"%@",model.list[0].name);
+            NSLog(@"%@",model.list[0].asset);
+        }
     }];
-//    [adaper requestSuccess:^(id result, BOOL isCache) {
-//        NSLog(@"%@",result);
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@",error);
-//    }];
+    
 //    self.title = @"起一个差不多长的名字";
 //
 //    [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];

@@ -15,9 +15,8 @@ typedef struct {
     
     NSUInteger netTimeoutInterval;
     NSUInteger cacheTimeoutInterval;
-    QDNetCacheRequestType requestType;
+    QDNetRequestType requestType;
     CFTypeRef requestHeader;
-    
 } QDNetGlobleConfig;
 
 /**
@@ -34,8 +33,8 @@ static QDNetWork *sharedManger = nil;
         QDNetGlobleConfig config = {
             config.netTimeoutInterval = 60,
             config.cacheTimeoutInterval = 120,
-            config.requestType = QDNetCacheRequestTypeGET,
-            config.requestHeader = (__bridge_retained CFTypeRef)(@{@"globleKey":@"globleValue"})
+            config.requestType = QDNetRequestTypeGET,
+            config.requestHeader = (__bridge_retained CFTypeRef)(@{})
         };
         //配置网络管理类
         sharedManger = [[QDNetWork alloc] initWithConfig:config];

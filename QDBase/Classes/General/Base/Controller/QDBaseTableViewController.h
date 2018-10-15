@@ -61,6 +61,6 @@ typedef NS_ENUM(NSUInteger, QDBaseTableViewCellLoadFrom) {
  @param cacheTimeout 缓存时效
  @param cachePolicy 缓存策略 QDNetCacheRequestPolicy
  */
-- (void)dataSourceNetRequestWithRequestType:(QDNetCacheRequestType)requestType urlString:(NSString *)urlString parameters:(NSDictionary *)parameters cacheTimeout:(NSUInteger)cacheTimeout cachePolicy:(QDNetCacheRequestPolicy)cachePolicy;
+- (void)dataSourceNetRequestWithRequestType:(QDNetRequestType)requestType urlString:(NSString *)urlString parameters:(NSDictionary *)parameters cacheTimeout:(NSUInteger)cacheTimeout cachePolicy:(QDNetCacheRequestPolicy)cachePolicy;
 
 @end

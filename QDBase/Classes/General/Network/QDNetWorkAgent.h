@@ -10,12 +10,12 @@
 #import <AFNetworking/AFNetworking.h>
 
 /// 请求类型 GET 和POST
-typedef NS_ENUM(NSUInteger, QDNetCacheRequestType)
+typedef NS_ENUM(NSUInteger, QDNetRequestType)
 {
     /// GET请求
-    QDNetCacheRequestTypeGET = 0,
+    QDNetRequestTypeGET = 0,
     /// POST请求
-    QDNetCacheRequestTypePOST,
+    QDNetRequestTypePOST,
 };
 
 /// 成功回调
@@ -32,7 +32,7 @@ typedef void(^ProgressBlock)(NSProgress *progress);
 
 + (instancetype)sharedNetwork;
 
-- (NSURLSessionDataTask *)requestMethod:(QDNetCacheRequestType)type
+- (NSURLSessionDataTask *)requestMethod:(QDNetRequestType)type
                               urlString:(NSString *)urlString
                              parameters:(id)parameters
                            cacheTimeout:(NSUInteger)cacheTimeout

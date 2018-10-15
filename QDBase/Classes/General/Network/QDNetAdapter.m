@@ -10,58 +10,17 @@
 
 @implementation QDNetAdapter
 
-
-- (void)requestSuccess:(SuccessBlock)success failure:(FailureBlock)failure{
+- (NSURLSessionDataTask *)requestSuccess:(SuccessBlock)success failure:(FailureBlock)failure {
     
-    NSString *url = nil;
-    if ([self respondsToSelector:@selector(url)]) {
-        url = [self performSelector:@selector(url)];
-    }else {
-        url = @"";
-    }
-    _parameter = [self parameter];
-    _netTimeout  = [self netTimeout];
-    _cachePolicy = [self cachePolicy];
-    _cacheTimeout = [self cacheTimeout];
-    _requestMethod = [self requestMethod];
-    _requestHeader = [self requestHeader];
-    
-    [[QDNetWork shareManager].netAgent requestMethod:_requestMethod urlString:url parameters:_parameter cacheTimeout:_cacheTimeout netTimeout:_netTimeout requestHeader:_requestHeader cachePolicy:_cachePolicy success:^(id result, BOOL isCache) {
+    return [[QDNetWork shareManager].netAgent requestMethod:self.requestMethod urlString:self.url parameters:self.parameter cacheTimeout:self.cacheTimeout netTimeout:self.netTimeout requestHeader:self.requestHeader cachePolicy:self.cachePolicy success:^(id result, BOOL isCache) {
         
-        // 拿到 errorCode && msg
-        self.errorCode = judgeString(result[@"error"]);
-        self.msg = judgeString(result[@"msg"]);
-        // 解析数据源
-        [self mj_setKeyValues:result[@"data"]];
-        success(self,isCache);
+        Class MClass = NSClassFromString(self.modelClass);
+        id dataModel = [[MClass alloc] init];
         
-    } failure:failure];
-}
-
-
-- (void)requestArraySuccess:(SuccessBlock)success failure:(FailureBlock)failure{
-    
-    NSString *url = nil;
-    if ([self respondsToSelector:@selector(url)]) {
-        url = [self performSelector:@selector(url)];
-    }else {
-        url = @"";
-    }
-    _parameter = [self parameter];
-    _netTimeout  = [self netTimeout];
-    _cachePolicy = [self cachePolicy];
-    _cacheTimeout = [self cacheTimeout];
-    _requestMethod = [self requestMethod];
-    _requestHeader = [self requestHeader];
-    
-    [[QDNetWork shareManager].netAgent requestMethod:_requestMethod urlString:url parameters:_parameter cacheTimeout:_cacheTimeout netTimeout:_netTimeout requestHeader:_requestHeader cachePolicy:_cachePolicy success:^(id result, BOOL isCache) {
-        
-        // 拿到 errorCode && msg
-        self.errorCode = judgeString(result[@"error"]);
-        self.msg = judgeString(result[@"msg"]);
-        // 解析数据源
-        NSArray *arr = [[self class] mj_objectArrayWithKeyValuesArray:result[@"data"][@"list"]];
-        success(arr,isCache);
+        [dataModel setValue:judgeString(result[@"error"]) forKey:@"errorCode"];
+        [dataModel setValue:judgeString(result[@"msg"]) forKey:@"message"];
+        [dataModel mj_setKeyValues:result[@"data"]];
+        success(dataModel,isCache);
         
     } failure:failure];
 }
