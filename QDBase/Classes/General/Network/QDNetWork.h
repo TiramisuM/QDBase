@@ -15,4 +15,7 @@
 
 @property (nonatomic, strong ,readonly) QDNetWorkAgent *netAgent;
 
++ (NSDictionary *)userInfoDict;
++ (NSString *)appendUrlWithString:(NSString *)url;
++ (NSDictionary *)appendUserInfoWithDict:(NSDictionary *)parameter;
 @end

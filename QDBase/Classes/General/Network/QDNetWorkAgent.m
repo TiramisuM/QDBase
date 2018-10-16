@@ -8,7 +8,6 @@
 
 #import "QDNetWorkAgent.h"
 #import "YYCache.h"
-#import "NSObject+QDNetworkParameter.h"
 
 #define kCommonCacheKey     @"CommonCacheKey"
 #define kTimestampKey       @"CommonTimestampKey"
@@ -126,10 +125,6 @@ const NSString *QDNetRequestTypeStringMap[] = {
                                 success:(SuccessBlock)success
                                 failure:(FailureBlock)failure {
     
-    /// 如果参数存在，则将用户信息拼接上去，如果不存在，则直接返回用户信息的参数
-    parameters = (parameters && [parameters isKindOfClass:[NSDictionary class]]) ? [parameters networkParamWithUserInfoDict] : [NSDictionary userInfoDict];
-    urlString = [urlString networkUrlString];
-    
     if ([AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) {
         
     }
@@ -238,26 +233,6 @@ const NSString *QDNetRequestTypeStringMap[] = {
 
 
 #pragma mark - ============== 图片上传 ================
-#pragma mark 接口
-- (NSURLSessionDataTask *)postImageWithURLString:(NSString *)URLString
-                                      parameters:(id)parameters
-                                       imageData:(NSData *)imageData
-                                       imageName:(NSString *)imageName
-                                         success:(SuccessBlock)success
-                                         failure:(FailureBlock)failure {
-    return [self postImageWithURLString:URLString parameters:parameters imageDataArr:@[imageData] imageNameArr:@[imageName] progress:nil success:success failure:failure];
-}
-
-- (NSURLSessionDataTask *)postImageWithURLString:(NSString *)URLString
-                                      parameters:(id)parameters
-                                    imageDataArr:(NSArray<NSData *> *)imageDataArr
-                                    imageNameArr:(NSArray<NSString *> *)imageNameArr
-                                         success:(SuccessBlock)success
-                                         failure:(FailureBlock)failure {
-    return [self postImageWithURLString:URLString parameters:parameters imageDataArr:imageDataArr imageNameArr:imageNameArr progress:nil success:success failure:failure];
-}
-
-#pragma mark 方法实现
 - (NSURLSessionDataTask *)postImageWithURLString:(NSString *)URLString
                                       parameters:(id)parameters
                                     imageDataArr:(NSArray<NSData *> *)imageDataArr
@@ -266,8 +241,6 @@ const NSString *QDNetRequestTypeStringMap[] = {
                                          success:(SuccessBlock)success
                                          failure:(FailureBlock)failure {
     
-    parameters = (parameters && [parameters isKindOfClass:[NSDictionary class]]) ? [parameters networkParamWithUserInfoDict] : [NSDictionary userInfoDict];
-    NSString *tempUrlStr = [URLString networkUrlString];
     [QDNetWorkAgent sharedNetwork].uploadProgress = progress;
     
     /// 处理imageName与imageData个数不相等问题
@@ -286,7 +259,7 @@ const NSString *QDNetRequestTypeStringMap[] = {
         }
     }
     
-    return [[QDNetWorkAgent sharedNetwork] POST:tempUrlStr parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    return [[QDNetWorkAgent sharedNetwork] POST:URLString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         for (int i = 0; i < imageDataArr.count; i++) {
             NSString *imageName = imageNames[i];

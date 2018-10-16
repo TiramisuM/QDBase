@@ -19,6 +19,8 @@
 @property (nonatomic, assign) NSDictionary *requestHeader;
 @property (nonatomic, assign) QDNetRequestType requestMethod;
 @property (nonatomic, assign) QDNetCacheRequestPolicy cachePolicy;
+@property (nonatomic, strong) NSArray<NSData *> *imageDataArr;
+@property (nonatomic, strong) NSArray<NSString *> *imageNameArr;
 
 /// 返回数据通用属性：错误码
 @property (nonatomic, copy) NSString *errorCode;
@@ -33,5 +35,7 @@
  @param failure 失败回调：返回错误信息
  */
 - (NSURLSessionDataTask *)requestSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+
+- (NSURLSessionDataTask *)postImageProgress:(ProgressBlock)progress success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 @end

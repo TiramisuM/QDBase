@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, QDNetRequestType)
 };
 
 /// 成功回调
-typedef void(^SuccessBlock)(QDResponseModel *result, BOOL isCache);
+typedef void(^SuccessBlock)(id result, BOOL isCache);
 /// 失败回调
 typedef void(^FailureBlock)(NSError *error);
 /// 进度回调
@@ -32,6 +32,7 @@ typedef void(^ProgressBlock)(NSProgress *progress);
 
 + (instancetype)sharedNetwork;
 
+
 - (NSURLSessionDataTask *)requestMethod:(QDNetRequestType)type
                               urlString:(NSString *)urlString
                              parameters:(id)parameters
@@ -42,13 +43,6 @@ typedef void(^ProgressBlock)(NSProgress *progress);
                                 success:(SuccessBlock)success
                                 failure:(FailureBlock)failure;
 
-
-- (NSURLSessionDataTask *)postImageWithURLString:(NSString *)URLString
-                                      parameters:(id)parameters
-                                       imageData:(NSData *)imageData
-                                       imageName:(NSString *)imageName
-                                         success:(SuccessBlock)success
-                                         failure:(FailureBlock)failure;
 
 - (NSURLSessionDataTask *)postImageWithURLString:(NSString *)URLString
                                       parameters:(id)parameters
