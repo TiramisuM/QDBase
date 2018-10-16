@@ -73,9 +73,10 @@
 
 #else
 
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url  :(nonnull NSDictionary<NSString *,id> *)options {
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     return YES;
 }
+
 #endif
 
 @end
