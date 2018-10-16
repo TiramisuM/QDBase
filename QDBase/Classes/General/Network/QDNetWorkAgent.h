@@ -28,7 +28,7 @@ typedef void(^ProgressBlock)(NSProgress *progress);
 
 @interface QDNetWorkAgent : AFHTTPSessionManager
 
-@property (nonatomic, assign) NSUInteger   cacheTimeoutInterval;
+@property (nonatomic, assign) NSUInteger cacheTimeoutInterval;
 
 + (instancetype)sharedNetwork;
 

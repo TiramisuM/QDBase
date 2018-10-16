@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "QDNetWork.h"
 
+/// 成功回调
+typedef void(^SuccessedModelBlock)(id result, BOOL isCache);
+
+
 @interface QDNetAdapter : NSObject
 
 @property (nonatomic, copy) NSString *url;
@@ -33,9 +37,18 @@
 
  @param success 成功回调：返回解析好的数据模型
  @param failure 失败回调：返回错误信息
+ @return Task
  */
-- (NSURLSessionDataTask *)requestSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (NSURLSessionDataTask *)requestSuccess:(SuccessedModelBlock)success failure:(FailureBlock)failure;
 
-- (NSURLSessionDataTask *)postImageProgress:(ProgressBlock)progress success:(SuccessBlock)success failure:(FailureBlock)failure;
+/**
+ 上传图片
+
+ @param progress 进度回调
+ @param success 返回解析好的数据模型
+ @param failure 失败回调：返回错误信息
+ @return Task
+ */
+- (NSURLSessionDataTask *)postImageProgress:(ProgressBlock)progress success:(SuccessedModelBlock)success failure:(FailureBlock)failure;
 
 @end

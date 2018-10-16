@@ -15,7 +15,18 @@
 
 @property (nonatomic, strong ,readonly) QDNetWorkAgent *netAgent;
 
-+ (NSDictionary *)userInfoDict;
-+ (NSString *)appendUrlWithString:(NSString *)url;
-+ (NSDictionary *)appendUserInfoWithDict:(NSDictionary *)parameter;
+/**
+ 获取网络请求需要的用户信息
+
+ @return 用户信息
+ */
++ (NSDictionary *)netUserInfoDict;
+
+/**
+ 获取网络请求需要的公共信息
+
+ @return 公共信息
+ */
++ (NSDictionary *)netPublicParameter;
+
 @end

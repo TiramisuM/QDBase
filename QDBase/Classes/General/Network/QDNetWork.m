@@ -65,7 +65,7 @@ static QDNetWork *sharedManger = nil;
     return self;
 }
 
-+ (NSDictionary *)userInfoDict {
++ (NSDictionary *)netUserInfoDict {
     // 处理放在param里面的用户信息等隐私操作
     // token、userId
     NSString *token = @"eXp2YitKbzd4Q2xYbW52Vjl1MHdUeFkrSlg5VFBYMTNqSTg9";
@@ -76,26 +76,13 @@ static QDNetWork *sharedManger = nil;
     return userInfoDict;
 }
 
-+ (NSDictionary *)appendUserInfoWithDict:(NSDictionary *)parameter {
-    
-    NSMutableDictionary *paramDict = [[NSMutableDictionary alloc] init];
-    [paramDict addEntriesFromDictionary:parameter];
-    [paramDict addEntriesFromDictionary:[QDNetWork userInfoDict]];
-    
-    return paramDict;
-}
-
-+ (NSString *)appendUrlWithString:(NSString *)url {
-    // 处理拼接在url后面的参数
-    // apiVersion logid appVersion osType
-    NSString *apiVersion = @"2.2.0";
-    NSString *logId = @"0fa86afe69efa0eca2115f448283bfab";
-    NSString *appVersion = @"2.2.0";
-    NSString *osType = @"ios";
-
-    NSString *networkUrlString = [NSString stringWithFormat:@"%@?apiversion=%@&logid=%@&appversion=%@&osType=%@", url, apiVersion, logId, appVersion, osType];
-
-    return networkUrlString;
++ (NSDictionary *)netPublicParameter{
+    return @{
+             @"piVersion" : @"2.2.0",
+             @"logId" : @"0fa86afe69efa0eca2115f448283bfab",
+             @"appVersion" : @"2.2.0",
+             @"osType" : @"ios",
+             };
 }
 
 @end
