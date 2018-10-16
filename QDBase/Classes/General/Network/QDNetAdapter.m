@@ -16,7 +16,7 @@
         
         Class MClass = NSClassFromString(self.modelClass);
         id dataModel = [[MClass alloc] init];
-        
+        // 加判断
         [dataModel setValue:judgeString(result[@"error"]) forKey:@"errorCode"];
         [dataModel setValue:judgeString(result[@"msg"]) forKey:@"message"];
         [dataModel mj_setKeyValues:result[@"data"]];

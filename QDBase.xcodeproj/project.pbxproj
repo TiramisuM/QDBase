@@ -21,6 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		04BF6C48216EE9BC0042DDE7 /* AppDelegate+QDAppStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C44216EE9BC0042DDE7 /* AppDelegate+QDAppStatus.m */; };
+		04BF6C49216EE9BC0042DDE7 /* AppDelegate+QDNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C46216EE9BC0042DDE7 /* AppDelegate+QDNotification.m */; };
+		04BF6C4A216EE9BD0042DDE7 /* AppDelegate+QDLaunching.m in Sources */ = {isa = PBXBuildFile; fileRef = 04BF6C47216EE9BC0042DDE7 /* AppDelegate+QDLaunching.m */; };
 		04E8C8C4215F96A90083FEFE /* QDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8C3215F96A90083FEFE /* QDActionSheet.m */; };
 		04E8C8D5215F974E0083FEFE /* QDHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8D4215F974E0083FEFE /* QDHUD.m */; };
 		04E8C8D9215F98500083FEFE /* QDAnimationLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8C8D8215F98500083FEFE /* QDAnimationLayer.m */; };
@@ -101,6 +104,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04BF6C42216EE9BC0042DDE7 /* AppDelegate+QDAppStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+QDAppStatus.h"; sourceTree = "<group>"; };
+		04BF6C43216EE9BC0042DDE7 /* AppDelegate+QDNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+QDNotification.h"; sourceTree = "<group>"; };
+		04BF6C44216EE9BC0042DDE7 /* AppDelegate+QDAppStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+QDAppStatus.m"; sourceTree = "<group>"; };
+		04BF6C45216EE9BC0042DDE7 /* AppDelegate+QDLaunching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+QDLaunching.h"; sourceTree = "<group>"; };
+		04BF6C46216EE9BC0042DDE7 /* AppDelegate+QDNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+QDNotification.m"; sourceTree = "<group>"; };
+		04BF6C47216EE9BC0042DDE7 /* AppDelegate+QDLaunching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+QDLaunching.m"; sourceTree = "<group>"; };
 		04E8C8C2215F96A90083FEFE /* QDActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDActionSheet.h; sourceTree = "<group>"; };
 		04E8C8C3215F96A90083FEFE /* QDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActionSheet.m; sourceTree = "<group>"; };
 		04E8C8D3215F974E0083FEFE /* QDHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDHUD.h; sourceTree = "<group>"; };
@@ -245,6 +254,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04BF6C41216EE93F0042DDE7 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				D29C6C97211AF9D2009CC81F /* AppDelegate.h */,
+				D29C6C99211AF9D2009CC81F /* AppDelegate.m */,
+				04BF6C42216EE9BC0042DDE7 /* AppDelegate+QDAppStatus.h */,
+				04BF6C44216EE9BC0042DDE7 /* AppDelegate+QDAppStatus.m */,
+				04BF6C45216EE9BC0042DDE7 /* AppDelegate+QDLaunching.h */,
+				04BF6C47216EE9BC0042DDE7 /* AppDelegate+QDLaunching.m */,
+				04BF6C43216EE9BC0042DDE7 /* AppDelegate+QDNotification.h */,
+				04BF6C46216EE9BC0042DDE7 /* AppDelegate+QDNotification.m */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
 		04E8C8C1215F96A90083FEFE /* QDActionSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,8 +385,6 @@
 		D29C6C96211AF9D2009CC81F /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D29C6C97211AF9D2009CC81F /* AppDelegate.h */,
-				D29C6C99211AF9D2009CC81F /* AppDelegate.m */,
 				D29C6C98211AF9D2009CC81F /* main.m */,
 			);
 			path = Main;
@@ -649,6 +671,7 @@
 				680EB53321746546006D1F91 /* QDSaleModel.m */,
 				D2F5EEFB214A464E0036EE2F /* General */,
 				D29C6C80211AF9A8009CC81F /* VendorLibraries */,
+				04BF6C41216EE93F0042DDE7 /* AppDelegate */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -898,6 +921,7 @@
 				04E8C8E52160A72E0083FEFE /* QDDatePickerView.m in Sources */,
 				681ECEE0216EF061004868A2 /* QDNetAdapter.m in Sources */,
 				D29C6C9F211AF9D2009CC81F /* AppDelegate.m in Sources */,
+				04BF6C4A216EE9BD0042DDE7 /* AppDelegate+QDLaunching.m in Sources */,
 				04E8C8DF2160A29F0083FEFE /* QDSinglePickerView.m in Sources */,
 				680EB52A21743583006D1F91 /* QDTableModel.m in Sources */,
 				D2F5EF4C214A48C10036EE2F /* UIFont+FitTextFont.m in Sources */,
@@ -916,6 +940,7 @@
 				681ECEE3216EF3D7004868A2 /* QDNetWorkAgent.m in Sources */,
 				D2F5EF5C214A5AB10036EE2F /* NSData+Base64.m in Sources */,
 				680EB52E217447DC006D1F91 /* QDResponseModel.m in Sources */,
+				04BF6C48216EE9BC0042DDE7 /* AppDelegate+QDAppStatus.m in Sources */,
 				D2F5EF0A214A464E0036EE2F /* QDNetworkWithCache.m in Sources */,
 				D2F5EF36214A468B0036EE2F /* QDBaseViewController.m in Sources */,
 				D2F3DF0B215B58B9009F06D8 /* QDDateTool.m in Sources */,
@@ -930,6 +955,7 @@
 				D2E62371215F24B1002AE4DB /* NSString+RegexValid.m in Sources */,
 				D2F5EF40214A475A0036EE2F /* QDFactory.m in Sources */,
 				D2F5B7F521184775008F1DB9 /* ViewController.m in Sources */,
+				04BF6C49216EE9BC0042DDE7 /* AppDelegate+QDNotification.m in Sources */,
 				D2F5EF3C214A468B0036EE2F /* QDRequestResultView.m in Sources */,
 				D29C6C9E211AF9D2009CC81F /* main.m in Sources */,
 				D2F5EF3B214A468B0036EE2F /* QDRefreshHeader.m in Sources */,

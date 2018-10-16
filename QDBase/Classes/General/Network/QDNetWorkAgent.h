@@ -8,7 +8,7 @@
 
 
 #import <AFNetworking/AFNetworking.h>
-
+@class QDResponseModel;
 /// 请求类型 GET 和POST
 typedef NS_ENUM(NSUInteger, QDNetRequestType)
 {
@@ -19,7 +19,7 @@ typedef NS_ENUM(NSUInteger, QDNetRequestType)
 };
 
 /// 成功回调
-typedef void(^SuccessBlock)(id result, BOOL isCache);
+typedef void(^SuccessBlock)(QDResponseModel *result, BOOL isCache);
 /// 失败回调
 typedef void(^FailureBlock)(NSError *error);
 /// 进度回调

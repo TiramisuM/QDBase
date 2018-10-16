@@ -21,15 +21,12 @@
     [super viewDidLoad];
     [self constructView];
     
-    [QDTableManager get:nil succeed:^(id result, BOOL isCache) {
-        for (QDTableModel *model in result) {
-            NSLog(@"%@",model.errorCode);
-            NSLog(@"%@",model.message);
-            NSLog(@"%@",model.list[0].name);
-            NSLog(@"%@",model.list[0].asset);
-        }
+    [QDTableManager get:nil succeed:^(QDResponseModel *result, BOOL isCache) {
+        NSLog(@"%@",result.errorCode);
+        NSLog(@"%@",result.message);
+//        NSLog(@"%@",result.list[0].name);
+//        NSLog(@"%@",result.list[0].asset);
     }];
-    
 //    self.title = @"起一个差不多长的名字";
 //
 //    [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];
