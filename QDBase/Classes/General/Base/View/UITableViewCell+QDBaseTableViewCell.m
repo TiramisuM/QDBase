@@ -15,9 +15,14 @@ const void *kBaseTableCellModelKey = @"kBaseTableCellModelKey";
 @implementation UITableViewCell (QDBaseTableViewCell)
 
 + (instancetype)baseTableViewCellLoadFromCodeWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath reuseIdentifier:(NSString *)reuseIdentifier {
+    return [self baseTableViewCellLoadFromCodeWithTableView:tableView indexPath:indexPath reuseIdentifier:reuseIdentifier cellClassName:reuseIdentifier];
+}
+
++ (instancetype)baseTableViewCellLoadFromCodeWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath reuseIdentifier:(NSString *)reuseIdentifier cellClassName:(NSString *)cellClassName {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell) {
-        cell = [[[self class] alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        Class class = NSClassFromString(cellClassName);
+        cell = [[class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
     cell.indexPath = indexPath;
     return cell;

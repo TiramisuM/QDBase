@@ -14,7 +14,7 @@
 #import "UITableViewCell+QDBaseTableViewCell.h"
 
 /// 缓存单例
-#import "QDCacheSingleton.h"
+#import "QDCacheManager.h"
 
 /// 工具类
 #import "QDFactory.h"
@@ -24,6 +24,9 @@
 #import "UIView+QDFastFrame.h"
 #import "NSString+RegexValid.h"
 #import "UIView+QDGetViewController.h"
+#import "QDNetAdapter.h"
+#import "NSString+NetworkSign.h"
+#import "NSString+Deal.h"
 
 /// 第三方库
 #import "Masonry.h"

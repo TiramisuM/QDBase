@@ -54,6 +54,7 @@ alpha:alphaValue]
 #define NSLog(format, ...) printf("\n[%s] %s [第%d行] %s\n", __TIME__, __FUNCTION__, __LINE__, [[NSString stringWithFormat:format, ## __VA_ARGS__] UTF8String])
 #else
 #define NSLog(...) ;
+#endif
 
 #pragma mark - 其他方法
 // 弱引用self
@@ -67,6 +68,5 @@ dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((_seconds_) * NSEC_PER
 shouldPrevent = NO; \
 }); \
 
-#endif
 
 #endif /* UtilsMacro_h */

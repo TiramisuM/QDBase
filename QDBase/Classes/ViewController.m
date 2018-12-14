@@ -21,17 +21,17 @@
     [super viewDidLoad];
     [self constructView];
     
+    UIViewController *vc = [[UIViewController alloc] init];
+    vc.view.backgroundColor = [UIColor cyanColor];
+    
     [QDTableManager get:nil succeed:^(QDResponseModel *result, BOOL isCache) {
         NSLog(@"%@",result.errorCode);
         NSLog(@"%@",result.message);
-//        NSLog(@"%@",result.list[0].name);
-//        NSLog(@"%@",result.list[0].asset);
     }];
-//    self.title = @"起一个差不多长的名字";
-//
-//    [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];
-//    [self registCellWithCellClassName:@"TestTableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromNib cellModelClassName:@"NSObject"];
-//    [self useCustomNavigation];
+    [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];
+    [self registCellWithCellClassName:@"TestTableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromNib cellModelClassName:@"NSObject"];
+    [self useCustomNavigationBarView];
+    self.title = @"123";
 }
 
 #pragma mark - ============== Construct View ================

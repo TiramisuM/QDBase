@@ -7,9 +7,9 @@
 /// 缓存单例
 
 #import <Foundation/Foundation.h>
-#import "YYCache.h"
+#import <YYCache/YYCache.h>
 
-@interface QDCacheSingleton : NSObject
+@interface QDCacheManager : NSObject
 
 /// 单例方法
 + (instancetype)shareInstance;
@@ -17,17 +17,26 @@
 @property (nonatomic, strong) YYCache *networkCache;
 /// 通讯录cache
 @property (nonatomic, strong) YYCache *addressBookCache;
+/// 通用cache
+@property (nonatomic, strong) YYCache *baseDictCache;
+/// 用户相关信息cache（认证状态、基本信息）
+@property (nonatomic, strong) YYCache *userInfoDictCache;
+
+/**
+ 获取缓存大小
+ */
++ (NSInteger)getCacheSize;
 /**
  清空网络请求缓存
  */
-- (void)clearNetworkCache;
++ (void)clearNetworkCache;
 /**
  清空通讯录缓存
  */
-- (void)clearAddressBookCache;
++ (void)clearAddressBookCache;
 /**
  清空所有缓存
  */
-- (void)clearAllCache;
++ (void)clearAllCache;
 
 @end

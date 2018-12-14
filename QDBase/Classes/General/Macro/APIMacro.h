@@ -11,4 +11,6 @@
 
 #define BASE_URL @"http://dev.api.guanxiduo.com"
 
+#define API_VERSION @"3.0.0"
+
 #endif /* APIMacro_h */

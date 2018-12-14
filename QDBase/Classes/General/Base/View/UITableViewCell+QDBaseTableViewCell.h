@@ -14,13 +14,23 @@
 @property (strong, nonatomic) NSObject *model;
 /**
  代码加载cell
-
+ 
  @param tableView 所在的列表
  @param indexPath 所在列表的索引
- @param reuseIdentifier 重用id
+ @param reuseIdentifier 重用id 与类名相同
  @return UITableViewCell
  */
 + (instancetype)baseTableViewCellLoadFromCodeWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath reuseIdentifier:(NSString *)reuseIdentifier;
+/**
+ 代码加载cell
+ 
+ @param tableView 所在的列表
+ @param indexPath 所在列表的索引
+ @param reuseIdentifier 重用id
+ @param cellClassName cell的类名
+ @return UITableViewCell
+ */
++ (instancetype)baseTableViewCellLoadFromCodeWithTableView:(UITableView *)tableView indexPath:(NSIndexPath *)indexPath reuseIdentifier:(NSString *)reuseIdentifier cellClassName:(NSString *)cellClassName;
 /**
  xib加载cell
  

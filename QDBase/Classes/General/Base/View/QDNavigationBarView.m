@@ -19,12 +19,10 @@ typedef NS_ENUM(NSInteger, EnterMethod) {
     EnterMethodNoEnter
 };
 
-@interface QDNavigationBarView ()
+@interface QDNavigationBarView ()<UINavigationControllerDelegate>
 
-@property (nonatomic, strong) UIViewController *viewController;
 @property (nonatomic, assign) EnterMethod enterMethod;
 
-@property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) UIButton *leftButton;
 @property (nonatomic, strong) UIButton *leftCloseButton;
@@ -39,9 +37,8 @@ typedef NS_ENUM(NSInteger, EnterMethod) {
 
 @implementation QDNavigationBarView
 
-+ (instancetype)navigationBarViewWithViewController:(UIViewController *)viewController {
++ (instancetype)navigationBarView {
     QDNavigationBarView *navigationBarView = [[QDNavigationBarView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, UI_NAVIGATION_BAR_HEIGHT + UI_STATUS_BAR_HEIGHT)];
-    navigationBarView.viewController = viewController;
     return navigationBarView;
     
 }
@@ -252,7 +249,7 @@ typedef NS_ENUM(NSInteger, EnterMethod) {
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [QDFactory createLabelWithFrame:CGRectZero
-                                                 text:@"测试"
+                                                 text:@""
                                             textColor:[UIColor blackColor]
                                                  font:[UIFont boldSystemFontOfSize:17]
                                         textAlignment:NSTextAlignmentCenter];
@@ -263,7 +260,7 @@ typedef NS_ENUM(NSInteger, EnterMethod) {
 - (UIButton *)leftButton {
     if (!_leftButton) {
         _leftButton = [QDFactory createButtonWithFrame:CGRectZero
-                                             imageName:@"left"
+                                             imageName:@"back"
                                   highlightedImageName:@""
                                                 target:self
                                                 action:@selector(backPrePage)];
@@ -285,7 +282,7 @@ typedef NS_ENUM(NSInteger, EnterMethod) {
 - (UIButton *)rightCloseButton {
     if (!_rightCloseButton) {
         _rightCloseButton = [QDFactory createButtonWithFrame:CGRectZero
-                                                   imageName:@"close_02"
+                                                   imageName:@"close"
                                         highlightedImageName:@""
                                                       target:self
                                                       action:@selector(backPrePage)];
@@ -302,7 +299,7 @@ typedef NS_ENUM(NSInteger, EnterMethod) {
 
 - (NSMutableArray *)rightNavigationButtons {
     if (!_rightNavigationButtons) {
-       _rightNavigationButtons = [NSMutableArray arrayWithCapacity:2];
+        _rightNavigationButtons = [NSMutableArray arrayWithCapacity:2];
     }
     return _rightNavigationButtons;
 }

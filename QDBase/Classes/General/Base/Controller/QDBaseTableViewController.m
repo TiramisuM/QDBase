@@ -11,7 +11,7 @@
 #import "QDRefreshHeader.h"
 #import "QDRefreshFooter.h"
 #import "UITableViewCell+QDBaseTableViewCell.h"
-#import "QDTableModel.h"
+#import "QDResponseModel.h"
 
 // 请求参数
 static NSString  *const  kParamPageSize = @"pageSize";
@@ -35,9 +35,7 @@ static NSUInteger const  PageSize       = 20;
 /// 请求数据传参页数
 @property (nonatomic, assign) NSInteger paramPage;
 /// 上一个加载的id
-@property (nonatomic,   copy) NSString *lastId;
-/// 数据源
-@property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, copy) NSString *lastId;
 /// cell的类名
 @property (nonatomic, copy) NSString *cellClassName;
 /// cell的加载方式 不设置则为默认从代码中加载
@@ -50,6 +48,24 @@ static NSUInteger const  PageSize       = 20;
 @implementation QDBaseTableViewController
 
 #pragma mark - ============== LifeCircle ================
+// 非storyBoard(xib或非xib)都走这个方法
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.availableNetWork = YES;
+        self.defaultRefreshPage = YES;
+    }
+    return self;
+}
+
+// 如果连接了串联图storyBoard 走这个方法
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.availableNetWork = YES;
+        self.defaultRefreshPage = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -58,8 +74,9 @@ static NSUInteger const  PageSize       = 20;
     // 添加刷新控件
     [self addRefresh];
     // 开始请求数据
-    [self.tableView.mj_header beginRefreshing];
-    
+    if (self.defaultRefreshPage) {
+        [self.tableView.mj_header beginRefreshing];
+    }
 }
 
 // 初始化数据
@@ -69,8 +86,6 @@ static NSUInteger const  PageSize       = 20;
     self.paramPage = 0;
     self.lastId = @"";
     self.cellLoadFrom = QDBaseTableViewCellLoadFromCode;
-    // 显示空页面
-    self.responseDataState = QDNetworkRequstResultStateEmpty;
 }
 
 // 添加下拉刷新上拉加载的控件
@@ -103,36 +118,54 @@ static NSUInteger const  PageSize       = 20;
 
 - (void)baseRequestData {
     
+    [self removeResultView];
+    /// 网络请求不可用 直接往dataSource里面扔数据
+    if (!self.isAvailableNetWork) {
+        
+        NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:20];
+        for (NSInteger i = 0; i < 20; i++) {
+            NSObject *obj = [NSObject new];
+            [tempArray addObject:obj];
+        }
+        
+        if (self.paramPage == 1) {
+            [self.dataSource removeAllObjects];
+        }
+        [self.dataSource addObjectsFromArray:tempArray];
+        self.currentPage = self.paramPage;
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        self.tableView.mj_footer.hidden = NO;
+        [self.tableView reloadData];
+        return;
+    }
+    
     // 将page和minId拼接到参数中
-//    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:_parameters];
-//    if (self.paramPage != 1) params[kParamMinID] = self.lastId;
-//    params[kParamPage] = @(self.paramPage);
-//    params[kParamPageSize] = @(PageSize);
-//    NSAssert(_urlString, @"必须调用\"[self dataSourceNetRequest...]\"方法");
-//
-//    // 判断当前缓存机制是否为 "有缓存就先返回缓存，同步请求数据" , 如果是，则继续判断是否为第一页，不是第一页的话 忽略缓存直接请求
-//    QDNetCacheRequestPolicy cachePolicy = _cachePolicy;
-//    if (cachePolicy == QDNetCacheRequestReturnCacheDataThenLoad && self.paramPage != 1) {
-//        cachePolicy = QDNetCacheRequestReloadIgnoringCacheData;
-//    }
-//
-//    NSURLSessionDataTask *dataTask = [QDNetworkWithCache requestWithType:_requestType
-//                                                                     urlString:_urlString
-//                                                                    parameters:params
-//                                                                  cacheTimeout:_cacheTimeout
-//                                                                   cachePolicy:cachePolicy
-//                                                                      progress:nil
-//                                                                       success:^(id result, BOOL isCache) {
-//                                                                           [self responseSuccessDataWithObject:result isCache:isCache];
-//                                                                       } failure:^(NSError *error) {
-//                                                                           [self responseFailureDataWithError:error];
-//                                                                       }];
-//    [self addURLSessionDataTask:dataTask];
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:_parameters];
+    if (self.paramPage != 1) params[kParamMinID] = self.lastId;
+    params[kParamPage] = @(self.paramPage);
+    params[kParamPageSize] = @(PageSize);
+    NSAssert(_urlString, @"必须调用\"[self dataSourceNetRequest...]\"方法");
+    
+    // 判断当前缓存机制是否为 "有缓存就先返回缓存，同步请求数据" , 如果是，则继续判断是否为第一页，不是第一页的话 忽略缓存直接请求
+    QDNetCacheRequestPolicy cachePolicy = _cachePolicy;
+    if (cachePolicy == QDNetCacheRequestReturnCacheDataThenLoad && self.paramPage != 1) {
+        cachePolicy = QDNetCacheRequestReloadIgnoringCacheData;
+    }
+    NSURLSessionDataTask *dataTask = [[QDNetWorkAgent sharedNetwork] requestMethod:_requestType urlString:_urlString parameters:params cacheTimeout:_cacheTimeout netTimeout:0 requestHeader:nil cachePolicy:cachePolicy success:^(id result, BOOL isCache) {
+        [self responseSuccessDataWithObject:result isCache:isCache];
+    } failure:^(NSError *error) {
+        [self responseFailureDataWithError:error];
+    }];
+    [self addURLSessionDataTask:dataTask];
 }
 
 #pragma mark 服务器返回的数据
 - (void)responseSuccessDataWithObject:(id)responseObject isCache:(BOOL)isCache {
     
+    if (self.paramPage == 1) {
+        [self.dataSource removeAllObjects];
+    }
     // 是否需要忽略缓存，等到有真实请求数据才结束头部刷新
     BOOL ignoreCache = (_cachePolicy == QDNetCacheRequestReturnCacheDataThenLoad && isCache);
     // 结束头部刷新
@@ -145,14 +178,18 @@ static NSUInteger const  PageSize       = 20;
         
         if (self.dataSource.count == 0) self.responseDataState = QDNetworkRequstResultStateError;
         if (!ignoreCache) [self.tableView.mj_footer endRefreshing];
-        
+        [self.tableView reloadData];
         return;
     }
     
-    // 将数据赋值给临时数组
-    NSMutableArray *tempArr = [self generateModelsWithResponseObject:responseObject[@"data"]];
+    // 将数据解析到返回model
+    QDResponseModel *responseModel = [self generateModelWithResponseObject:responseObject];
+    responseModel.data = responseObject[@"data"];
+    responseModel.message = responseObject[@"msg"];
+    responseModel.errorCode = responseObject[@"code"];
+    NSMutableArray *tempArr = [NSMutableArray arrayWithArray:[responseModel valueForKey:@"list"]];
     // 将数据抛给子类，让子类做一些其他操作
-    [self networkResponseData:responseObject[@"data"]];
+    [self networkResponseModel:responseModel];
     // 判断赋值之后的数组有无数据
     if (tempArr.count == 0) {
         
@@ -163,6 +200,7 @@ static NSUInteger const  PageSize       = 20;
             self.tableView.mj_footer.hidden = YES;
         }
         if (!ignoreCache) [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        [self.tableView reloadData];
         return;
         
     } else if (tempArr.count < PageSize) {
@@ -173,14 +211,12 @@ static NSUInteger const  PageSize       = 20;
         if (!ignoreCache) [self.tableView.mj_footer endRefreshing];
     }
     
-    // 根据传参页数判断是否将dataSource清空
-    if (self.paramPage == 1) [self.dataSource removeAllObjects];
     // 将服务器返回的数据添加到dataSource后面
     [self.dataSource addObjectsFromArray:tempArr];
     // 页数
     self.currentPage = self.paramPage;
     // 记录最后一条数据的id
-    self.lastId = [self minIdWithModel:self.dataSource.lastObject];
+    self.lastId = [self minIdWithDictionary:responseObject[@"data"]];
     // 回调刷新界面
     self.responseDataState = QDNetworkRequstResultStateSuccess;
     [self.tableView reloadData];
@@ -206,32 +242,36 @@ static NSUInteger const  PageSize       = 20;
 }
 
 #pragma mark 将服务器返回的数据包装成需要的model类型，之后返回model数组
-- (NSMutableArray *)generateModelsWithResponseObject:(id)responseObject {
+- (QDResponseModel *)generateModelWithResponseObject:(id)responseObject {
     
-    NSMutableArray *tempArray = [NSMutableArray array];
+    QDResponseModel *model = [[QDResponseModel alloc] init];
     Class class = NSClassFromString(self.modelClassName);
     NSAssert(class, @"必须调用\"[self registCellWithCellClassName:cellLoadFrom:cellModelClassName:]\"方法");
-    tempArray = [class mj_objectArrayWithKeyValuesArray:responseObject[@"list"]];
-    return tempArray;
+    model = [class mj_objectWithKeyValues:responseObject[@"data"]];
+    model.errorCode = judgeString(responseObject[@"error"]);
+    model.message = judgeString(responseObject[@"msg"]);
+    return model;
 }
 
 #pragma mark 设置minId
-- (NSString *)minIdWithModel:(NSObject *)model {
-    return model.id;
+- (NSString *)minIdWithDictionary:(NSDictionary *)dictionary {
+    NSArray *array = dictionary[@"list"];
+    NSDictionary *objectDictionary = [array lastObject];
+    return objectDictionary ? objectDictionary[@"id"] : @"";
 }
 
 #pragma mark - ============== 子类实现代码 ================
 #pragma mark 网络请求回调数据
-- (void)networkResponseData:(id)responseData {}
+- (void)networkResponseModel:(QDResponseModel *)responseModel {}
 
 #pragma mark - ============== 子类调用方法 ================
 - (void)registCellWithCellClassName:(NSString *)cellClassName cellLoadFrom:(QDBaseTableViewCellLoadFrom)cellLoadFrom cellModelClassName:(NSString *)cellModelClassName {
     
     self.cellClassName = [judgeString(cellClassName) isEqualToString:@""] ? @"UITableViewCell" :cellClassName;
     self.cellLoadFrom = cellLoadFrom;
-    self.modelClassName = [judgeString(cellModelClassName) isEqualToString:@""] ? @"NSObject" : cellModelClassName;
+    self.modelClassName = [judgeString(cellModelClassName) isEqualToString:@""] ? @"QDResponseModel" : cellModelClassName;
+    [self.tableView registerClass:NSClassFromString(cellClassName) forCellReuseIdentifier:cellClassName];
 }
-
 
 #pragma mark - ============== Delegate ================
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -292,6 +332,11 @@ static NSUInteger const  PageSize       = 20;
     return [UIView new];
 }
 
+#pragma mark - ============== PrivateMethod ================
+- (void)tapResultView {
+    [self.tableView.mj_header beginRefreshing];
+}
+
 #pragma mark - ============== Lazy ================
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -302,8 +347,8 @@ static NSUInteger const  PageSize       = 20;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] init];
-        _tableView.backgroundColor = [UIColor whiteColor];
-        _tableView.estimatedRowHeight = 0;
+        _tableView.backgroundColor = self.view.backgroundColor;
+        _tableView.estimatedRowHeight = 200.f;
         _tableView.estimatedSectionHeaderHeight = 0;
         _tableView.estimatedSectionFooterHeight = 0;
         [self.view addSubview:_tableView];
@@ -322,19 +367,30 @@ static NSUInteger const  PageSize       = 20;
 @implementation QDBaseTableViewController (DataSourceRequestParams)
 
 - (void)dataSourceNetRequestWithURLString:(NSString *)urlString parameters:(NSDictionary *)parameters {
-    _requestType = QDNetRequestTypePOST;
-    _urlString = urlString;
-    _parameters = parameters;
-    _cacheTimeout = 120.f;
-    _cachePolicy = QDNetCacheRequestTimestampLoad;
+    
+    [self dataSourceNetRequestWithRequestType:QDNetRequestTypePOST urlString:urlString parameters:parameters cacheTimeout:120.f cachePolicy:QDNetCacheRequestReloadIgnoringCacheData];
 }
 
 - (void)dataSourceNetRequestWithRequestType:(QDNetRequestType)requestType urlString:(NSString *)urlString parameters:(NSDictionary *)parameters cacheTimeout:(NSUInteger)cacheTimeout cachePolicy:(QDNetCacheRequestPolicy)cachePolicy {
+    
     _requestType = requestType;
-    _urlString = urlString;
-    _parameters = parameters;
     _cacheTimeout = cacheTimeout;
     _cachePolicy = cachePolicy;
+    
+    NSDictionary *urlDic = [QDNetWork netPublicParameter];
+    _urlString = [NSString stringWithFormat:@"%@?apiversion=%@&appversion=%@&osType=%@", urlString, urlDic[@"apiVersion"], urlDic[@"appVersion"], urlDic[@"osType"]];
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param addEntriesFromDictionary:parameters];
+    [param addEntriesFromDictionary:[QDNetWork netUserInfoDict]];
+    _parameters = param;
+}
+
+- (void)updateParameters:(NSDictionary *)parameters {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param addEntriesFromDictionary:parameters];
+    [param addEntriesFromDictionary:[QDNetWork netUserInfoDict]];
+    _parameters = param;
 }
 
 @end

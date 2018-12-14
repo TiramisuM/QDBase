@@ -8,19 +8,16 @@
 
 #import "QDRequestResultView.h"
 
-#define kTipLabFont [UIFont systemFontOfSize:14]
 #define kScreenWidthRatio  (UIScreen.mainScreen.bounds.size.width / 375.0)
 #define kScreenHeightRatio (UIScreen.mainScreen.bounds.size.height / 667.0)
 #define kAdaptedWidth(x)  ceilf((x) * kScreenWidthRatio)
 #define kAdaptedHeight(x) ceilf((x) * kScreenHeightRatio)
-#define kTextColor UIColorFromHex(0x9A9A9A)
-#define kThemeColor UIColorFromHex(0xFF6600)
-
 
 @interface QDRequestResultView ()
 
-@property (nonatomic ,strong) UIImageView *imgView;
+@property (nonatomic, strong) UIImageView *imgView;
 
+@property (nonatomic, strong) UIButton *reloadBtn;
 @end
 
 @implementation QDRequestResultView
@@ -35,32 +32,28 @@
 }
 
 - (void)setResultState:(QDNetworkRequstResultState)resultState {
-
+    
     _resultState = resultState;
     
     switch (resultState) {
         case QDNetworkRequstResultStateEmpty:{
-            self.imageName = @"blank_message";
-            self.tipMsg = @"没有消息";
-            self.subTipMsg = @"";
+            self.imageName = @"noResult";
+            self.tipMsg = @"暂无数据";
         }
             break;
         case QDNetworkRequstResultStateLoading:{
-            self.imageName = @"blank_message";
+            self.imageName = @"noResult";
             self.tipMsg = @"正在加载";
-            self.subTipMsg = @"";
         }
             break;
         case QDNetworkRequstResultStateError:{
-            self.imageName = @"blank_net";
-            self.tipMsg = @"找不到网络";
-            self.subTipMsg = @"点击屏幕重新加载";
+            self.imageName = @"noNet";
+            self.tipMsg = @"服务器好像睡着了";
         }
             break;
         case QDNetworkRequstResultStateNoNet:{
-            self.imageName = @"blank_net";
+            self.imageName = @"noNet";
             self.tipMsg = @"找不到网络";
-            self.subTipMsg = @"点击屏幕重新加载";
         }
             break;
         default:
@@ -70,7 +63,6 @@
 
 - (void)hide {
     self.tapBlock = nil;
-    self.infoBlock = nil;
     [self removeFromSuperview];
 }
 
@@ -88,93 +80,73 @@
     if (judgeString(tipMsg).length == 0) {
         return;
     }
+    
     _tipMsg = tipMsg;
+    
     self.tipLabel.text = tipMsg;
 }
-
-- (void)setSubTipMsg:(NSString *)subTipMsg{
-    if (judgeString(subTipMsg).length == 0) {
-        return;
-    }
-    _subTipMsg = subTipMsg;
-    self.subTipLabel.text = subTipMsg;
-}
-
-
--(void)setSubClickTipMsg:(NSString *)subClickTipMsg{
-    if (judgeString(subClickTipMsg).length == 0) {
-        return;
-    }
-    _subClickTipMsg = subClickTipMsg;
-    self.subClickTipLabel.text = subClickTipMsg;
-    self.subClickTipLabel.hidden = NO;
-}
-
-
 
 #pragma mark - ============== other ================
 
 -  (void)layoutSubviews {
     [super layoutSubviews];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickView:)];
-    self.userInteractionEnabled = YES;
-    [self addGestureRecognizer:tap];
+    //    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickView:)];
+    //    self.userInteractionEnabled = YES;
+    //    [self addGestureRecognizer:tap];
     
-    self.backgroundColor = UIColorFromHex(0xF5F5F5);
-    CGFloat imgMargin = 170;
+    self.backgroundColor = UIColorFromHex(0xF9F8F8);
+    CGFloat imgMargin = kAdaptedHeight(59);
     CGRect imgViewRect = CGRectZero;
-    CGFloat imgViewWidth = kAdaptedWidth(160);
-    imgViewRect.size = CGSizeMake(imgViewWidth, imgViewWidth);
-    imgViewRect.origin = CGPointMake((self.frame.size.width - imgViewWidth) * 0.5, (self.frame.size.height - imgViewWidth) * 0.5 - imgMargin);
+    
+    CGFloat imgViewWidth = kAdaptedWidth(151);
+    CGFloat imgViewHeight = kAdaptedWidth(165);
+    
+    if (self.resultState != QDNetworkRequstResultStateEmpty) {
+        imgViewWidth = kAdaptedWidth(114);
+        imgViewHeight = kAdaptedWidth(100);
+    }
+    
+    imgViewRect.size = CGSizeMake(imgViewWidth, imgViewHeight);
+    imgViewRect.origin = CGPointMake((self.frame.size.width - imgViewWidth) * 0.5, (self.frame.size.height - imgViewHeight) * 0.5 - imgMargin);
     
     if (_imageY != 0) {
         imgViewRect.origin = CGPointMake((self.frame.size.width - imgViewWidth) * 0.5, _imageY);
+    } else {
+        imgViewRect.origin = CGPointMake((self.frame.size.width - imgViewWidth) * 0.5, imgMargin);
     }
     
     self.imgView.frame = imgViewRect;
     
     CGRect tiplabRect = CGRectZero;
-    CGFloat tipLabWidth = self.frame.size.width * 0.6;
-    tiplabRect.size = CGSizeMake(tipLabWidth, [self tipSizeWithWidth:tipLabWidth]);
-    tiplabRect.origin = CGPointMake(self.frame.size.width * 0.2, CGRectGetMaxY(self.imgView.frame) + kAdaptedHeight(8));
-    self.tipLabel.frame = tiplabRect;
-    self.subTipLabel.frame =  CGRectMake(0, self.frame.size.height - imgMargin, kScreenWidth, 20);
-    self.subClickTipLabel.frame =  CGRectMake(0, CGRectGetMaxY(self.subTipLabel.frame), kScreenWidth, 20);
-}
-
-- (CGFloat)tipSizeWithWidth:(CGFloat)width {
     
-    return  [self.tipMsg boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                   attributes:@{NSFontAttributeName:kTipLabFont}
-                                      context:nil].size.height;
+    tiplabRect.size = CGSizeMake(self.width - 100, 20);
+    tiplabRect.origin = CGPointMake(50, CGRectGetMaxY(self.imgView.frame) + kAdaptedHeight(22));
+    self.tipLabel.frame = tiplabRect;
+    self.tipLabel.centerX = self.centerX;
+    
+    if (self.resultState != QDNetworkRequstResultStateEmpty) {
+        self.reloadBtn.hidden = NO;
+        self.reloadBtn.top = CGRectGetMaxY(tiplabRect) + kAdaptedHeight(20);
+        self.reloadBtn.centerX = self.centerX;
+    }
 }
 
 #pragma mark - ============== touch ================
 
-- (void)clickView:(UITapGestureRecognizer *)tap {
+- (void)reloadBtnAction {
     if (self.tapBlock) {
         self.tapBlock();
         [self hide];
     }
 }
 
-- (void)subClick:(UITapGestureRecognizer *)tap {
-    if (self.infoBlock) {
-        self.infoBlock();
-        [self hide];
-    }
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{};
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{};
-- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{};
-
 #pragma mark - ============== InitView ================
 
 - (instancetype)init{
     if (self = [super init]) {
-        _imageY = 0.f;
+        _imageY = UI_NAVIGATION_BAR_HEIGHT + UI_STATUS_BAR_HEIGHT;
+        
     }
     return self;
 }
@@ -184,7 +156,7 @@
     
     if (_imgView == nil) {
         _imgView = [UIImageView new];
-        _imgView.contentMode = UIViewContentModeScaleAspectFill;
+        _imgView.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_imgView];
     }
     return _imgView;
@@ -194,42 +166,29 @@
     
     if (_tipLabel == nil) {
         _tipLabel = [UILabel new];
-        _tipLabel.font = kTipLabFont;
-        _tipLabel.textColor = kTextColor;
+        _tipLabel.font = [UIFont systemFontOfSize:14];
         _tipLabel.textAlignment = NSTextAlignmentCenter;
+        _tipLabel.layer.cornerRadius = 3;
+        _tipLabel.layer.masksToBounds = YES;
+        _tipLabel.textColor = UIColorFromHex(0x333333);
+        _tipLabel.backgroundColor = UIColorFromHex(0xF9F8F8);
         [self addSubview:_tipLabel];
     }
     return _tipLabel;
 }
 
-- (UILabel *)subTipLabel {
-    
-    if (_subTipLabel == nil) {
-        _subTipLabel = [UILabel new];
-        _subTipLabel.font = kTipLabFont;
-        _subTipLabel.textColor = kTextColor;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(subClick:)];
-        [_subTipLabel addGestureRecognizer:tap];
-        _subTipLabel.userInteractionEnabled = YES;
-        _subTipLabel.textAlignment = NSTextAlignmentCenter;
-        [self addSubview:_subTipLabel];
+- (UIButton *)reloadBtn {
+    if (!_reloadBtn) {
+        _reloadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _reloadBtn.frame = CGRectMake(0, 0, 90, 30);
+        [_reloadBtn setTitle:@"重新加载" forState:UIControlStateNormal];
+        _reloadBtn.backgroundColor = UIColorFromHex(0xFC4654);
+        _reloadBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _reloadBtn.layer.cornerRadius = 3;
+        _reloadBtn.hidden = YES;
+        [_reloadBtn addTarget:self action:@selector(reloadBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_reloadBtn];
     }
-    return _subTipLabel;
-}
-
-- (UILabel *)subClickTipLabel {
-    
-    if (_subClickTipLabel == nil) {
-        _subClickTipLabel = [UILabel new];
-        _subClickTipLabel.font = kTipLabFont;
-        _subClickTipLabel.textColor = kThemeColor;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(subClick:)];
-        [_subClickTipLabel addGestureRecognizer:tap];
-        _subClickTipLabel.userInteractionEnabled = YES;
-        _subClickTipLabel.textAlignment = NSTextAlignmentCenter;
-        _subClickTipLabel.hidden = YES;
-        [self addSubview:_subClickTipLabel];
-    }
-    return _subClickTipLabel;
+    return _reloadBtn;
 }
 @end

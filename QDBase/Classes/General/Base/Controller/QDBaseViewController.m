@@ -7,18 +7,17 @@
 /// 基类Controller
 
 #import "QDBaseViewController.h"
-#import "QDNavigationBarView.h"
 
-@interface QDBaseViewController ()
+@interface QDBaseViewController ()<UINavigationControllerDelegate>
 
 /// 网络请求数组
 @property (nonatomic, strong) NSMutableArray<NSURLSessionDataTask *> *URLSessionDataTaskArray;
-/// 自定义导航样式
-@property (nonatomic, strong) QDNavigationBarView *navigationBarView;
 /// 电池条状态
 @property (nonatomic, assign) UIStatusBarStyle statusBarStyle;
 /// 电池条状态
 @property (nonatomic, assign) BOOL statusBarHidden;
+/// 当前控制器导航是否隐藏，push新的控制器的时候会给其重新赋值，默认为NO
+@property (nonatomic, assign) BOOL navBarHidden;
 
 @end
 
@@ -28,19 +27,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    self.view.backgroundColor = UIColorFromHex(0xF9F8F8);
+    
+    // navigationController.delegate是一对一的, push进来需要接管代理
+    self.navigationController.delegate = self;
+    // 默认刚进入的页面是有navigationBar的
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    // navigationController.delegate是一对一的, pop回来需要接管代理
+    self.navigationController.delegate = self;
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self removeAllURLSessionDataTask];
+    NSLog(@"\n\n%@ dealloc\n\n", NSStringFromClass([self class]));
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,6 +58,15 @@
 - (void)baseRequestData {}
 
 #pragma mark - ============== Delegate ================
+/// navigationController Delegate
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    // 如果即将显示的控制器不是当前控制器的话，拿到即将显示的控制器的navBarHidden属性，判断显示还是隐藏
+    // 如果即将跳转的控制器不是继承基类的话 不做任何处理
+    if (viewController != self && [viewController isKindOfClass:[QDBaseViewController class]]) {
+        BOOL navBarHidden = [[viewController valueForKey:@"_navBarHidden"] boolValue];
+        [viewController.navigationController setNavigationBarHidden:navBarHidden animated:YES];
+    }
+}
 
 #pragma mark - ============== Action ================
 - (void)backPrePage {
@@ -70,16 +83,24 @@
     }
 }
 
-#pragma mark - ============== PrivateMethod ================
+#pragma mark - ============== PublicMethod ================
 #pragma mark 使用自定义导航条
--(void)useCustomNavigation {
+-(void)useCustomNavigationBarView {
     [self.view addSubview:self.navigationBarView];
+    self.navBarHidden = YES;
+    self.navigationBarView.viewController = self;
     self.navigationBarView.hidden = NO;
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self hideNavigationBar];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
 }
 
+#pragma mark 隐藏导航条
+- (void)hideNavigationBar {
+    self.navigationController.navigationBarHidden = YES;
+    self.navBarHidden = YES;
+}
+
+#pragma mark - ============== PrivateMethod ================
 #pragma mark 网络请求数组处理
 - (void)addURLSessionDataTask:(NSURLSessionDataTask *)URLSessionDataTask {
     if ([URLSessionDataTask isKindOfClass:[NSURLSessionDataTask class]]) {
@@ -163,7 +184,7 @@
 
 - (QDNavigationBarView *)navigationBarView {
     if (!_navigationBarView) {
-        _navigationBarView = [QDNavigationBarView navigationBarViewWithViewController:self];
+        _navigationBarView = [QDNavigationBarView navigationBarView];
         _navigationBarView.hidden = YES;
     }
     return _navigationBarView;
@@ -176,22 +197,22 @@
 
 #pragma mark - ============== 请求页面返回样式 ================
 - (QDRequestResultView *)showErrorView {
-    QDRequestResultView *errorView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateError tap:nil info:nil];
+    QDRequestResultView *errorView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateError tap:nil];
     return errorView;
 }
 
 - (QDRequestResultView *)showEmptyView {
-    QDRequestResultView *emptyView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateEmpty tap:nil info:nil];
+    QDRequestResultView *emptyView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateEmpty tap:nil];
     return emptyView;
 }
 
 - (QDRequestResultView *)showLoadingView {
-    QDRequestResultView *loadingView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateLoading tap:nil info:nil];
+    QDRequestResultView *loadingView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateLoading tap:nil];
     return loadingView;
 }
 
 - (QDRequestResultView *)showNoNetView {
-    QDRequestResultView *noNetView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateNoNet tap:nil info:nil];
+    QDRequestResultView *noNetView = [self showCustomResultViewWithResultState:QDNetworkRequstResultStateNoNet tap:nil];
     return noNetView;
 }
 
@@ -205,36 +226,39 @@
     }
 }
 
-- (QDRequestResultView *)showCustomResultViewWithResultState:(QDNetworkRequstResultState)resultState tap:(TapBlock)tapBlock info:(InfoBlock)infoBlock {
+- (QDRequestResultView *)showCustomResultViewWithResultState:(QDNetworkRequstResultState)resultState tap:(TapBlock)tapBlock {
     // 如果没传tapBlock则使用tapResultView的回调方法
     if ((!tapBlock) && resultState != QDNetworkRequstResultStateLoading) {
+        WS(weakSelf);
         tapBlock = ^{
-            [self tapResultView];
+            [weakSelf tapResultView];
         };
     }
-    if (resultState == QDNetworkRequstResultStateEmpty) {
-        infoBlock = ^{
-            [self tapInfoBtnInResultView];
-        };
-    }
+    
     QDRequestResultView *view = [QDRequestResultView resultViewWithResultState:resultState tap:tapBlock];
-    view.infoBlock = infoBlock;
-    [self configResultView:view];
     [self addResultView:view];
+    [self configResultView:view];
     return view;
     
 }
 
 - (void)addResultView:(QDRequestResultView *)resultView {
+    for (UIView *view in self.view.subviews) {
+        if ([view isKindOfClass:[QDRequestResultView class]]) {
+            [view removeFromSuperview];
+        }
+    }
     [self.view addSubview:resultView];
     [self.view bringSubviewToFront:resultView];
-    CGRect frame = CGRectMake(0, UI_NAVIGATION_BAR_HEIGHT + UI_STATUS_BAR_HEIGHT, kScreenWidth, kScreenHeight - UI_NAVIGATION_BAR_HEIGHT - UI_STATUS_BAR_HEIGHT - UI_BOTTOM_SAFE_HEIGHT);
+    CGRect frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - UI_BOTTOM_SAFE_HEIGHT);
     frame.size.width = kScreenWidth;
     resultView.frame = frame;
 }
 
-- (void)tapResultView {}
-- (void)tapInfoBtnInResultView {}
+- (void)tapResultView {
+}
+- (void)tapInfoBtnInResultView {
+}
 
 @end
 
