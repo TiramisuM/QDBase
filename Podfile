@@ -1,6 +1,6 @@
 platform :ios, '8.0'
 
-target ‘QDBase’ do
+target ‘QDCommentProject’ do
 inhibit_all_warnings!
 pod 'AFNetworking'
 pod 'Masonry'
