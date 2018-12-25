@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger, QDBaseTableViewCellLoadFrom) {
 /**
  服务器返回的数据
  
- @param responseData 服务器返回的数据
+ @param responseModel 服务器返回的数据
  */
 - (void)networkResponseModel:(QDResponseModel *)responseModel;
 

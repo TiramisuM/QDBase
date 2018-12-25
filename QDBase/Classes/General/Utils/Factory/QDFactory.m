@@ -15,7 +15,7 @@
 @implementation QDFactory (UILabel)
 
 + (UILabel *)createLabelWithFrame:(CGRect)frame text:(NSString *)text textColor:(UIColor *)textColor font:(UIFont *)font textAlignment:(NSTextAlignment)textAlignment {
-
+    
     UILabel *label = [[UILabel alloc] initWithFrame:frame];
     label.text = text;
     label.textColor = textColor;
@@ -41,14 +41,35 @@
     return button;
 }
 
-+(UIButton *)createButtonWithFrame:(CGRect)frame imageName:(NSString *)imageName highlightedImageName:(NSString *)highlightedImageName target:(id)target action:(SEL)action {
++ (UIButton *)createButtonWithFrame:(CGRect)frame imageName:(NSString *)imageName highlightedImageName:(NSString *)highlightedImageName target:(id)target action:(SEL)action {
     
     UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:frame];
-    UIImage *newImage = [UIImage imageNamed:imageName];
-    [button setImage:newImage forState:UIControlStateNormal];
-    UIImage *highlightedImage = [UIImage imageNamed:highlightedImageName];
-    [button setImage:highlightedImage forState:UIControlStateHighlighted];
+    if (![judgeString(imageName) isEqualToString:@""]) {
+        UIImage *newImage = [UIImage imageNamed:imageName];
+        [button setImage:newImage forState:UIControlStateNormal];
+    }
+    if (![judgeString(highlightedImageName) isEqualToString:@""]) {
+        UIImage *highlightedImage = [UIImage imageNamed:highlightedImageName];
+        [button setImage:highlightedImage forState:UIControlStateHighlighted];
+        
+    }
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
++ (UIButton *)createButtonWithFrame:(CGRect)frame imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName target:(id)target action:(SEL)action {
+    
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:frame];
+    if (![judgeString(imageName) isEqualToString:@""]) {
+        UIImage *newImage = [UIImage imageNamed:imageName];
+        [button setImage:newImage forState:UIControlStateNormal];
+    }
+    if (![judgeString(selectImageName) isEqualToString:@""]) {
+        UIImage *selectImage = [UIImage imageNamed:selectImageName];
+        [button setImage:selectImage forState:UIControlStateSelected];
+    }
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     return button;
 }

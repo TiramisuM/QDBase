@@ -17,7 +17,6 @@
  生成控制器顶部的导航条
  
  @warning 使用的时候要将原先的NavigationBarHidden设置为NO
- @param viewController 展示的控制器
  @return QDNavigationBarView
  */
 + (instancetype)navigationBarView;

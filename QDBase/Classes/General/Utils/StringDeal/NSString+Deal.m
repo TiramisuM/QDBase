@@ -115,4 +115,19 @@
     return self;
 }
 
+- (NSString *(^)(NSString *))append {
+    return ^NSString *(NSString * str){
+        if (!str) {
+            return @"";
+        }
+        return [self stringByAppendingString:str];
+    };
+}
+
+- (NSString *(^)(void))trim {
+    return ^NSString *{
+        return [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+    };
+}
+
 @end

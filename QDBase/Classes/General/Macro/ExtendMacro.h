@@ -27,6 +27,7 @@
 #import "QDNetAdapter.h"
 #import "NSString+NetworkSign.h"
 #import "NSString+Deal.h"
+#import "QDHUD.h"
 
 /// 第三方库
 #import "Masonry.h"

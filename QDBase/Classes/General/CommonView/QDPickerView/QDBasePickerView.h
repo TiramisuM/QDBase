@@ -15,13 +15,28 @@
 @property (nonatomic, strong) UIPickerView *pickerView;
 /// 确定按钮点击block
 @property (nonatomic, copy) void(^sureBtnActionBlock)(void);
-
+/// 取消按钮点击和点击空白页隐藏block
+@property (nonatomic, copy) void(^cancelBtnActionBlock)(void);
+/// 点击空白页隐藏的block
+@property (nonatomic, copy) void(^tapBlankViewActionBlock)(void);
 /**
  切换pickerView 标题
-
+ 
  @param title 标题内容
  */
 - (void)changePickerViewTitle:(NSString *)title;
+/**
+ 更新确认按钮标题
+ 
+ @param sureTitle 确认按钮标题
+ */
+- (void)updateSureButtonTitle:(NSString *)sureTitle;
+/**
+ 更新取消按钮标题
+ 
+ @param cancelTitle 取消按钮标题
+ */
+- (void)updateCancelButtonTitle:(NSString *)cancelTitle;
 
 @end
 

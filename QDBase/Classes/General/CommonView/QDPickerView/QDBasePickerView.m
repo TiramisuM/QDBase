@@ -7,7 +7,6 @@
 /// PickerView基类
 
 #import "QDBasePickerView.h"
-#import <Masonry.h>
 
 @interface QDBasePickerView ()<UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -36,8 +35,8 @@ alpha:alphaValue]
 // 字符串消除异常
 #define judgeString(key)  (IS_NOT_EMPTY(key) || [key isKindOfClass:[NSNumber class]] ? [NSString stringWithFormat:@"%@",key] : @"")
 
-#define PickerViewHeight 216
-#define ToolBarHieght 43
+#define PickerViewHeight 145
+#define ToolBarHieght 40
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -70,14 +69,14 @@ alpha:alphaValue]
     
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.toolBar.mas_left).offset(15);
-        make.top.equalTo(weakSelf.toolBar.mas_top).offset(15);
-        make.height.equalTo(@25);
+        make.centerY.equalTo(weakSelf.toolBar.mas_centerY);
+        //        make.width.height.equalTo(@40);
     }];
     
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf.toolBar.mas_right).offset(-15);
-        make.top.equalTo(weakSelf.toolBar.mas_top).offset(15);
-        make.height.equalTo(@25);
+        make.centerY.equalTo(weakSelf.toolBar.mas_centerY);
+        //        make.width.height.equalTo(@40);
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -113,6 +112,16 @@ alpha:alphaValue]
     return 10;
 }
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(nullable UIView *)view {
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.font = [UIFont systemFontOfSize:18];
+    titleLabel.textColor = UIColorFromHex(0x585857);
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    return titleLabel;
+}
+
 #pragma mark - ============== Action ================
 
 - (void)sureBtnAction:(UIButton *)btn {
@@ -120,27 +129,43 @@ alpha:alphaValue]
     if (self.sureBtnActionBlock) {
         self.sureBtnActionBlock();
     }
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.spanView.y = self.height;
-    } completion:^(BOOL finished) {
-        self.hidden = YES;
-        [self removeFromSuperview];
-    }];
+    [self hidden];
+}
+
+- (void)cancelBtnAction:(UIButton *)btn {
+    if (self.cancelBtnActionBlock) {
+        self.cancelBtnActionBlock();
+    }
+    [self hidden];
 }
 
 - (void)backgroundViewClick {
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.spanView.y = self.height;
-    } completion:^(BOOL finished) {
-        self.hidden = YES;
-        [self removeFromSuperview];
-    }];
+    if (self.tapBlankViewActionBlock) {
+        self.tapBlankViewActionBlock();
+    }
+    [self hidden];
 }
 
 - (void)changePickerViewTitle:(NSString *)title {
     self.titleLabel.text = title;
+}
+
+- (void)updateSureButtonTitle:(NSString *)sureTitle {
+    [_sureBtn setTitle:sureTitle forState:UIControlStateNormal];
+}
+
+- (void)updateCancelButtonTitle:(NSString *)cancelTitle {
+    [_cancelBtn setTitle:cancelTitle forState:UIControlStateNormal];
+}
+
+#pragma mark - ============== PrivateMethod ================
+- (void)hidden {
+    [UIView animateWithDuration:0.3 animations:^{
+        self.spanView.y = self.height;
+    } completion:^(BOOL finished) {
+        self.hidden = YES;
+        [self removeFromSuperview];
+    }];
 }
 
 #pragma mark - ============== Setter & Getter ================
@@ -178,11 +203,11 @@ alpha:alphaValue]
 - (UIButton *)cancelBtn {
     
     if (!_cancelBtn) {
-        _cancelBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancelBtn addTarget:self action:@selector(backgroundViewClick) forControlEvents:UIControlEventTouchUpInside];
-        [_cancelBtn setTitleColor:UIColorFromHex(0x8c90b7) forState:UIControlStateNormal];
-        _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+        [_cancelBtn setTitleColor:UIColorFromHex(0x999999) forState:UIControlStateNormal];
+        _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        [_cancelBtn addTarget:self action:@selector(cancelBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;
 }
@@ -190,11 +215,11 @@ alpha:alphaValue]
 - (UIButton *)sureBtn {
     
     if (!_sureBtn) {
-        _sureBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
+        _sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_sureBtn setTitle:@"确认" forState:UIControlStateNormal];
+        [_sureBtn setTitleColor:UIColorFromHex(0xFD4C5A) forState:UIControlStateNormal];
+        _sureBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [_sureBtn addTarget:self action:@selector(sureBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [_sureBtn setTitleColor:UIColorFromHex(0xff6600) forState:UIControlStateNormal];
-        _sureBtn.titleLabel.font = [UIFont systemFontOfSize:18];
     }
     return _sureBtn;
 }
@@ -206,6 +231,7 @@ alpha:alphaValue]
         _pickerView.backgroundColor = [UIColor whiteColor];
         _pickerView.delegate = self;
         _pickerView.dataSource = self;
+        _pickerView.showsSelectionIndicator = YES;
     }
     return _pickerView;
 }
@@ -213,8 +239,8 @@ alpha:alphaValue]
 {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
-        _titleLabel.textColor = UIColorFromHex(0x707070);
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.textColor = UIColorFromHex(0x585857);
+        _titleLabel.font = [UIFont systemFontOfSize:14];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _titleLabel;

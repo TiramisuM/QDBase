@@ -10,7 +10,7 @@
 
 @interface QDSinglePickerView ()
 
-@property (nonatomic, copy) QDSinglePickerBlcok pickerBlock;
+@property (nonatomic, copy) QDSinglePickerBlock pickerBlock;
 
 @property (nonatomic, strong) PickerModel *selectModel;
 
@@ -20,12 +20,14 @@
 
 @implementation QDSinglePickerView
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         __weak typeof(self) weakSelf = self;
+        
         self.sureBtnActionBlock = ^(){
+            
             if (weakSelf.pickerBlock) {
                 weakSelf.pickerBlock(weakSelf.selectModel);
             }
@@ -41,7 +43,7 @@
  @param rowTitleArray 数据源
  @param pickerBlock 确认按钮点击回调
  */
-+ (void)showPickerView:(NSString *)value title:(NSString *)title rowTitleArray:(NSArray *)rowTitleArray  pickerBlock:(QDSinglePickerBlcok)pickerBlock {
++ (void)showPickerView:(NSString *)value title:(NSString *)title rowTitleArray:(NSArray *)rowTitleArray pickerBlock:(QDSinglePickerBlock)pickerBlock {
     
     NSMutableArray *dataList = [[NSMutableArray alloc] init];
     for (int i = 0; i < rowTitleArray.count; i++)

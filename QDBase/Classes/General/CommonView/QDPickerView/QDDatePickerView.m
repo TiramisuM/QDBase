@@ -53,20 +53,31 @@
  自定义DatePickerView
  
  @param year 年份默认值
- @param mouth 月份默认值
+ @param month 月份默认值
  @param title 标题
  @param type 弹窗滑轮类型 QDDatePickerViewType
  @param pickerBlock 确认按钮点击回调
  */
-+ (void)showDatePickerViewWithYear:(NSString *)year mouth:(NSString *)mouth title:(NSString *)title type:(QDDatePickerViewType)type pickerBlock:(QDDatePickerBlcok)pickerBlock {
++ (void)showDatePickerViewWithYear:(NSString *)year month:(NSString *)month title:(NSString *)title type:(QDDatePickerViewType)type pickerBlock:(QDDatePickerBlcok)pickerBlock {
+    [self showDatePickerViewWithYear:year month:month title:title sureTitle:@"确认" cancelTitle:@"取消" type:type pickerBlock:pickerBlock cancelBlock:nil];
     
+}
+
++ (void)showDatePickerViewWithYear:(NSString *)year month:(NSString *)month title:(NSString *)title type:(QDDatePickerViewType)type pickerBlock:(QDDatePickerBlcok)pickerBlock cancelBlock:(QDDatePickerCancelBlock)cancelBlock {
+    [self showDatePickerViewWithYear:year month:month title:title sureTitle:@"确认" cancelTitle:@"取消" type:type pickerBlock:pickerBlock cancelBlock:cancelBlock];
+}
+
++ (void)showDatePickerViewWithYear:(NSString *)year month:(NSString *)month title:(NSString *)title sureTitle:(NSString *)sureTitle cancelTitle:(NSString *)cancelTitle type:(QDDatePickerViewType)type pickerBlock:(QDDatePickerBlcok)pickerBlock cancelBlock:(QDDatePickerCancelBlock)cancelBlock {
     QDDatePickerView *pickerView = [[QDDatePickerView alloc] initWithFrame:UIApplication.sharedApplication.keyWindow.bounds];
     pickerView.pickerBlock = pickerBlock;
+    pickerView.cancelBtnActionBlock = cancelBlock;
     pickerView.type = type;
     [pickerView changePickerViewTitle:title];
+    [pickerView updateSureButtonTitle:judgeString(sureTitle)];
+    [pickerView updateCancelButtonTitle:judgeString(cancelTitle)];
     [UIApplication.sharedApplication.keyWindow addSubview:pickerView];
     
-    [pickerView prefillDateWithYear:year mouth:mouth];
+    [pickerView prefillDateWithYear:year month:month];
 }
 
 /**
@@ -74,12 +85,25 @@
  
  @param title 标题
  @param pickerBlock 确认按钮点击回调 返回NSDate
+ @return 系统原生datePickerView
  */
-+ (void)showSystemDatePickerViewWithTitle:(NSString *)title pickerBlock:(void(^)(NSDate *date))pickerBlock {
++ (QDDatePickerView *)showSystemDatePickerViewWithTitle:(NSString *)title pickerBlock:(void(^)(NSDate *date))pickerBlock {
+    return [self showSystemDatePickerViewWithTitle:title sureTitle:@"确认" cancelTitle:@"取消" timeIntervalString:@"" pickerBlock:pickerBlock cancelBlock:nil];
+}
+
++ (QDDatePickerView *)showSystemDatePickerViewWithTitle:(NSString *)title pickerBlock:(void (^)(NSDate *))pickerBlock cancelBlock:(QDDatePickerCancelBlock)cancelBlock {
+    return [self showSystemDatePickerViewWithTitle:title sureTitle:@"确认" cancelTitle:@"取消" timeIntervalString:@"" pickerBlock:pickerBlock cancelBlock:cancelBlock];
+}
+
++ (QDDatePickerView *)showSystemDatePickerViewWithTitle:(NSString *)title sureTitle:(NSString *)sureTitle cancelTitle:(NSString *)cancelTitle timeIntervalString:(NSString *)timeString pickerBlock:(void (^)(NSDate *))pickerBlock cancelBlock:(QDDatePickerCancelBlock)cancelBlock {
     
     QDDatePickerView *pickerView = [[QDDatePickerView alloc] initWithFrame:UIApplication.sharedApplication.keyWindow.bounds];
     pickerView.datePickerBlock = pickerBlock;
     [pickerView changePickerViewTitle:title];
+    [pickerView updateSureButtonTitle:sureTitle];
+    [pickerView updateCancelButtonTitle:cancelTitle];
+    pickerView.cancelBtnActionBlock = cancelBlock;
+    pickerView.timeIntervalString = timeString;
     [UIApplication.sharedApplication.keyWindow addSubview:pickerView];
     
     __block UIView *spanView = pickerView.pickerView.superview;
@@ -91,13 +115,19 @@
         make.bottom.left.right.equalTo(spanView);
         make.top.equalTo(spanView).offset(top);
     }];
+    return pickerView;
 }
 
 #pragma mark - ============== DataSource & Delegate ================
 
 /// 指定pickerview有几个表盘
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    return 2;
+    // 3.0中教育经历开始时间只有年份，Components = 1
+    if (self.type == QDDatePickerViewTypeEduExpStartYear || self.type == QDDatePickerViewTypeEduExpEndYear) {
+        return 1;
+    } else {
+        return 2;
+    }
 }
 
 /// 指定每个表盘上有几行数据
@@ -107,16 +137,17 @@
     }
     return self.subDataListArray.count;
 }
-/// 指定每行如何展示数据（此处和tableview类似）
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
+
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    PickerModel *model = nil;
     if (component == 0) {
-        PickerModel *model = self.dataListArray[row];
-        return model.name;
+        model = self.dataListArray[row];
+    } else {
+        model = self.subDataListArray[row];
     }
-    PickerModel *model = self.subDataListArray[row];
     return model.name;
 }
+
 /// 选中某行后回调的方法，获得选中结果
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
@@ -125,8 +156,11 @@
         self.subSelectModel = nil;
         [self updateSubDataList:self.selectModel];
         
-        [pickerView reloadComponent:1];
-        [pickerView selectRow:0 inComponent:1 animated:YES];
+        // 3.0中的教育经历开始和结束时间没有月份，所有 Component 只有一个，[pickerView reloadComponent:1] 会崩溃
+        if (self.type != QDDatePickerViewTypeEduExpStartYear && self.type != QDDatePickerViewTypeEduExpEndYear) {
+            [pickerView reloadComponent:1];
+            [pickerView selectRow:0 inComponent:1 animated:YES];
+        }
         
         if (self.subDataListArray.count) {
             PickerModel *subModel = self.subDataListArray.firstObject;
@@ -160,10 +194,10 @@
     NSDateComponents *comp = [gregorian components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:nowDate];
     
     if ([self.selectModel.name isEqualToString:@"至今"] || [self.selectModel.name isEqualToString:@"不限"]) {
-                
+        
     } else if ([self.selectModel.name isEqualToString:[NSString stringWithFormat:@"%ld",(long)comp.year]] &&
-             self.type != QDDatePickerViewTypeEduExpEndDate){
-
+               self.type != QDDatePickerViewTypeEduExpEndDate){
+        
         for (int i = 0; i < comp.month; i++) {
             PickerModel *model = [[PickerModel alloc]init];
             model.name = [NSString stringWithFormat:@"%d",i+1];
@@ -183,19 +217,20 @@
 }
 
 /// 时间预填
-- (void)prefillDateWithYear:(NSString *)year mouth:(NSString *)mouth {
+- (void)prefillDateWithYear:(NSString *)year month:(NSString *)month {
     
     NSCalendar *gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     // 获取当前日期
     NSDate *dt = [NSDate date];
     NSDateComponents *comp = [gregorian components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:dt];
     
-    if (self.type != QDDatePickerViewTypeBirthDate) {
+    // 3.0新增 self.type != QDDatePickerViewTypeEduExpStartYear && self.type != QDDatePickerViewTypeEduExpEndYear
+    if (self.type != QDDatePickerViewTypeBirthDate && self.type != QDDatePickerViewTypeEduExpStartYear && self.type != QDDatePickerViewTypeEduExpEndYear) {
         if (judgeString(year).length == 0 || year.length < 4 || year.integerValue < (comp.year - 50) || year.integerValue > (comp.year + 50)) {
             year = [NSString stringWithFormat:@"%ld",(long)comp.year];
         }
-        if (judgeString(mouth).length == 0 || mouth.integerValue <= 0 || mouth.integerValue > 12) {
-            mouth = [NSString stringWithFormat:@"%ld",(long)comp.month];
+        if (judgeString(month).length == 0 || month.integerValue <= 0 || month.integerValue > 12) {
+            month = [NSString stringWithFormat:@"%ld",(long)comp.month];
         }
         
         if ([year isEqualToString:@"至今"]) {
@@ -223,13 +258,13 @@
         self.selectModel = self.dataListArray.firstObject;
     }
     
-    if (mouth.length > 0 && mouth.integerValue < 13 && mouth.integerValue > 0) {
+    if (month.length > 0 && month.integerValue < 13 && month.integerValue > 0) {
         
         for (int i = 0; i < self.subDataListArray.count; i++) {
             
             PickerModel *model = self.subDataListArray[i];
             
-            if ([model.id isEqualToString:mouth] || [model.name isEqualToString:mouth]) {
+            if ([model.id isEqualToString:month] || [model.name isEqualToString:month]) {
                 
                 self.subSelectModel.id = model.id;
                 self.subSelectModel.name = model.name;
@@ -260,15 +295,18 @@
             startYear = startYear - 16;
         }
         // 如果是教育经历结束时间 当前年份加上5年
-        if (self.type == QDDatePickerViewTypeEduExpEndDate) {
+        // 3.0新增 self.type == QDDatePickerViewTypeEduExpEndYear
+        if (self.type == QDDatePickerViewTypeEduExpEndDate || self.type == QDDatePickerViewTypeEduExpEndYear) {
             startYear += 5;
         }
         
         // 结束时间加上至今
+        // 3.0新增 self.type == QDDatePickerViewTypeEduExpEndYear
         if (self.type == QDDatePickerViewTypeWorkExpEndDate ||
             self.type == QDDatePickerViewTypeEduExpEndDate ||
             self.type == QDDatePickerViewTypeProjectExpEndDate ||
-            self.type == QDDatePickerViewTypeTrainExpEndDate) {
+            self.type == QDDatePickerViewTypeTrainExpEndDate ||
+            self.type == QDDatePickerViewTypeEduExpEndYear) {
             PickerModel *model = [[PickerModel alloc] init];
             model.name = @"至今";
             model.id = @"0";
@@ -327,6 +365,13 @@
         //显示方式是只显示年月日
         _datePickerView.datePickerMode = UIDatePickerModeDate;
         _datePickerView.maximumDate = [NSDate date];
+        NSDate *date = [NSDate date];
+        //上次设置的日期
+        if (self.timeIntervalString.length) {
+            date = [NSDate dateWithTimeIntervalSince1970:self.timeIntervalString.integerValue];
+        }
+        // 2.3 将转换后的日期设置给日期选择控件
+        [_datePickerView setDate:date animated:YES];
     }
     return _datePickerView;
 }

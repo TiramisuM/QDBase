@@ -69,8 +69,8 @@ static QDNetWork *sharedManger = nil;
     // 处理放在param里面的用户信息等隐私操作
     // token、userId
     NSMutableDictionary *userInfoDict = [[NSMutableDictionary alloc] init];
-    userInfoDict[@"token"] = [QDUserStatusManager token];
-    userInfoDict[@"userId"] = [QDUserStatusManager userId];
+    userInfoDict[@"token"] = @"";
+    userInfoDict[@"userId"] = @"";
     userInfoDict[@"logId"] = [QDDeviceTool getLogId];
     return [userInfoDict copy];
 }

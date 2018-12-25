@@ -34,7 +34,6 @@
  
  @param str 字符串
  @param font 字体
- @param font 宽度
  @return 字符串高度 CGFloat
  */
 + (CGFloat)measureSingleStringHeight:(NSString *)str andFont:(UIFont *)font width:(CGFloat)width;
@@ -42,7 +41,6 @@
 /**
  判断字符长度是否是4-16位（支持中英混排）
  
- @param name 字符串
  @return BOOL
  */
 - (BOOL)isValidateLength;
@@ -54,5 +52,14 @@
  @return 截取后的字符串
  */
 - (NSString *)subStringWithMaxLength:(NSInteger)maxLength needAppendDot:(BOOL)needAppendDot;
+
+/**
+ 拼接字符串处理
+ */
+- (NSString *(^)(NSString *))append;
+/**
+ 去除空格
+ */
+- (NSString *(^)(void))trim;
 
 @end

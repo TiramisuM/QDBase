@@ -148,7 +148,7 @@ alpha:alphaValue]
     
     if (cancelButtonTitle) {
         _actionSheetHeight += 8.5;
-
+        
         self.isHadCancelButton = YES;
         
         UIButton *cancelButton = [self createButtonWithTitle:cancelButtonTitle type:DTActionSheetButtonCancel];
@@ -328,7 +328,7 @@ alpha:alphaValue]
     if ([title containsString:@"+"]) {
         [button setTitleColor:UIColorFromHex(0x999999) forState:UIControlStateNormal];
     }
-
+    
     UIImage *image1 = [self imageWithColor:[UIColor whiteColor] size:button.bounds.size];
     UIImage *image2 = [self imageWithColor:UIColorFromHex(0x999999) size:button.bounds.size];
     [button setBackgroundImage:image1 forState:UIControlStateNormal];

@@ -244,10 +244,9 @@ static NSUInteger const  PageSize       = 20;
 #pragma mark 将服务器返回的数据包装成需要的model类型，之后返回model数组
 - (QDResponseModel *)generateModelWithResponseObject:(id)responseObject {
     
-    QDResponseModel *model = [[QDResponseModel alloc] init];
     Class class = NSClassFromString(self.modelClassName);
     NSAssert(class, @"必须调用\"[self registCellWithCellClassName:cellLoadFrom:cellModelClassName:]\"方法");
-    model = [class mj_objectWithKeyValues:responseObject[@"data"]];
+    QDResponseModel *model = [class mj_objectWithKeyValues:responseObject[@"data"]];
     model.errorCode = judgeString(responseObject[@"error"]);
     model.message = judgeString(responseObject[@"msg"]);
     return model;
@@ -270,7 +269,7 @@ static NSUInteger const  PageSize       = 20;
     self.cellClassName = [judgeString(cellClassName) isEqualToString:@""] ? @"UITableViewCell" :cellClassName;
     self.cellLoadFrom = cellLoadFrom;
     self.modelClassName = [judgeString(cellModelClassName) isEqualToString:@""] ? @"QDResponseModel" : cellModelClassName;
-    [self.tableView registerClass:NSClassFromString(cellClassName) forCellReuseIdentifier:cellClassName];
+    [self.tableView registerClass:NSClassFromString(self.cellClassName) forCellReuseIdentifier:self.cellClassName];
 }
 
 #pragma mark - ============== Delegate ================

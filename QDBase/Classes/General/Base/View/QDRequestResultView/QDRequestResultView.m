@@ -72,7 +72,9 @@
         return;
     }
     _imageName = imageName;
-    self.imgView.image = [UIImage imageNamed:imageName];
+    if (imageName.length > 0) {
+        self.imgView.image = [UIImage imageNamed:imageName];
+    }
 }
 
 - (void)setTipMsg:(NSString *)tipMsg{
@@ -137,7 +139,6 @@
 - (void)reloadBtnAction {
     if (self.tapBlock) {
         self.tapBlock();
-        [self hide];
     }
 }
 
@@ -180,10 +181,10 @@
 - (UIButton *)reloadBtn {
     if (!_reloadBtn) {
         _reloadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _reloadBtn.frame = CGRectMake(0, 0, 90, 30);
+        _reloadBtn.frame = CGRectMake(0, 0, 160, 44);
         [_reloadBtn setTitle:@"重新加载" forState:UIControlStateNormal];
         _reloadBtn.backgroundColor = UIColorFromHex(0xFC4654);
-        _reloadBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        _reloadBtn.titleLabel.font = [UIFont systemFontOfSize:17];
         _reloadBtn.layer.cornerRadius = 3;
         _reloadBtn.hidden = YES;
         [_reloadBtn addTarget:self action:@selector(reloadBtnAction) forControlEvents:UIControlEventTouchUpInside];

@@ -16,7 +16,7 @@
 @interface QDFactory (UILabel)
 /**
  工厂方法创建UILabel
-
+ 
  @param frame 大小及位置
  @param text 文字
  @param textColor 文字颜色
@@ -31,7 +31,7 @@
 @interface QDFactory (UIButton)
 /**
  工厂方法创建文字UIButton
-
+ 
  @param frame 大小及位置
  @param text 文字
  @param textColor 文字颜色
@@ -44,7 +44,7 @@
 
 /**
  工厂方法创建图片UIButton
-
+ 
  @param frame 大小及位置
  @param imageName 正常状况下的图片名称
  @param highlightedImageName 高亮状态下的图片名称
@@ -52,14 +52,26 @@
  @param action 按钮相应的方法
  @return 返回UIButton
  */
-+(UIButton *)createButtonWithFrame:(CGRect)frame imageName:(NSString *)imageName highlightedImageName:(NSString *)highlightedImageName target:(id)target action:(SEL)action;
++ (UIButton *)createButtonWithFrame:(CGRect)frame imageName:(NSString *)imageName highlightedImageName:(NSString *)highlightedImageName target:(id)target action:(SEL)action;
+
+/**
+ 工厂方法创建图片UIButton
+ 
+ @param frame 大小及位置
+ @param imageName 正常状况下的图片名称
+ @param selectImageName 高亮状态下的图片名称
+ @param target 按钮相应的对象
+ @param action 按钮相应的方法
+ @return 返回UIButton
+ */
++ (UIButton *)createButtonWithFrame:(CGRect)frame imageName:(NSString *)imageName selectImageName:(NSString *)selectImageName target:(id)target action:(SEL)action;
 
 @end
 
 @interface QDFactory (UITextField)
 /**
  工厂方法创建UITextField
-
+ 
  @param frame 大小及文字
  @param placeholder 占位文字
  @param font 文字字体
@@ -76,7 +88,7 @@
 typedef void (^AlertAction)(UIAlertAction *action);
 /**
  工厂方法创建UIAlertController alert样式
-
+ 
  @param title Alert标题
  @param message Alert描述信息
  @param sureAction 确认按钮点击回调 AlertAction

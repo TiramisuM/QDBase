@@ -12,7 +12,8 @@
 #endif
 
 @interface AppDelegate (QDNotification)<UNUserNotificationCenterDelegate>
-
+/// 注册极光推送
+- (void)registJPush:(NSDictionary *)launchOptions;
 /// 远程通知注册成功
 - (void)QDApplication:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 /// 远程通知注册失败

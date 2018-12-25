@@ -1,6 +1,6 @@
 //
 //  RoundAnimationLayer.m
-//  
+//
 //
 //  Created by qiaodaImac on 2018/6/23.
 //  Copyright © 2018年 巧达数据. All rights reserved.
@@ -116,7 +116,7 @@
     path.lineJoinStyle = kCGLineCapRound;
     // 新建图层——绘制上面的圆圈
     self.path = path.CGPath;
-
+    
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:NSStringFromSelector(@selector(strokeEnd))];
     animation.fromValue = @0;
     animation.toValue = @1;
@@ -125,7 +125,7 @@
     }else{
         animation.duration = 0.5;
     }
-
+    
     [self addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
 }
 
@@ -155,7 +155,7 @@
     }else{
         animation.duration = 0.5;
     }
-
+    
     [self addAnimation:animation forKey:NSStringFromSelector(@selector(strokeEnd))];
 }
 
@@ -172,7 +172,7 @@
     [path addLineToPoint:CGPointMake(self.frame.size.width/4*3, self.frame.size.height/4*3)];
     [path moveToPoint:CGPointMake(self.frame.size.width/4*3, self.frame.size.height/4)];
     [path addLineToPoint:CGPointMake(self.frame.size.width/4, self.frame.size.height/4*3)];
-
+    
     // 新建图层——绘制上面的叉号
     self.path = path.CGPath;
     

@@ -11,16 +11,16 @@
 @interface QDSinglePickerView : QDBasePickerView
 
 /// 单选pickerView block回调
-typedef void(^QDSinglePickerBlcok)(PickerModel *model);
+typedef void(^QDSinglePickerBlock)(PickerModel *model);
 
 /**
  自定义单选pickerView
-
+ 
  @param value 默认选中项
  @param title 标题
  @param rowTitleArray 数据源
  @param pickerBlock 确认按钮点击回调
  */
-+ (void)showPickerView:(NSString *)value title:(NSString *)title rowTitleArray:(NSArray *)rowTitleArray  pickerBlock:(QDSinglePickerBlcok)pickerBlock;
++ (void)showPickerView:(NSString *)value title:(NSString *)title rowTitleArray:(NSArray *)rowTitleArray  pickerBlock:(QDSinglePickerBlock)pickerBlock;
 
 @end

@@ -7,8 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "QDTableManager.h"
-#import "QDTableModel.h"
 
 @interface ViewController ()
 
@@ -21,15 +19,9 @@
     [super viewDidLoad];
     [self constructView];
     
-    UIViewController *vc = [[UIViewController alloc] init];
-    vc.view.backgroundColor = [UIColor cyanColor];
-    
-    [QDTableManager get:nil succeed:^(QDResponseModel *result, BOOL isCache) {
-        NSLog(@"%@",result.errorCode);
-        NSLog(@"%@",result.message);
-    }];
+    self.availableNetWork = NO;
     [self dataSourceNetRequestWithURLString:@"/sale/list" parameters:@{}];
-    [self registCellWithCellClassName:@"TestTableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromNib cellModelClassName:@"NSObject"];
+    [self registCellWithCellClassName:@"UITableViewCell" cellLoadFrom:QDBaseTableViewCellLoadFromCode cellModelClassName:@"QDResponseModel"];
     [self useCustomNavigationBarView];
     self.title = @"123";
 }
